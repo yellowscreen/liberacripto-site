@@ -1,0 +1,34 @@
+layout:
+  navbar:
+    home: Início
+    buy: Compre Cripto
+    sell: Venda Cripto
+
+  footer:
+    brand: Liberacripto © 2021
+
+home:
+  hero:
+    title: Sobre a Libera Cripto
+    text: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo vel dignissimos quasi illo tenetur quae? Cupiditate, corporis, numquam consequuntur molestias inventore assumenda magni reiciendis, deserunt hic aut repellendus eveniet. Rem!
+
+  benefits:
+    cards:
+      first: "Compre"
+      second: "Venda"
+      third: "Pague uma conta"
+
+    subtitle: "Tudo de forma anônima!"
+
+    title: "Benefícios de usar a Libera Cripto"
+
+    list: "Tudo de forma anônima!"
+
+  terms:
+    title: "Nossos termos de uso"
+    text:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error quisquam
+      odio inventore incidunt. Voluptas nihil, quae expedita dolore incidunt eum
+      consequuntur omnis. Sapiente quo laborum sit alias? Obcaecati, praesentium
+      excepturi."
+    action: "Ver mais"
