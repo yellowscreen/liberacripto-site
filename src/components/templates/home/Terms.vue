@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { getCurrency } from '@/services/currencies'
+
 const { t } = useI18n()
+
+function see() {
+  getCurrency('bitcoin')
+    .then(({ data }) => console.log(data, 'ok'))
+    .catch(er => console.log(er, 'err'))
+}
 </script>
 
 <template>
@@ -12,7 +20,7 @@ const { t } = useI18n()
       {{ t('home.terms.text') }}
     </p>
 
-    <Button class="action">
+    <Button class="action" :aria-label="t('home.terms.action') " @click="see">
       {{ t('home.terms.action') }}
     </Button>
   </section>
@@ -32,7 +40,7 @@ const { t } = useI18n()
   }
 
   > .action {
-    @apply w-full bg-gray-400 mb-10;
+    @apply w-full bg-gray-600 text-gray-50 mb-10;
   }
 }
 </style>

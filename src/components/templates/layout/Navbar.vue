@@ -19,7 +19,7 @@ const open = ref(false)
   <nav class="navbar-core">
     <ul class="list">
       <li class="item">
-        <a href="#" class="link pr-4">
+        <a href="#" class="link pr-4" aria-label="home">
           <cryptocurrency:btc class="text-purple-400 text-xl dark:text-yellow-400" />
         </a>
       </li>

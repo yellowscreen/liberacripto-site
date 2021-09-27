@@ -5,7 +5,7 @@ type SearchProps = {
   open: boolean
 }
 
-withDefaults(defineProps<SearchProps>(), {
+const props = withDefaults(defineProps<SearchProps>(), {
   open: false,
 })
 
@@ -13,19 +13,32 @@ const emit = defineEmits<{
   (e: 'search', value: any): void
   (e: 'update:open', isOpen: boolean): void
 }>()
+
+function clearAndFocus() {
+  const inputSearch = document.querySelector(
+    '.searchbar-core > .input-search',
+  ) as HTMLInputElement
+
+  inputSearch.value = ''
+  inputSearch.focus()
+}
+
+watchEffect(() => props.open && clearAndFocus())
 </script>
 
 <template>
   <div class="searchbar-core">
     <input
       class="input-search"
-      :class="!open && '!w-0  opacity-0 pointer-events-none'"
+      :tabindex="open ? 0 : -1"
       placeholder="Consultar transação"
+      :class="!open && '!w-0  opacity-0 pointer-events-none'"
       @keyup.enter="({ target }: InputEvent) => emit('search', target.value)"
     />
     <button
       class="button-search"
       :class="open && 'bg-white'"
+      :aria-label="open ? 'close searchbar' : 'open searchbar'"
       @click="emit('update:open', !open)"
     >
       <carbon:search class="text-gray-300" :class="open && 'text-gray-700'" />
