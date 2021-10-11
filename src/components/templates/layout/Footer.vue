@@ -12,20 +12,20 @@ const toggleLocales = () => {
 
 <template>
   <footer class="footer-core">
-    <router-link class="icon-btn" to="/" :title="t('button.home')">
+    <router-link class="icon-btn" to="/" title="home">
       <carbon-campsite />
     </router-link>
 
     <button
       class="icon-btn mx-2 !outline-none"
-      :title="t('button.toggle_dark')"
+      title="toggle darkmode"
       @click="toggleDark()"
     >
       <carbon-moon v-if="isDark" />
       <carbon-sun v-else />
     </button>
 
-    <a class="icon-btn" :title="t('button.toggle_langs')" @click="toggleLocales">
+    <a class="icon-btn" title="toggle language" @click="toggleLocales">
       <carbon-language />
     </a>
 

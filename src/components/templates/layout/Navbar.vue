@@ -1,15 +1,14 @@
 <script setup lang="ts">
-
 const { t } = useI18n()
 
 const links = [
   {
     text: 'layout.navbar.buy',
-    link: '#',
+    name: 'Buy',
   },
   {
     text: 'layout.navbar.sell',
-    link: '#',
+    name: 'Home',
   },
 ]
 
@@ -19,18 +18,22 @@ const open = ref(false)
   <nav class="navbar-core">
     <ul class="list">
       <li class="item">
-        <a href="#" class="link pr-4" aria-label="home">
-          <cryptocurrency:btc class="text-purple-400 text-xl dark:text-yellow-400" />
-        </a>
+        <Link :to="{ name: 'Home' }" class="pr-4" aria-label="home">
+          <cryptocurrency:btc
+            class="text-purple-400 text-xl dark:text-yellow-400"
+          />
+        </Link>
       </li>
 
       <li
-        v-for="({ text, link }, index) in links"
+        v-for="({ text, name }, index) in links"
         :key="index"
         class="item"
         :class="open && '!hidden'"
       >
-        <a :href="link" class="link">{{ t(text) }}</a>
+        <Link :to="{ name }">
+          {{ t(text) }}
+        </Link>
       </li>
 
       <li class>
@@ -54,11 +57,6 @@ const open = ref(false)
   > .list {
     > .item {
       @apply flex justify-center  px-2 text-purple-200;
-    }
-
-    > .item > .link {
-      @apply min-w-max
-      text-decoration: solid underline 2px;
     }
   }
 }

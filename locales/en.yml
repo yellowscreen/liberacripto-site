@@ -32,3 +32,25 @@ home:
       consequuntur omnis. Sapiente quo laborum sit alias? Obcaecati, praesentium
       excepturi."
     action: "See more"
+
+buy:
+  index:
+    title: Buy Crypto
+    step: Step
+
+    payment: Choice your payment method
+    methods:
+      boleto: Boleto
+      pix: Pix
+      buck: Dollar
+
+    back: go back
+
+  confirm:
+    crypto: Cripto escolhida
+    value: Valor do pagamento
+    wallet: Wallet informada
+    email: E-mail
+    method: Forma de pagamento
+    infos: Informações adicionais
+    willReceive: Valor de Cripto a receber

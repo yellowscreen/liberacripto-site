@@ -1,12 +1,18 @@
 <script setup lang="ts">
 const { t } = useI18n()
+
+const router = useRouter()
 </script>
 
 <template>
   <section class="benefits-home">
     <ul class="cards">
       <li class="item">
-        <CardTrade class="card" :label="t('home.benefits.cards.first')" />
+        <CardTrade
+          class="card"
+          :label="t('home.benefits.cards.first')"
+          @click="router.push({ name: 'Buy' })"
+        />
       </li>
 
       <li class="item">

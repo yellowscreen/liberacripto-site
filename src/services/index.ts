@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 type FetchParams = {
   baseURL?: string
-  path: string
+  path?: string
   headers?: Headers | { Authorization: string }
   data?: JSON | Record<string, unknown>
   params?: any

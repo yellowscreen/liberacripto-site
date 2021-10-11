@@ -1,4 +1,5 @@
 <route lang="yaml">
+name: Home
 meta:
   layout: default
 </route>
