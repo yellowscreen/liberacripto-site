@@ -3,6 +3,13 @@ layout:
     home: Início
     buy: Compre Cripto
     sell: Venda Cripto
+  
+  menu:
+    buy: Compre Cripto
+    sell: Venda Cripto
+    pay: Pague uma conta
+    compare: Comparativos
+
 
   footer:
     brand: Liberacripto © 2021

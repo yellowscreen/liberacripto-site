@@ -4,6 +4,13 @@ layout:
     buy: Buy Crypto
     sell: Sell Crypto
 
+  menu:
+    buy: Buy Crypto
+    sell: Sell Crypto
+    pay: Pay a bill
+    compare: comparatives
+
+
   footer:
     brand: Liberacripto © 2021
 
@@ -16,7 +23,7 @@ home:
     cards:
       first: "Buy"
       second: "Sell"
-      third: "Buy a bill"
+      third: "Pay a bill"
 
     subtitle: "all anonymously!"
 
