@@ -88,8 +88,6 @@ function chooseCyrpto(d: any) {
       name="wallet"
       placeholder="Insira o endereço da sua Wallet"
     />
-    <!-- pattern="sim|nao|talvez"
-      pattern-message="Valores disponiveis (Sim, Não, Talvez)" -->
 
     <Textfield
       class="textfield"
@@ -101,7 +99,7 @@ function chooseCyrpto(d: any) {
     <Textfield class="textfield" placeholder="Informações adicionais" />
 
     <label class="mb-8">
-      <input type="checkbox" name="terms" />
+      <input type="checkbox" name="terms" required />
       Eu li e aceito os termos de uso
     </label>
 

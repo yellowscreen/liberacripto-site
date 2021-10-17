@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
+const emit = defineEmits<{
+  (e: 'toggle-menu'): void
+}>()
+
 const links = [
   {
     text: 'layout.navbar.buy',
@@ -28,7 +32,7 @@ const open = ref(false)
       <li
         v-for="({ text, name }, index) in links"
         :key="index"
-        class="item"
+        class="item only-desktop"
         :class="open && '!hidden'"
       >
         <Link :to="{ name }">
@@ -36,9 +40,21 @@ const open = ref(false)
         </Link>
       </li>
 
-      <li class>
-        <Search v-model:open="open" />
-      </li>
+      <div class="flex items-center">
+        <li>
+          <Search v-model:open="open" />
+        </li>
+
+        <li>
+          <button
+            class="w-14"
+            aria-label="toggle menu"
+            @click="emit('toggle-menu')"
+          >
+            <mdi:menu class="text-light-900" />
+          </button>
+        </li>
+      </div>
     </ul>
   </nav>
 </template>
@@ -57,6 +73,10 @@ const open = ref(false)
   > .list {
     > .item {
       @apply flex justify-center  px-2 text-purple-200;
+    }
+
+    > .only-desktop {
+      @apply hidden md:flex;
     }
   }
 }

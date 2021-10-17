@@ -9,7 +9,7 @@ type CryptoData = {
   toBRL: number
 }
 
-export const useCryptosStore = defineStore('user', {
+export const useCryptosStore = defineStore('cryptos', {
   state: () => ({
     availables: [
       {
