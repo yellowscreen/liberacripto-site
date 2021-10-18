@@ -24,7 +24,7 @@ const open = ref(false)
       <li class="item">
         <Link :to="{ name: 'Home' }" class="pr-4" aria-label="home">
           <cryptocurrency:btc
-            class="text-purple-400 text-xl dark:text-yellow-400"
+            class="text-purple-400 text-xl "
           />
         </Link>
       </li>
@@ -63,7 +63,7 @@ const open = ref(false)
 .navbar-core {
   @apply h-72px w-full
     sticky top-0 px-4
-    bg-indigo-800 dark:bg-indigo-500;
+    bg-indigo-800 ;
 
   > .list {
     @apply flex justify-between items-center

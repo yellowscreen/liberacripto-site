@@ -17,7 +17,7 @@ watch(
   <Navbar @toggle-menu="ui.toggleMenu()" />
   <Menu :open="ui.$state.isMenuOpen" @toggle-menu="ui.toggleMenu()" />
 
-  <main min-h="[calc(100%-7rem)]" class="text-gray-700 dark:text-gray-200">
+  <main min-h="[calc(100%-7rem)]" class="text-gray-700 ">
     <router-view />
   </main>
 

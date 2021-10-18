@@ -60,7 +60,7 @@ function chooseCyrpto(d: any) {
       "
     >
       <option
-        v-for="{ id, name } in crypto.$state.availables"
+        v-for="{ id, name } in crypto.$state.available"
         :key="id"
         :value="id"
       >
@@ -77,10 +77,10 @@ function chooseCyrpto(d: any) {
       @blur="willBeReceive($event.target.value)"
     />
 
-    <strong class="value-to-receive">
+    <!-- <strong class="value-to-receive">
       Valor a ser recebido:
       <span class="font-bold">{{ convertCryptoConvert(willBRLReceive) }}</span>
-    </strong>
+    </strong> -->
 
     <Textfield
       class="textfield"

@@ -24,7 +24,7 @@ const router = useRouter()
 const crypto = useCryptosStore()
 
 onMounted(() => {
-  crypto.$state.availables.forEach(({ id }) => {
+  crypto.$state.available.forEach(({ id }) => {
     crypto.storeCrypto(id)
   })
 })
@@ -36,7 +36,7 @@ onMounted(() => {
       {{ t('buy.index.title') }}
     </h1>
 
-    <small class="step">{{ t('buy.index.step') }} 1 de 3</small>
+    <small class="step">{{ t('buy.index.step') }} 1 de 4</small>
 
     <p class="payment">
       {{ t('buy.index.payment') }}

@@ -1,13 +1,7 @@
 <script setup lang="ts">
-import { getCurrency } from '@/services/currencies'
 
 const { t } = useI18n()
 
-function see() {
-  getCurrency('bitcoin')
-    .then(({ data }) => console.log(data, 'ok'))
-    .catch(er => console.log(er, 'err'))
-}
 </script>
 
 <template>
@@ -20,7 +14,7 @@ function see() {
       {{ t('home.terms.text') }}
     </p>
 
-    <Button class="action" :aria-label="t('home.terms.action') " @click="see">
+    <Button class="action" :aria-label="t('home.terms.action')">
       {{ t('home.terms.action') }}
     </Button>
   </section>

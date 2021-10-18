@@ -36,7 +36,7 @@ const toggleLocales = () => {
 <style lang="scss">
 .footer-core {
   @apply flex justify-center items-center h-56px w-full
-    bg-indigo-800 text-purple-100 dark:bg-indigo-500;
+    bg-indigo-800 text-purple-100;
 
   > .icon-btn {
     @apply mx-5;
