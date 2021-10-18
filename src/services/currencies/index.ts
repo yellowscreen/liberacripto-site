@@ -1,16 +1,9 @@
-import { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
+
 import { fetch } from '../'
 
-type Currency = 'bitcoin'
-
-export function getCurrency(currency: Currency): Promise<AxiosResponse> {
+export function getCurrency(currency = 'bitcoin'): Promise<AxiosResponse<{ current_price: number }>> {
   return fetch({
     path: `/cryptos/${currency}`,
-  })
-}
-
-export function getXCurrency(currency = 'bitcoin'): Promise<AxiosResponse> {
-  return fetch({
-    baseURL: `https://api.coingecko.com/api/v3/coins/${currency}?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false`,
   })
 }

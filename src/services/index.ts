@@ -9,6 +9,15 @@ type FetchParams = {
   method?: AxiosRequestConfig['method']
 }
 
+export type ErrorData = {
+  response: {
+    code?: number
+    message: string
+    field?: string
+    rule?: string
+  }
+}
+
 export function fetch({
   method = 'GET',
   baseURL = `${import.meta.env.VITE_APP_BASE_URL || ''}/`,

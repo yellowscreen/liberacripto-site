@@ -1,35 +1,37 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { getXCurrency } from '@/services/currencies'
+import { getCurrency } from '@/services/currencies'
+
+import type { ErrorData } from '@/services'
 
 type CryptoData = {
-  id: string
-  name: string
-  symbol: string
-  toUSD: number
-  toBRL: number
+  id?: string
+  name?: string
+  symbol?: string
+  toUSD?: number
+  toBRL?: number
 }
 
 export const useCryptosStore = defineStore('cryptos', {
   state: () => ({
-    availables: [
+    available: [
       {
         id: 'bitcoin',
         symbol: 'btc',
         name: 'Bitcoin',
       },
-      {
-        id: 'axie-infinity',
-        symbol: 'axs',
-        name: 'Axie Infinity',
-      },
+      // {
+      //   id: 'axie-infinity',
+      //   symbol: 'axs',
+      //   name: 'Axie Infinity',
+      // },
 
-      {
-        id: 'tether',
-        symbol: 'usdt',
-        name: 'Tether',
-      },
+      // {
+      //   id: 'tether',
+      //   symbol: 'usdt',
+      //   name: 'Tether',
+      // },
 
-      { id: 'ethereum', symbol: 'eth', name: 'Ethereum' },
+      // { id: 'ethereum', symbol: 'eth', name: 'Ethereum' },
     ],
 
     cryptos: {} as Record<string, CryptoData>,
@@ -37,18 +39,25 @@ export const useCryptosStore = defineStore('cryptos', {
 
   actions: {
     storeCrypto(crypto: string) {
-      getXCurrency(crypto).then(({ data }) => {
-        this.$state.cryptos = {
-          ...this.$state.cryptos,
-          [data.id]: {
-            id: data.id,
-            name: data.name,
-            symbol: data.symbol,
-            toUSD: data.market_data.current_price.usd,
-            toBRL: data.market_data.current_price.brl,
-          },
-        }
-      })
+      getCurrency(crypto)
+        .then(({ data }) => {
+          const id = 'bitcoin'
+
+          this.$state.cryptos = {
+            ...this.$state.cryptos,
+            [id]: {
+              toBRL: data.current_price,
+              // id: data.id,
+              // name: data.name,
+              // symbol: data.symbol,
+              // toUSD: data.market_data.current_price.usd,
+              // toBRL: data.market_data.current_price.brl,
+            },
+          }
+        })
+        .catch((error: ErrorData) => {
+          console.error(error.response.message)
+        })
     },
   },
 })
