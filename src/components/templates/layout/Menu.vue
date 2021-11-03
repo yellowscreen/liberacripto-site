@@ -12,7 +12,7 @@ const emit = defineEmits<{
 const links = [
   {
     text: 'layout.navbar.buy',
-    name: 'Buy',
+    name: 'BuyMethod',
   },
   {
     text: 'layout.navbar.sell',
@@ -55,9 +55,9 @@ const links = [
     fixed bottom-0 w-full h-full
     bg-dark-100;
 
+  z-index: 10;
   transform-origin: bottom;
   transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
   // &::before {
   //   --tw-bg-opacity: 0.8 !important;
 

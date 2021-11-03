@@ -11,7 +11,7 @@ const router = useRouter()
         <CardTrade
           class="card"
           :label="t('home.benefits.cards.first')"
-          @click="router.push({ name: 'Buy' })"
+          @click="router.push({ name: 'BuyMethod' })"
         />
       </li>
 

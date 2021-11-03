@@ -1,5 +1,5 @@
 <route lang="yaml">
-name: Buy
+name: BuyMethod
 meta:
   layout: default
 </route>
@@ -18,7 +18,6 @@ useHead({
   ],
 })
 
-const { t } = useI18n()
 const router = useRouter()
 
 const crypto = useCryptosStore()
@@ -28,42 +27,46 @@ onMounted(() => {
     crypto.storeCrypto(id)
   })
 })
+
+function goToBuyOrder(method: string) {
+  router.push({ name: 'BuyOrder', params: { method } })
+}
 </script>
 
 <template>
   <div class="buy-page">
+    <Chip class="step" :current="1" />
+
     <h1 class="title">
-      {{ t('buy.index.title') }}
+      Compre Cripto
     </h1>
 
-    <small class="step">{{ t('buy.index.step') }} 1 de 4</small>
-
-    <p class="payment">
-      {{ t('buy.index.payment') }}
+    <p class="subtitle">
+      Escolha seu método de Pagamento
     </p>
 
     <ul class="payment-methods">
       <li class="method">
-        <Button class="button-pay">
-          {{ t('buy.index.methods.boleto') }}
+        <Button class="button-pay" @click="goToBuyOrder('boleto')">
+          Boleto
         </Button>
       </li>
 
       <li class="method">
-        <Button class="button-pay" @click="router.push({ name: 'Pix' })">
-          {{ t('buy.index.methods.pix') }}
+        <Button class="button-pay" @click="goToBuyOrder('pix')">
+          Pix
         </Button>
       </li>
 
       <li class="method">
         <Button class="button-pay">
-          {{ t('buy.index.methods.buck') }}
+          Dólar
         </Button>
       </li>
     </ul>
 
-    <Link class="goback" :to="{ name: 'Home' }">
-      {{ t('buy.index.back') }}
+    <Link class="mb-10" :to="{ name: 'Home' }">
+      Voltar para página inicial
     </Link>
   </div>
 </template>
@@ -71,32 +74,33 @@ onMounted(() => {
 <style lang="scss">
 .buy-page {
   @apply flex flex-col items-center
-    pt-16 bg-gray-200;
+    pt-14;
 
+  background-color: #ebebeb;
   min-height: calc(100vh - 8rem);
 
-  > .title {
-    @apply font-bold text-2xl mb-5;
-  }
-
   > .step {
-    @apply mb-8;
+    @apply mb-16;
   }
 
-  > .payment {
+  > .title {
+    @apply font-display font-bold text-2xl mb-3;
+  }
+
+  > .subtitle {
     @apply text-sm mb-5;
   }
 
   > .payment-methods {
-    @apply w-full max-w-61;
+    @apply w-full max-w-61 mb-20;
 
     > .method {
       @apply mb-6;
-    }
 
-    > .method > .button-pay {
-      @apply w-full
-        bg-dark-500 text-gray-300;
+      > .button-pay {
+        @apply w-full
+        bg-blue-900 text-gray-300;
+      }
     }
   }
 }

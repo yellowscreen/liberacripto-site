@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <button class="button-core">
+  <button class="button-core" type="button">
     <slot></slot>
   </button>
 </template>
@@ -12,14 +12,14 @@
     rounded-md font-bold text-sm
     hover:brightness-150 hover:filter;
 
-    transition: filter 200ms cubic-bezier(0.86, 0, 0.07, 1);
+  transition: filter 200ms cubic-bezier(0.86, 0, 0.07, 1);
 
   &.-link {
     @apply relative bg-transparent font-normal
       hover:bg-indigo-700 hover:text-gray-100 hover:filter-none;
 
     transition: background 200ms cubic-bezier(0.86, 0, 0.07, 1),
-                color 200ms cubic-bezier(0.86, 0, 0.07, 1);
+      color 200ms cubic-bezier(0.86, 0, 0.07, 1);
 
     &::after {
       @apply inline-block absolute
@@ -27,9 +27,14 @@
       bg-gray-700
         hover:bg-transparent;
 
-      content: '';
+      content: "";
       width: calc(100% - 32px);
     }
+  }
+
+  &.-secondary {
+    @apply bg-transparent
+    rounded-md border-dark-50 border-solid border-1;
   }
 }
 </style>

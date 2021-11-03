@@ -61,3 +61,8 @@ buy:
     method: Forma de pagamento
     infos: Informações adicionais
     willReceive: Valor de Cripto a receber
+
+  pay-check:
+    billet:
+      download: Fazer download do boleto
+      

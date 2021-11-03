@@ -20,7 +20,7 @@
   "dependencies": {
     "@vueuse/core": "^6.4.1",
     "@vueuse/head": "^0.6.0",
-    "axios": "^0.21.4",
+    "axios": "^0.24.0",
     "maska": "^1.4.6",
     "pinia": "^2.0.0-rc.10",
     "vue": "^3.2.14",

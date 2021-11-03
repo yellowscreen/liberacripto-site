@@ -8,7 +8,7 @@ const emit = defineEmits<{
 const links = [
   {
     text: 'layout.navbar.buy',
-    name: 'Buy',
+    name: 'BuyMethod',
   },
   {
     text: 'layout.navbar.sell',
@@ -23,9 +23,7 @@ const open = ref(false)
     <ul class="list">
       <li class="item">
         <Link :to="{ name: 'Home' }" class="pr-4" aria-label="home">
-          <cryptocurrency:btc
-            class="text-purple-400 text-xl "
-          />
+          <cryptocurrency:btc class="text-xl" />
         </Link>
       </li>
 
@@ -46,12 +44,8 @@ const open = ref(false)
         </li>
 
         <li>
-          <button
-            class="w-14"
-            aria-label="toggle menu"
-            @click="emit('toggle-menu')"
-          >
-            <mdi:menu class="text-light-900" />
+          <button class="w-14" aria-label="toggle menu" @click="emit('toggle-menu')">
+            <radix-icons:hamburger-menu class="h-6 w-full" />
           </button>
         </li>
       </div>
@@ -62,8 +56,21 @@ const open = ref(false)
 <style lang="scss">
 .navbar-core {
   @apply h-72px w-full
-    sticky top-0 px-4
-    bg-indigo-800 ;
+    sticky top-0 px-4;
+
+  background-color: #ECECEC;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+
+    width: 90%;
+    height: 1px;
+
+    background-color: #909090;
+  }
 
   > .list {
     @apply flex justify-between items-center
@@ -72,7 +79,7 @@ const open = ref(false)
 
   > .list {
     > .item {
-      @apply flex justify-center  px-2 text-purple-200;
+      @apply flex justify-center  px-2;
     }
 
     > .only-desktop {

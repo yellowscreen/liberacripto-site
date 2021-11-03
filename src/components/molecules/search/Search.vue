@@ -41,7 +41,7 @@ watchEffect(() => props.open && clearAndFocus())
       :aria-label="open ? 'close searchbar' : 'open searchbar'"
       @click="emit('update:open', !open)"
     >
-      <carbon:search class="text-gray-300" :class="open && 'text-gray-700'" />
+      <carbon:search class="" />
     </button>
   </div>
 </template>
@@ -52,12 +52,12 @@ watchEffect(() => props.open && clearAndFocus())
 
   > .button-search {
     @apply flex justify-center items-center
-      w-8 h-8 rounded-r-xl flex-shrink-0;
+      w-8 h-8 rounded-r-md flex-shrink-0;
   }
 
   > .input-search {
     @apply w-full
-      pl-2 rounded-l-xl
+      pl-2 rounded-l-md
       transform-gpu transition-all origin-right;
   }
 }

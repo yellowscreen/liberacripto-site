@@ -1,17 +1,35 @@
-export type Crypto = 'Bitcoin' | 'Ethereum' | 'AXS' | 'USD'
 
-export type UserData = {
-  crypto: Crypto
-  value: string
-  wallet: string
-  email?: string
-  infos?: string
-  willReceive?: string
+export enum PaymentMethod {
+  boleto = 'billet',
+  pix = 'pix'
 }
 
-export type Pix = UserData
-export type Boleto = UserData
+export type BuyOrder = {
+  crypto: string
+  email?: string
+  value: string
+  wallet?: string
+  method: keyof typeof PaymentMethod
+  blockchain?: string
+  extras?: string
+}
 
-export type StableCoin = UserData & {
-  blockchain: 'BEP' | 'BEP20' | 'ERC20'
+export type Summary = {
+  type: string
+  payment_method: string
+  crypto: string
+  value: number
+  wallet: string
+  extras: string
+  shareable_code: string
+  status: string
+  id: number
+  payable: string
+}
+
+export enum STEP_TO_BUY {
+  CHOOSE_METHOD,
+  PAYMENT,
+  SUMMARY,
+  CHECK_PAY
 }

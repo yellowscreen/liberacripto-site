@@ -1,0 +1,85 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  code: string
+  label?: string
+}>()
+
+function copyToClipboard() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Código do pedido - Libera Cripto',
+      text: props.code,
+
+    }).then(d => console.log('sucesso ', d)).catch(err => console.log('nooo ', err))
+  }
+  else {
+    navigator.clipboard.writeText(props.code)
+  }
+}
+</script>
+
+<template>
+  <button type="button" class="share-code-transaction" @click="copyToClipboard">
+    <!-- <span class="label">{{ label }}</span> -->
+    <div class="container-code">
+      <p class="code">
+        Código do pedido: {{ code }}
+      </p>
+
+      <div class="icon-share">
+        <ic:outline-ios-share class="text-blue-900 h-6 " />
+      </div>
+    </div>
+    <small class="caption">Guarde esse código para consultar a sua transação</small>
+  </button>
+</template>
+
+<style lang="scss">
+.share-code-transaction {
+  @apply flex items-center justify-between relative
+    w-full  bg-transparent;
+
+  max-width: 320px;
+
+  > .label {
+    @apply absolute left-0;
+
+    bottom: 110%;
+    &:empty {
+      display: none;
+    }
+  }
+
+  > .container-code {
+    @apply flex  items-center justify-between
+      h-full w-full;
+
+    > .code {
+      @apply px-4 py-3  text-xs rounded-md;
+
+      border: 1px solid #212121;
+    }
+
+    > .icon-share {
+      @apply flex justify-center items-center
+      w-11 h-11 text-shadow-md shadow-dark-250
+      cursor-pointer;
+
+      border-radius: 50%;
+      background-color: #DCE2E5;
+    }
+  }
+
+  > .caption {
+    @apply absolute left-0
+      text-4xs;
+    position: absolute;
+    top: 110%;
+    left: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+}
+</style>

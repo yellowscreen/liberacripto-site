@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios'
+import { Summary } from '@/@types/payments'
 
 export type OrderStatuses =
   'pending' |
@@ -10,19 +11,29 @@ export type OrderPaymentMethods = 'billet' | 'pix'
 
 export type PostAOrder = {
   type: 'buy' | 'sell'
-  payment_method: OrderPaymentMethods
   crypto: string
   wallet: string
   extras: string
   value: number
+  email?: string
+  payment_method: OrderPaymentMethods
 }
 
-export type PostAOrderData = PostAOrder & {
-  id: number
-  created_at: string
-  updated_at: string
-  shareable_code: string
-  status: OrderStatuses
+export type ResponsePostAOrder = Promise<AxiosResponse<Summary>>
+
+export type S3Fields = {
+  'acl': string
+  'bucket': string
+  'Content-Type': string
+  'X-Amz-Algorithm': string
+  'X-Amz-Credential': string
+  'X-Amz-Date': string
+  'key': string
+  'Policy': string
+  'X-Amz-Signature': string
 }
 
-export type ResponsePostAOrder = Promise<AxiosResponse<PostAOrderData>>
+export type ReponseS3Fields = Promise<AxiosResponse<{
+  'url': string
+  'fields': S3Fields
+}>>

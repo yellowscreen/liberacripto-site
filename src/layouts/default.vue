@@ -22,4 +22,11 @@ watch(
   </main>
 
   <Footer />
+  <Loader v-show="ui.loading" />
 </template>
+
+<style>
+main {
+  background-color: #ECECEC;
+}
+</style>
