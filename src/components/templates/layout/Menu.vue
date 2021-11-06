@@ -11,73 +11,88 @@ const emit = defineEmits<{
 
 const links = [
   {
-    text: 'layout.navbar.buy',
+    text: 'Compre cripto',
     name: 'BuyMethod',
   },
   {
-    text: 'layout.navbar.sell',
+    text: 'Venda cripto',
     name: 'Home',
   },
   {
-    text: 'layout.menu.pay',
+    text: 'Pague uma conta',
     name: 'Home',
   },
   {
-    text: 'layout.menu.compare',
+    text: 'Comparativos',
     name: 'Home',
   },
 ]
+const el = ref()
+onClickOutside(el, () => {
+  emit('toggle-menu')
+})
 </script>
 
 <template>
   <transition name="slide-up" mode="out-in">
-    <nav v-if="open" class="navbar-menu">
+    <nav v-if="open" ref="el" class="navbar-menu">
       <ul class="list">
-        <li class="close">
-          <button aria-label="close menu" @click="emit('toggle-menu')">
-            <mdi:close class="text-indigo-400 text-4xl" />
-          </button>
-        </li>
-
         <li v-for="({ text, name }, index) in links" :key="index" class="item">
-          <Link :to="{ name }" class="link">
-            {{ t(text) }}
+          <Link :to="{ name }" class="link" @click="emit('toggle-menu')">
+            <span>{{ t(text) }}</span>
+            <mdi:chevron-right class="text-fonts-secondary-light" />
           </Link>
         </li>
       </ul>
+
+      <button
+        class="text-fonts-secondary-light underline"
+        aria-label="close menu"
+        @click="emit('toggle-menu')"
+      >
+        Fechar menu
+      </button>
     </nav>
   </transition>
 </template>
 
 <style lang="scss">
 .navbar-menu {
-  @apply flex justify-center items-center
-    fixed bottom-0 w-full h-full
-    bg-dark-100;
+  @apply flex flex-col justify-center items-center
+    fixed bottom-0 w-full
+    bg-secondary-darkest;
+
+  height: clamp(30rem, 60vh, 600px);
 
   z-index: 10;
   transform-origin: bottom;
   transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  // &::before {
-  //   --tw-bg-opacity: 0.8 !important;
 
-  //   content: '';
-  //   height: calc(100vh - 100% - 72px);
-  //   bottom: 100%;
-  //   z-index: -1;
+  &::before {
+    content: "";
+    pointer-events: none;
+    height: calc(100vh - 72px);
+    bottom: 100%;
+    z-index: -1;
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.4);
 
-  //   @apply inline-block absolute bg-indigo-300 w-full;
-  // }
+    transform: scale(1);
+    @apply inline-block absolute w-full;
+  }
 
   > .list {
-    @apply pt-20 pb-12 z-1;
+    @apply pb-12 z-1;
+
+    width: clamp(230px, 50vw, 400px);
   }
 
   > .list > .item {
     @apply mb-12;
 
     > .link {
-      @apply text-2xl text-left no-underline text-indigo-300;
+      @apply flex justify-between items-center
+        text-xl text-left text-secondary-light no-underline;
     }
   }
 

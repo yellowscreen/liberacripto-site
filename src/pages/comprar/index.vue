@@ -74,9 +74,8 @@ function goToBuyOrder(method: string) {
 <style lang="scss">
 .buy-page {
   @apply flex flex-col items-center
-    pt-14;
+    pt-14 bg-secondary-light;
 
-  background-color: #ebebeb;
   min-height: calc(100vh - 8rem);
 
   > .step {
@@ -99,7 +98,7 @@ function goToBuyOrder(method: string) {
 
       > .button-pay {
         @apply w-full
-        bg-blue-900 text-gray-300;
+        bg-primary-dark text-gray-300;
       }
     }
   }

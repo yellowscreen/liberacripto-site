@@ -75,7 +75,7 @@ function buyOrder(formEvent: any) {
         Cancelar
       </Link>
 
-      <Button class="bg-blue-900 text-indigo-100 px-6" type="submit">
+      <Button class="bg-primary-dark text-indigo-100 px-6" type="submit">
         {{ buttonBuyText.text }}
       </Button>
     </div>

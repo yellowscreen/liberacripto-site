@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { getOrderReceipt } from '@/services/order'
+import { useOrderStore } from '@/stores/order'
+import { useUIStore } from '@/stores/ui'
+
 const { t } = useI18n()
 
 const emit = defineEmits<{
   (e: 'toggle-menu'): void
 }>()
+
+const ui = useUIStore()
+const order = useOrderStore()
+const router = useRouter()
 
 const links = [
   {
@@ -17,13 +25,27 @@ const links = [
 ]
 
 const open = ref(false)
+
+function searchReceipt(code: string) {
+  ui.toggleLoader(true)
+  getOrderReceipt(code).then(({ data }) => {
+    order.setReceipt(data)
+    router.push({ name: 'Transaction', params: { id: data.shareable_code } })
+  }).catch((err) => {
+    alert(err.response.data.message)
+  })
+    .finally(() => {
+      ui.toggleLoader()
+    })
+}
+
 </script>
 <template>
   <nav class="navbar-core">
     <ul class="list">
       <li class="item">
-        <Link :to="{ name: 'Home' }" class="pr-4" aria-label="home">
-          <cryptocurrency:btc class="text-xl" />
+        <Link v-show="!open" :to="{ name: 'Home' }" class="pr-4" aria-label="home">
+          <Logo width="80" alt="logo libera cripto" />
         </Link>
       </li>
 
@@ -40,7 +62,7 @@ const open = ref(false)
 
       <div class="flex items-center">
         <li>
-          <Search v-model:open="open" />
+          <Search v-model:open="open" @search="searchReceipt" />
         </li>
 
         <li>
@@ -56,9 +78,21 @@ const open = ref(false)
 <style lang="scss">
 .navbar-core {
   @apply h-72px w-full
-    sticky top-0 px-4;
+    sticky top-0 px-4
+    bg-secondary-light;
 
-  background-color: #ECECEC;
+  z-index: 4;
+
+  &.-dark {
+    @apply bg-secondary-darkest text-white;
+    &::before {
+      background-color: #586971;
+    }
+
+    .logo .-logo-text {
+      fill: white;
+    }
+  }
 
   &::before {
     content: "";

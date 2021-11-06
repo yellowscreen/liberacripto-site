@@ -13,7 +13,7 @@ type StepToBuyKeys = keyof typeof STEP_TO_BUY
 type State = {
   step: StepToBuyKeys
   buy: BuyOrder
-  summary: Summary
+  summary?: Partial<Summary>
 
 }
 
@@ -32,16 +32,16 @@ export const useOrderStore = defineStore('order', {
     },
 
     summary: {
-      id: 18,
-      value: 5544,
-      type: 'buy',
-      crypto: 'btc',
-      status: 'pending',
-      payment_method: 'billet',
-      extras: 'synthesize array',
-      shareable_code: '3-T76008',
-      wallet: '1dmT3s12Ky9nnJEJqJffeLy7WzJpe2NX',
-      payable: 'https://sandbox.asaas.com/b/pdf/7037412952907212',
+      // id: 18,
+      // value: 5544,
+      // type: 'buy',
+      // crypto: 'btc',
+      // status: 'pending',
+      // payment_method: 'billet',
+      // extras: 'synthesize array',
+      // shareable_code: '3-T76008',
+      // wallet: '1dmT3s12Ky9nnJEJqJffeLy7WzJpe2NX',
+      // payable: 'https://sandbox.asaas.com/b/pdf/7037412952907212',
 
     },
 
@@ -94,6 +94,10 @@ export const useOrderStore = defineStore('order', {
 
       else
         this.$state.step = STEP_TO_BUY[stepNumber - 1] as StepToBuyKeys
+    },
+
+    setReceipt(receipt?: State['summary']) {
+      this.summary = receipt
     },
 
     setCurrentStep(currentStep: StepToBuyKeys) {

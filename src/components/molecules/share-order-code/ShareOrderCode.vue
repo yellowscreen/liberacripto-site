@@ -20,14 +20,13 @@ function copyToClipboard() {
 
 <template>
   <button type="button" class="share-code-transaction" @click="copyToClipboard">
-    <!-- <span class="label">{{ label }}</span> -->
     <div class="container-code">
       <p class="code">
         Código do pedido: {{ code }}
       </p>
 
       <div class="icon-share">
-        <ic:outline-ios-share class="text-blue-900 h-6 " />
+        <ic:outline-ios-share class="text-primary-dark h-6" />
       </div>
     </div>
     <small class="caption">Guarde esse código para consultar a sua transação</small>
@@ -55,8 +54,9 @@ function copyToClipboard() {
       h-full w-full;
 
     > .code {
-      @apply px-4 py-3  text-xs rounded-md;
+      @apply px-1 py-3  text-xs rounded-md;
 
+      min-width: 210px;
       border: 1px solid #212121;
     }
 
@@ -66,7 +66,7 @@ function copyToClipboard() {
       cursor-pointer;
 
       border-radius: 50%;
-      background-color: #DCE2E5;
+      background-color: #dce2e5;
     }
   }
 

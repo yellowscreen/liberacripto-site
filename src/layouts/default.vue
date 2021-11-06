@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useUIStore } from '@/stores/ui'
 
+const route = useRoute()
 const ui = useUIStore()
 
 watch(
@@ -14,14 +15,14 @@ watch(
 </script>
 
 <template>
-  <Navbar @toggle-menu="ui.toggleMenu()" />
+  <Navbar :class="route.name === 'Home' ? '-dark' : '' " @toggle-menu="ui.toggleMenu()" />
   <Menu :open="ui.$state.isMenuOpen" @toggle-menu="ui.toggleMenu()" />
 
-  <main min-h="[calc(100%-7rem)]" class="text-gray-700 ">
+  <main min-h="[calc(100%-7rem)]" class="text-fonts-primary-dark overflow-x-hidden">
     <router-view />
   </main>
 
-  <Footer />
+  <Footer :class="route.name === 'Home' ? '-dark' : '' " />
   <Loader v-show="ui.loading" />
 </template>
 

@@ -47,7 +47,7 @@ onMounted(() => {
 
 <template>
   <div class="order-page">
-    <section class="flex w-full justify-between items-center px-4 mb-12">
+    <section class="flex w-full justify-between items-center px-4 mb-8">
       <ButtonBack class="ml-[-8px]" @click="goBack" />
       <Chip :current="order.currentStepPosition + 1" />
     </section>
@@ -65,7 +65,7 @@ onMounted(() => {
           Editar dados
         </Button>
 
-        <Button class="bg-blue-900 text-white" @click="fetchOrder">
+        <Button class="bg-primary-dark text-white" @click="fetchOrder">
           Confirmar pagamento
         </Button>
       </footer>

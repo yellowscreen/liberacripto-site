@@ -1,7 +1,7 @@
 import { defineConfig } from 'windicss/helpers'
 // import colors from 'windicss/colors'
 import typography from 'windicss/plugin/typography'
-
+import { colors } from './themes/libera-cripto'
 export default defineConfig({
   darkMode: 'class',
   // https://windicss.org/posts/v30.html#attributify-mode
@@ -12,6 +12,7 @@ export default defineConfig({
   ],
   theme: {
     extend: {
+      colors,
       fontFamily: {
         sans: ['Open Sans'],
         display: ['Altone Trial'],

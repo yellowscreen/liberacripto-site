@@ -1,45 +1,43 @@
 <script setup lang="ts">
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
 
-const { t, availableLocales, locale } = useI18n()
-
-const toggleLocales = () => {
-  const locales = availableLocales
-  locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
-}
 </script>
 
 <template>
   <footer class="footer-core">
-    <router-link class="icon-btn" to="/" title="home">
-      <carbon-campsite />
-    </router-link>
-
-    <button
-      class="icon-btn mx-2 !outline-none"
-      title="toggle darkmode"
-      @click="toggleDark()"
-    >
-      <carbon-moon v-if="isDark" />
-      <carbon-sun v-else />
-    </button>
-
-    <a class="icon-btn" title="toggle language" @click="toggleLocales">
-      <carbon-language />
-    </a>
-
-    <a class="icon-btn" rel="noreferrer" href="#">{{ t('layout.footer.brand') }}</a>
+    <div>
+      <img src="/logo-fit.svg" width="42" height="40" />
+    </div>
+    <a class="icon-btn" rel="noreferrer" href="#">Liberacripto (c) 2021</a>
   </footer>
 </template>
 
 <style lang="scss">
 .footer-core {
-  @apply flex justify-center items-center h-56px w-full
-    bg-indigo-800 text-purple-100;
+  @apply flex justify-center items-center relative
+    h-56px w-full
+  bg-secondary-light;
+
+  &.-dark {
+    @apply bg-secondary-darkest text-white;
+    &::before {
+      background-color: #586971;
+    }
+  }
+
+  &::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: -4px;
+
+    width: 90%;
+    height: 1px;
+
+    background-color: #909090;
+  }
 
   > .icon-btn {
-    @apply mx-5;
+    @apply mx-5 justify-end;
   }
 }
 </style>

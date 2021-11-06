@@ -8,9 +8,13 @@ const props = defineProps<{
   checkPay: Summary
 }>()
 
-const { t } = useI18n()
 const ui = useUIStore()
 const router = useRouter()
+
+const dicPayment: Record<Summary['payment_method'], string> = {
+  boleto: 'Fazer download do boleto',
+  pix: 'Fazer download da fatura',
+}
 
 async function fetchOrder() {
   const inpt = document.querySelector('input[type="file"]') as HTMLInputElement
@@ -37,6 +41,7 @@ async function fetchOrder() {
       ui.toggleLoader()
     }
   }
+  // !! Remover
   else {
     await patchReceiptOrder(props.checkPay.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
     router.push(`/transacao/${props.checkPay.shareable_code}`)
@@ -62,14 +67,12 @@ async function fetchOrder() {
       <h2 class="step-title">
         Passo 1: Efetue o pagamento
       </h2>
-      <!-- Não retorna por hora -->
-      <!-- <Clipboard class="code" code="" /> -->
 
       <a
         target="_blank"
         :href="checkPay.payable"
-        class="button-core flex justify-center bg-blue-900 text-white mb-4"
-      >{{ t('buy.pay-check.billet.download') }}</a>
+        class="button-core flex justify-center bg-primary-dark text-fonts-primary-light mb-4"
+      >{{ dicPayment[checkPay.payment_method] }}</a>
     </section>
 
     <section class="step-payment">
@@ -80,12 +83,12 @@ async function fetchOrder() {
       <FileUpload class="mb-6" />
       <ShareOrderCode class="transaction-code" :code="checkPay?.shareable_code" />
 
-      <footer class="flex justify-between w-full mt-8">
-        <Button class="-link" @click="() => { }">
-          Editar dados
+      <footer class="footer">
+        <Button class="btn -link" @click="() => { }">
+          Cancelar
         </Button>
 
-        <Button class="bg-gray-400 text-gray-700" @click="fetchOrder">
+        <Button class="btn" @click="fetchOrder">
           Confirmar pagamento
         </Button>
       </footer>
@@ -95,7 +98,9 @@ async function fetchOrder() {
 
 <style lang="scss">
 .check-pay {
-  @apply flex flex-col mx-8;
+  @apply flex flex-col mx-4;
+
+  min-width: 280px;
 
   > .header {
     @apply mb-8;
@@ -114,7 +119,7 @@ async function fetchOrder() {
     }
 
     > .step-title {
-      @apply text-xs text-blue-900 font-bold mb-8;
+      @apply text-xs text-stroke-fonts-secondary-light font-bold mb-8;
     }
 
     > .code {
@@ -123,6 +128,19 @@ async function fetchOrder() {
 
     > .transaction-code {
       margin-bottom: calc(16px + 1rem);
+    }
+
+    > .footer {
+      @apply flex justify-between w-full mt-8 mb-6;
+
+      > .btn:first-of-type {
+        margin-left: -1rem;
+      }
+
+      .btn:last-of-type {
+        @apply bg-primary-dark text-fonts-primary-light;
+        margin-right: -1rem;
+      }
     }
   }
 }

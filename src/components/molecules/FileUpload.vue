@@ -36,6 +36,7 @@ function getFileName(ev: any) {
       h-full px-4 rounded-md
       cursor-pointer;
 
+    min-width: 210px;
     border: 1px solid #212121;
   }
 
@@ -48,10 +49,9 @@ function getFileName(ev: any) {
   > .icon-paste {
     @apply flex justify-center items-center
       w-11 h-11
-      cursor-pointer;
+      bg-primary-dark text-fonts-primary-light cursor-pointer;
 
     border-radius: 50%;
-    background-color: darkblue;
   }
 }
 </style>

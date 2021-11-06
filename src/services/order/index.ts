@@ -38,7 +38,7 @@ export function postUploadReceipt(fields: S3Fields, url: string, file: any): Pro
 
 export function patchReceiptOrder(orderId: string | number, receiptUrl: string): Promise<AxiosResponse> {
   return fetch({
-    method: 'PATCH',
+    method: 'PUT',
     path: `/user/orders/${orderId}/add-receipt`,
     data: {
       receipt_url: receiptUrl,
@@ -46,7 +46,7 @@ export function patchReceiptOrder(orderId: string | number, receiptUrl: string):
   })
 }
 
-export function getOrderStatus(shareableCode: string): Promise<AxiosResponse> {
+export function getOrderReceipt(shareableCode: string): Promise<AxiosResponse> {
   return fetch({
     path: `/user/orders/${shareableCode}/`,
   })

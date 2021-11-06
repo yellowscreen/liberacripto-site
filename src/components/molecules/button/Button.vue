@@ -34,7 +34,7 @@
 
   &.-secondary {
     @apply bg-transparent
-    rounded-md border-dark-50 border-solid border-1;
+    rounded-md border-dark-50 border-solid border-2;
   }
 }
 </style>
