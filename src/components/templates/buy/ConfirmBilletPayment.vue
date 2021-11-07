@@ -1,0 +1,161 @@
+<script lang="ts" setup>
+import { useUIStore } from '@/stores/ui'
+import { getS3Credentials, postUploadReceipt, patchReceiptOrder } from '@/services/order'
+import { showSnackbar } from '@/composables/useSnackbar'
+
+import type { Summary } from '@/@types/payments'
+
+const props = defineProps<{
+  checkPay: Summary
+}>()
+
+const emit = defineEmits<{
+  (e: 'goback'): void
+}>()
+
+const ui = useUIStore()
+const router = useRouter()
+
+const dicPayment: Record<Summary['payment_method'], string> = {
+  boleto: 'Fazer download do boleto',
+  pix: 'Fazer download da fatura',
+}
+
+const buttonDownloadText = computed(() => dicPayment[props.checkPay.payment_method] ?? dicPayment.boleto)
+const paymentValueFormatted = computed(() => Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(props.checkPay.value))
+
+async function fetchOrder() {
+  const inpt = document.querySelector('input[type="file"]') as HTMLInputElement
+  const file = inpt.files?.[0]
+
+  if (file) {
+    try {
+      ui.toggleLoader(true)
+      const { data } = await getS3Credentials()
+      const { fields, url } = data
+
+      if (fields.Policy) {
+        const { headers } = await postUploadReceipt(fields, url, file)
+        const receiptUrl = headers?.location ?? headers?.Location
+
+        await patchReceiptOrder(props.checkPay.id, receiptUrl)
+        showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+        router.push(`/transacao/${props.checkPay.shareable_code}`)
+      }
+    }
+    catch (er) {
+      console.log('Oh no, A error', er)
+      showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
+    }
+    finally {
+      ui.toggleLoader()
+    }
+  }
+  // !! Remover
+  else {
+    await patchReceiptOrder(props.checkPay.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
+    showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+
+    router.push(`/transacao/${props.checkPay.shareable_code}`)
+  }
+}
+</script>
+
+<template>
+  <section class="check-pay">
+    <header class="header">
+      <h1 class="title">
+        Pagamento
+      </h1>
+      <p class="value">
+        Valor do pagamento:
+        <span
+          class="font-bold"
+        >{{ paymentValueFormatted }}</span>
+      </p>
+    </header>
+
+    <section class="step-payment">
+      <h2 class="step-title">
+        Passo 1: Efetue o pagamento
+      </h2>
+
+      <Clipboard v-if="checkPay.payment_method === 'usd'" :code="checkPay.payable" class="mb-4" />
+      <a
+        v-else
+        target="_blank"
+        :href="checkPay.payable"
+        class="button-core flex justify-center bg-primary-dark text-fonts-primary-light mb-4"
+      >{{ buttonDownloadText }}</a>
+    </section>
+
+    <section class="step-payment">
+      <h2 class="step-title">
+        Passo 2: Anexo o comprovante
+      </h2>
+
+      <FileUpload class="mb-6" />
+      <ShareOrderCode class="transaction-code" :code="checkPay?.shareable_code" />
+
+      <footer class="footer">
+        <Button class="btn -link" @click="emit('goback')">
+          Cancelar
+        </Button>
+
+        <Button class="btn" @click="fetchOrder">
+          Confirmar pagamento
+        </Button>
+      </footer>
+    </section>
+  </section>
+</template>
+
+<style lang="scss">
+.check-pay {
+  @apply flex flex-col mx-4;
+
+  min-width: 280px;
+
+  > .header {
+    @apply mb-8;
+
+    > .title {
+      @apply text-left font-bold text-2xl mb-1;
+    }
+  }
+
+  > .step-payment {
+    @apply flex flex-col justify-center;
+
+    &:first-of-type {
+      border-bottom: 2px solid #404040;
+      margin-bottom: 32px;
+    }
+
+    > .step-title {
+      @apply text-xs text-stroke-fonts-secondary-light font-bold mb-8;
+    }
+
+    > .code {
+      @apply mb-4;
+    }
+
+    > .transaction-code {
+      margin-bottom: calc(16px + 1rem);
+    }
+
+    > .footer {
+      @apply flex justify-between w-full mt-8 mb-6;
+
+      > .btn:first-of-type {
+        margin-left: -1rem;
+      }
+
+      .btn:last-of-type {
+        @apply bg-primary-dark text-fonts-primary-light;
+        margin-right: -1rem;
+      }
+    }
+  }
+}
+</style>

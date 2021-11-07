@@ -1,20 +1,22 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosRequestHeaders } from 'axios'
 
 type FetchParams = {
   baseURL?: string
   path?: string
-  headers?: Headers | { Authorization: string }
-  data?: JSON | Record<string, unknown>
+  headers?: AxiosRequestHeaders | { Authorization: string }
+  data?: JSON | Record<string, unknown> | FormData
   params?: any
   method?: AxiosRequestConfig['method']
 }
 
 export type ErrorData = {
   response: {
-    code?: number
-    message: string
-    field?: string
-    rule?: string
+    data: {
+      code?: number
+      message: string
+      field?: string
+      rule?: string
+    }
   }
 }
 

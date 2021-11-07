@@ -35,7 +35,16 @@ function checking(event: unknown) {
     rounded-md bg-transparent
     text-sm;
 
-  border: 1px solid #212121;
+  border: 2px solid #212121;
+
+  &::placeholder {
+    @apply text-gray-500 text-xs;
+  }
+
+  &:disabled {
+    background-color: #d4d4d4;
+    border: none;
+  }
 
 }
 </style>

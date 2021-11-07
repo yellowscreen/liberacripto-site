@@ -17,7 +17,7 @@ layout:
 home:
   hero:
     title: Sobre a Libera Cripto
-    text: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo vel dignissimos quasi illo tenetur quae? Cupiditate, corporis, numquam consequuntur molestias inventore assumenda magni reiciendis, deserunt hic aut repellendus eveniet. Rem!
+    text: simply dummy text of the printing and typesetting industry.
 
   benefits:
     cards:
@@ -61,3 +61,8 @@ buy:
     method: Forma de pagamento
     infos: Informações adicionais
     willReceive: Valor de Cripto a receber
+
+  pay-check:
+    billet:
+      download: Fazer download do boleto
+      

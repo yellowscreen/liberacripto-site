@@ -22,7 +22,7 @@ function checking(event: unknown) {
 
 <template>
   <select class="select-core" @invalid="validate" @change="checking">
-    <option selected disabled value="">
+    <option selected disabled value="" class="text-gray-500! text-xs!">
       {{ placeholder }}
     </option>
     <slot></slot>
@@ -34,7 +34,7 @@ function checking(event: unknown) {
   @apply h-11 px-4
     rounded-md bg-transparent;
 
-  border: 1px solid #212121;
+  border: 2px solid #212121;
 
 }
 </style>

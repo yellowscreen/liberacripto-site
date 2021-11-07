@@ -18,11 +18,17 @@ useHead({
 </script>
 
 <template>
-  <Hero />
+  <div class="home-page">
+    <Hero />
 
-  <Benefits />
+    <Benefits />
 
-  <Terms />
+  <!-- <Terms /> -->
+  </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.home-page {
+  @apply bg-secondary-darkest;
+}
+</style>

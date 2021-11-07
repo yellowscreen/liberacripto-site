@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { InputEvent } from '@/@types/globals'
-
-type SearchProps = {
+interface Props {
   open: boolean
 }
 
-const props = withDefaults(defineProps<SearchProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   open: false,
 })
 
@@ -13,6 +11,7 @@ const emit = defineEmits<{
   (e: 'search', value: any): void
   (e: 'update:open', isOpen: boolean): void
 }>()
+const inputEl = ref<HTMLInputElement>()
 
 function clearAndFocus() {
   const inputSearch = document.querySelector(
@@ -23,41 +22,52 @@ function clearAndFocus() {
   inputSearch.focus()
 }
 
+function searchClose() {
+  const code = inputEl?.value?.value
+  if (code) {
+    emit('search', code)
+    clearAndFocus()
+  }
+
+  emit('update:open', !props.open)
+}
+
 watchEffect(() => props.open && clearAndFocus())
 </script>
 
 <template>
   <div class="searchbar-core">
     <input
+      ref="inputEl"
       class="input-search"
       :tabindex="open ? 0 : -1"
       placeholder="Consultar transação"
       :class="!open && '!w-0  opacity-0 pointer-events-none'"
-      @keyup.enter="({ target }: InputEvent) => emit('search', target.value)"
+      @keyup.enter="searchClose"
     />
     <button
       class="button-search"
-      :class="open && 'bg-white'"
+      :class="open && 'bg-white text-fonts-primary-dark'"
       :aria-label="open ? 'close searchbar' : 'open searchbar'"
-      @click="emit('update:open', !open)"
+      @click="searchClose"
     >
-      <carbon:search class="text-gray-300" :class="open && 'text-gray-700'" />
+      <carbon:search class="" />
     </button>
   </div>
 </template>
 
 <style lang="scss">
 .searchbar-core {
-  @apply flex justify-end;
+  @apply flex justify-end h-12;
 
   > .button-search {
     @apply flex justify-center items-center
-      w-8 h-8 rounded-r-xl flex-shrink-0;
+      w-12 h-12 rounded-r-md flex-shrink-0;
   }
 
   > .input-search {
     @apply w-full
-      pl-2 rounded-l-xl
+      pl-2 rounded-l-md text-fonts-primary-dark
       transform-gpu transition-all origin-right;
   }
 }
