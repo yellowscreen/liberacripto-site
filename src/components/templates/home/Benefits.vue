@@ -19,7 +19,7 @@ const router = useRouter()
       </li>
 
       <li class="item">
-        <CardTrade class="card">
+        <CardTrade class="card" @click="router.push({ name: 'SellMethod' })">
           <template #icon>
             <ic:baseline-sell class="text-cta" width="32" height="32" />
           </template>
