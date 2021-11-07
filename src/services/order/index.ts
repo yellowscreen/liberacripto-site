@@ -51,3 +51,9 @@ export function getOrderReceipt(shareableCode: string): Promise<AxiosResponse> {
     path: `/user/orders/${shareableCode}/`,
   })
 }
+
+export function getNetworks(): Promise<AxiosResponse> {
+  return fetch({
+    path: '/user/networks',
+  })
+}

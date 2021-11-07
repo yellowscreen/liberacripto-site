@@ -4,13 +4,17 @@ name: Transaction
 
 <script setup lang="ts">
 
-import { getOrderReceipt } from '@/services/order'
+import { useCryptosStore } from '@stores/cryptos'
+import { getOrderReceipt, getS3Credentials, patchReceiptOrder, postUploadReceipt } from '@/services/order'
 import { useOrderStore } from '@/stores/order'
 import { useUIStore } from '@/stores/ui'
+import { showSnackbar } from '@/composables/useSnackbar'
 
 const ui = useUIStore()
 const route = useRoute()
+const router = useRouter()
 const order = useOrderStore()
+const crypto = useCryptosStore()
 
 useHead({
 
@@ -23,8 +27,16 @@ useHead({
     { name: 'og:description', content: 'P2P de cripto é na libera cripto' },
   ],
 })
+const dicPaymentType: any = {
+  billet: 'Boleto',
+  usd: 'Hash Dolar',
+  pix: 'Pix',
+}
 
 const summary = computed(() => order.summary)
+const paymentValueFormatted = computed(() => Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(Number(summary?.value?.value)) ?? '')
+const paymentMethodFormatted = computed(() => dicPaymentType[summary.value?.payment_method] ?? dicPaymentType.billet)
+
 onBeforeMount(() => {
   if (!order.summary?.shareable_code) {
     ui.toggleLoader(true)
@@ -37,18 +49,46 @@ onBeforeMount(() => {
   }
 })
 
-// function shareReceipt() {
-//   if (navigator.share) {
-//     navigator.share({
-//       title: 'Comprovante - Libera Cripto',
-//       text: summary?.value?.receipt_url,
+function mapText(dict: any[], value: string, key: string) {
+  return dict.find(element => RegExp(value).test(element[key]))?.name ?? value
+}
 
-//     }).then(d => console.log('sucesso ', d)).catch(err => console.log('nooo ', err))
-//   }
-//   else {
-//     navigator.clipboard.writeText(summary?.value?.receipt_url)
-//   }
-// }
+async function fetchOrder() {
+  const inpt = document.querySelector('input[type="file"]') as HTMLInputElement
+  const file = inpt.files?.[0]
+
+  if (file) {
+    try {
+      ui.toggleLoader(true)
+      const { data } = await getS3Credentials()
+      const { fields, url } = data
+
+      if (fields.Policy) {
+        const { headers } = await postUploadReceipt(fields, url, file)
+        const receiptUrl = headers?.location ?? headers?.Location
+
+        await patchReceiptOrder(summary.value?.id, receiptUrl)
+        showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+        router.push(`/transacao/${summary?.value?.shareable_code}`)
+      }
+    }
+    catch (er) {
+      console.log('Oh no, A error', er)
+      showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
+    }
+    finally {
+      ui.toggleLoader()
+    }
+  }
+  // !! Remover
+  else {
+    await patchReceiptOrder(summary.value?.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
+    showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+
+    router.push(`/transacao/${summary?.value?.shareable_code}`)
+  }
+}
+
 </script>
 
 <template>
@@ -61,17 +101,17 @@ onBeforeMount(() => {
 
     <ul class="summary-list">
       <li v-if="summary?.crypto" class="list-item">
-        <span class="font-bold font-display">{{ summary?.crypto }}</span>
+        <span class="font-bold font-display">{{ mapText(crypto.available as any[], summary.crypto as string, 'symbol') }}</span>
       </li>
 
       <li v-if="summary?.value" class="list-item">
         <span class>Valor do pagamento:</span>
-        <span class="font-bold font-display">{{ summary?.value }}</span>
+        <span class="font-bold font-display">{{ paymentValueFormatted }}</span>
       </li>
 
       <li v-if="summary?.payment_method" class="list-item">
         <span class>Forma de pagamento:</span>
-        <span class="font-bold font-display">{{ summary?.payment_method }}</span>
+        <span class="font-bold font-display">{{ paymentMethodFormatted }}</span>
       </li>
 
       <li v-if="summary?.wallet" class="list-item">
@@ -100,7 +140,7 @@ onBeforeMount(() => {
       </Button>
     </footer>-->
 
-    <FooterTransaction :check-pay="summary" />
+    <FooterTransaction :check-pay="summary" @upload-receipt="fetchOrder" />
   </div>
 </template>
 

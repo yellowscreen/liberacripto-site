@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n()
 
 defineProps<{
   open: boolean
@@ -39,7 +38,7 @@ onClickOutside(el, () => {
       <ul class="list">
         <li v-for="({ text, name }, index) in links" :key="index" class="item">
           <Link :to="{ name }" class="link" @click="emit('toggle-menu')">
-            <span>{{ t(text) }}</span>
+            <span>{{ text }}</span>
             <mdi:chevron-right class="text-fonts-secondary-light" />
           </Link>
         </li>

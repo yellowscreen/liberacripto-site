@@ -6,15 +6,17 @@ meta:
 
 <script setup lang="ts">
 import { useOrderStore } from '@stores/order'
+import { useCryptosStore } from '@stores/cryptos'
+
 import { STEP_TO_BUY } from '@/@types/payments'
 import ButtonBack from '@/components/molecules/button/ButtonBack.vue'
 
 type StepToBuyKeys = keyof typeof STEP_TO_BUY
 
-// const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const order = useOrderStore()
+const crypto = useCryptosStore()
 
 useHead({
 
@@ -59,7 +61,12 @@ onMounted(() => {
       @next="order.setCurrentStep('SUMMARY')"
     />
 
-    <ConfirmUserData :payment="order.buy" :is-show="isCurrentStep('SUMMARY')">
+    <ConfirmUserData
+      :payment="order.buy"
+      :networks="order.networks"
+      :cryptos="crypto.available"
+      :is-show="isCurrentStep('SUMMARY')"
+    >
       <footer class="flex justify-between my-8 w-full">
         <Button class="-link" @click="goBack">
           Editar dados
@@ -71,7 +78,7 @@ onMounted(() => {
       </footer>
     </ConfirmUserData>
 
-    <ConfirmBilletPayment v-if="isCurrentStep('CHECK_PAY')" :check-pay="order.summary" />
+    <ConfirmBilletPayment v-if="isCurrentStep('CHECK_PAY')" :check-pay="order.summary" @goback="goBack" />
   </div>
 </template>
 

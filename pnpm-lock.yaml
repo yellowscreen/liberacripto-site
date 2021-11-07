@@ -16,6 +16,7 @@ specifiers:
   eslint: ^7.32.0
   https-localhost: ^4.7.0
   maska: ^1.4.6
+  mosha-vue-toastify: ^1.0.23
   pinia: ^2.0.0-rc.10
   pnpm: ^6.15.1
   sass: ^1.42.1
@@ -42,6 +43,7 @@ dependencies:
   axios: 0.24.0
   date-fns: 2.25.0
   maska: 1.4.6
+  mosha-vue-toastify: 1.0.23
   pinia: 2.0.0-rc.10_typescript@4.4.3+vue@3.2.14
   vue: 3.2.14
   vue-demi: 0.11.4_vue@3.2.14
@@ -4243,6 +4245,10 @@ packages:
   /minimist/1.2.5:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
     dev: true
+
+  /mosha-vue-toastify/1.0.23:
+    resolution: {integrity: sha512-K9fij3e3H+E/Lj82ISrgmyKrtM5RNmtZC/KG/KH47+oZGmzAkN/Zuz39kBdT/Mp8OxaHuIWQntEUMP+HdmK1xA==}
+    dev: false
 
   /ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=}

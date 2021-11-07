@@ -1,6 +1,6 @@
 <script setup lang="ts">
 type CardProps = {
-  label: string
+  label?: string
 }
 
 withDefaults(defineProps<CardProps>(), {

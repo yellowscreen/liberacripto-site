@@ -1,7 +1,8 @@
 
 export enum PaymentMethod {
   boleto = 'billet',
-  pix = 'pix'
+  pix = 'pix',
+  dolar = 'usd'
 }
 
 export type Status =
@@ -16,7 +17,7 @@ export type BuyOrder = {
   value: string
   wallet?: string
   method: keyof typeof PaymentMethod
-  blockchain?: string
+  network?: string
   extras?: string
 }
 

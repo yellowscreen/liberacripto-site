@@ -59,7 +59,7 @@ function goToBuyOrder(method: string) {
       </li>
 
       <li class="method">
-        <Button class="button-pay">
+        <Button class="button-pay" @click="goToBuyOrder('dolar')">
           Dólar
         </Button>
       </li>

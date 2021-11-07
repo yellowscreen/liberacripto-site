@@ -11,10 +11,12 @@ type FetchParams = {
 
 export type ErrorData = {
   response: {
-    code?: number
-    message: string
-    field?: string
-    rule?: string
+    data: {
+      code?: number
+      message: string
+      field?: string
+      rule?: string
+    }
   }
 }
 

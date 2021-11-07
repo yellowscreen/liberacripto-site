@@ -7,10 +7,17 @@ const props = defineProps<{
   checkPay: Summary
 }>()
 
+const emit = defineEmits<{
+  (e: 'uploadReceipt'): void
+}>()
+
 const dicPayment: DictionaryPayment = {
   boleto: 'Fazer download do boleto',
   pix: 'Fazer download da fatura',
 }
+
+const buttonDownloadText = computed(() => dicPayment[props.checkPay.payment_method] ?? dicPayment.boleto)
+
 function shareReceipt() {
   if (navigator.share) {
     navigator.share({
@@ -23,6 +30,7 @@ function shareReceipt() {
     navigator.clipboard.writeText(props.checkPay?.receipt_url ?? 'codigo inválido')
   }
 }
+
 </script>
 
 <template>
@@ -49,13 +57,13 @@ function shareReceipt() {
       target="_blank"
       :href="checkPay.payable"
       class="button-core download-link"
-    >{{ dicPayment[checkPay.payment_method] }}</a>
+    >{{ buttonDownloadText }}</a>
 
     <ShareOrderCode class="mb-14" :code="checkPay?.shareable_code" />
 
     <FileUpload class="mb-10" />
 
-    <Button class=" bg-primary-dark text-fonts-primary-light" @click="() => { }">
+    <Button class=" bg-primary-dark text-fonts-primary-light" @click="emit('uploadReceipt')">
       Confirmar pagamento
     </Button>
   </footer>

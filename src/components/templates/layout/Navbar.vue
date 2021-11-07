@@ -3,6 +3,8 @@ import { getOrderReceipt } from '@/services/order'
 import { useOrderStore } from '@/stores/order'
 import { useUIStore } from '@/stores/ui'
 
+import { showSnackbar } from '@/composables/useSnackbar'
+
 const { t } = useI18n()
 
 const emit = defineEmits<{
@@ -26,17 +28,22 @@ const links = [
 
 const open = ref(false)
 
-function searchReceipt(code: string) {
-  ui.toggleLoader(true)
-  getOrderReceipt(code).then(({ data }) => {
+async function searchReceipt(code: string) {
+  try {
+    ui.toggleLoader(true)
+    const { data } = await getOrderReceipt(code)
     order.setReceipt(data)
     router.push({ name: 'Transaction', params: { id: data.shareable_code } })
-  }).catch((err) => {
-    alert(err.response.data.message)
-  })
-    .finally(() => {
-      ui.toggleLoader()
-    })
+  }
+  catch (err: any) {
+    const translated = err.response.data.message === 'Entry not found' && 'Código de transação inválido.'
+
+    const message = translated || err.response.data.message
+    showSnackbar({ title: message, type: 'danger' })
+  }
+  finally {
+    ui.toggleLoader()
+  }
 }
 
 </script>

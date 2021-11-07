@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n()
 
 const router = useRouter()
 </script>
@@ -11,10 +10,10 @@ const router = useRouter()
     </h1>
 
     <p class="description">
-      {{ t('home.hero.text') }}
+      simply dummy text of the printing and typesetting industry.
     </p>
 
-    <Button class="cta" @click="router.push({name: 'BuyMethod'})">
+    <Button class="cta" @click="router.push({ name: 'BuyMethod' })">
       Quero comprar
     </Button>
   </section>

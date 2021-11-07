@@ -3,6 +3,8 @@
 const props = defineProps<{
   payment: any // ConfirmProps & { method: string }
   isShow: boolean
+  networks?: any[]
+  cryptos?: any[]
 }>()
 
 const sanitizePayments = computed(() =>
@@ -10,6 +12,10 @@ const sanitizePayments = computed(() =>
     !(['terms'].includes(key) || ['', undefined].includes(value as any)),
   ),
 )
+
+function mapText(dict: any[], value: string, key: string) {
+  return dict.find(element => RegExp(value).test(element[key]))?.name ?? value
+}
 </script>
 
 <template>
@@ -19,10 +25,16 @@ const sanitizePayments = computed(() =>
     </h1>
 
     <ul class="confirm-list">
-      <li v-for="([_, value], index) in sanitizePayments" :key="index" class="list-item">
-        <!-- <span class="font-bold">{{ t(`buy.confirm.${key}`) }}:</span>
-        <span class>{{ value }}</span>-->
-        <Textfield :value="value" disabled />
+      <li v-for="([key, value], index) in sanitizePayments" :key="index" class="list-item">
+        <template v-if="key === 'network'">
+          <Textfield :value="mapText(networks as any[], value as string, 'id')" disabled />
+        </template>
+
+        <template v-else-if="key === 'crypto'">
+          <Textfield :value="mapText(cryptos as any[], value as string, 'symbol')" disabled />
+        </template>
+
+        <Textfield v-else :value="value" disabled />
       </li>
     </ul>
 

@@ -14,8 +14,8 @@ const { t } = useI18n()
       {{ t('home.terms.text') }}
     </p>
 
-    <Button class="action" :aria-label="t('home.terms.action')">
-      {{ t('home.terms.action') }}
+    <Button class="action" aria-label="Ver mais">
+      Ver mais
     </Button>
   </section>
 </template>

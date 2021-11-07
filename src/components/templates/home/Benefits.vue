@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n()
-
 const router = useRouter()
 </script>
 
@@ -54,9 +52,7 @@ const router = useRouter()
       </div>
 
       <p class="text">
-        <span>
-          Compre, venda ou pague contas
-        </span>
+        <span>Compre, venda ou pague contas</span>
         <span class="font-thin text-base text-fonts-secondary-light">com Cripmoedas de forma anônima</span>
       </p>
     </section>
@@ -65,11 +61,11 @@ const router = useRouter()
       Benefícios da plataforma
     </h2>
 
-    <strong class="benefit-item">{{ t('home.benefits.subtitle') }}</strong>
-    <strong class="benefit-item">{{ t('home.benefits.subtitle') }}</strong>
-    <strong class="benefit-item">{{ t('home.benefits.subtitle') }}</strong>
+    <strong class="benefit-item">Tudo de forma anônima!</strong>
+    <strong class="benefit-item">Tudo de forma anônima!</strong>
+    <strong class="benefit-item">Tudo de forma anônima!</strong>
 
-    <Button class="bg-cta w-6/10 self-center ">
+    <Button class="bg-cta w-6/10 self-center">
       Ver todas as taxas
     </Button>
   </section>
@@ -113,7 +109,7 @@ const router = useRouter()
       height: 240px;
       background-color: #1c252b;
 
-      transform: rotate(333deg) scale(1.2)  translateY(150px);
+      transform: rotate(333deg) scale(1.2) translateY(150px);
       z-index: 0;
     }
 
@@ -150,7 +146,9 @@ const router = useRouter()
 
   > .title {
     @apply font-bold font-display text-fonts-primary-light text-3xl
-      mb-6 mx-auto;
+      mx-auto;
+
+    margin-bottom: 70px;
     max-width: 220px;
     z-index: 1;
   }

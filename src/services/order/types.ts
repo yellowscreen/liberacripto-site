@@ -15,7 +15,8 @@ export type PostAOrder = {
   wallet: string
   extras: string
   value: number
-  email?: string
+  network?: string
+  client_email?: string
   payment_method: OrderPaymentMethods
 }
 

@@ -1,18 +1,28 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-
-import { postAOrder } from '@services/order/index'
 import { Router } from 'vue-router'
+
+import { getNetworks, postAOrder } from '@services/order/index'
 import { useUIStore } from './ui'
+
 import { STEP_TO_BUY, PaymentMethod } from '@/@types/payments'
 import { convertCurrencyToRAWNumber } from '@/composables/useFormat'
+
+import { showSnackbar } from '@/composables/useSnackbar'
 
 import type { BuyOrder, Summary } from '@/@types/payments'
 
 type StepToBuyKeys = keyof typeof STEP_TO_BUY
 
+type NetWork = {
+  id: number
+  name: string
+  symbol: string
+}
+
 type State = {
   step: StepToBuyKeys
   buy: BuyOrder
+  networks?: NetWork[]
   summary?: Partial<Summary>
 
 }
@@ -27,27 +37,23 @@ export const useOrderStore = defineStore('order', {
       method: 'boleto',
       email: undefined,
       wallet: undefined,
-      blockchain: undefined,
+      network: undefined,
       extras: undefined,
     },
 
-    summary: {
-      // id: 18,
-      // value: 5544,
-      // type: 'buy',
-      // crypto: 'btc',
-      // status: 'pending',
-      // payment_method: 'billet',
-      // extras: 'synthesize array',
-      // shareable_code: '3-T76008',
-      // wallet: '1dmT3s12Ky9nnJEJqJffeLy7WzJpe2NX',
-      // payable: 'https://sandbox.asaas.com/b/pdf/7037412952907212',
+    networks: [],
 
-    },
+    summary: {},
 
   }),
 
   actions: {
+    storeNetworks() {
+      getNetworks().then(({ data }) => {
+        this.networks = data
+      })
+    },
+
     storeOrder(order: State['buy']) {
       Object.keys(order).forEach((key) => {
         const keyHack = key as keyof State['buy']
@@ -67,13 +73,16 @@ export const useOrderStore = defineStore('order', {
 
         const { data } = await postAOrder({
           type: 'buy',
-          crypto: this.$state.buy.crypto,
-          email: this.$state.buy.email || undefined,
-          extras: this.$state.buy.extras || undefined,
-          wallet: this.$state.buy.wallet || undefined,
-          payment_method: PaymentMethod[this.$state.buy.method],
-          value: convertCurrencyToRAWNumber(this.$state.buy.value),
+          crypto: this.buy.crypto,
+          client_email: this.buy.email || undefined,
+          extras: this.buy.extras || undefined,
+          wallet: this.buy.wallet || undefined,
+          network: this.buy?.network || undefined,
+          payment_method: PaymentMethod[this.buy.method],
+          value: convertCurrencyToRAWNumber(this.buy.value),
         })
+
+        showSnackbar({ title: 'Ordem feita com sucesso!', type: 'success' })
 
         this.$state.summary = data
         this.setCurrentStep('CHECK_PAY')

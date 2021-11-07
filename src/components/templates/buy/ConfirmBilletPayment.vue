@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import { useUIStore } from '@/stores/ui'
 import { getS3Credentials, postUploadReceipt, patchReceiptOrder } from '@/services/order'
+import { showSnackbar } from '@/composables/useSnackbar'
 
 import type { Summary } from '@/@types/payments'
 
 const props = defineProps<{
   checkPay: Summary
+}>()
+
+const emit = defineEmits<{
+  (e: 'goback'): void
 }>()
 
 const ui = useUIStore()
@@ -15,6 +20,9 @@ const dicPayment: Record<Summary['payment_method'], string> = {
   boleto: 'Fazer download do boleto',
   pix: 'Fazer download da fatura',
 }
+
+const buttonDownloadText = computed(() => dicPayment[props.checkPay.payment_method] ?? dicPayment.boleto)
+const paymentValueFormatted = computed(() => Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(props.checkPay.value))
 
 async function fetchOrder() {
   const inpt = document.querySelector('input[type="file"]') as HTMLInputElement
@@ -31,11 +39,13 @@ async function fetchOrder() {
         const receiptUrl = headers?.location ?? headers?.Location
 
         await patchReceiptOrder(props.checkPay.id, receiptUrl)
+        showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
         router.push(`/transacao/${props.checkPay.shareable_code}`)
       }
     }
     catch (er) {
       console.log('Oh no, A error', er)
+      showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
     }
     finally {
       ui.toggleLoader()
@@ -44,6 +54,8 @@ async function fetchOrder() {
   // !! Remover
   else {
     await patchReceiptOrder(props.checkPay.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
+    showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+
     router.push(`/transacao/${props.checkPay.shareable_code}`)
   }
 }
@@ -59,7 +71,7 @@ async function fetchOrder() {
         Valor do pagamento:
         <span
           class="font-bold"
-        >{{ Intl.NumberFormat('pt-br', { style: 'currency', currency: "BRL" }).format(checkPay.value) }}</span>
+        >{{ paymentValueFormatted }}</span>
       </p>
     </header>
 
@@ -68,11 +80,13 @@ async function fetchOrder() {
         Passo 1: Efetue o pagamento
       </h2>
 
+      <Clipboard v-if="checkPay.payment_method === 'usd'" :code="checkPay.payable" class="mb-4" />
       <a
+        v-else
         target="_blank"
         :href="checkPay.payable"
         class="button-core flex justify-center bg-primary-dark text-fonts-primary-light mb-4"
-      >{{ dicPayment[checkPay.payment_method] }}</a>
+      >{{ buttonDownloadText }}</a>
     </section>
 
     <section class="step-payment">
@@ -84,7 +98,7 @@ async function fetchOrder() {
       <ShareOrderCode class="transaction-code" :code="checkPay?.shareable_code" />
 
       <footer class="footer">
-        <Button class="btn -link" @click="() => { }">
+        <Button class="btn -link" @click="emit('goback')">
           Cancelar
         </Button>
 

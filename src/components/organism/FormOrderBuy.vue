@@ -31,6 +31,11 @@ function buyOrder(formEvent: any) {
   order.storeOrder({ ...buyOrder, method })
   emit('next')
 }
+
+onMounted(() => {
+  if (method === 'dolar')
+    order.storeNetworks()
+})
 </script>
 
 <template>
@@ -42,7 +47,7 @@ function buyOrder(formEvent: any) {
 
     <Select required class="mb-4" name="crypto" placeholder="Selecione a cripto">
       <option
-        v-for="{ id, name, symbol } in crypto.$state.available"
+        v-for="{ id, name, symbol } in crypto.available"
         :key="id"
         :value="symbol"
       >
@@ -60,6 +65,16 @@ function buyOrder(formEvent: any) {
     />
 
     <Textfield class="textfield" required name="wallet" placeholder="Endereço da sua Wallet" />
+
+    <Select v-if="method === 'dolar'" required class="mb-4" name="network" placeholder="Rede de token">
+      <option
+        v-for="{ id, name, symbol } in order.networks"
+        :key="id"
+        :value="id"
+      >
+        {{ name }} ({{ symbol }})
+      </option>
+    </Select>
 
     <Textfield class="textfield" type="email" name="email" placeholder="E-mail (opcional)" />
 
