@@ -34,7 +34,33 @@ export type S3Fields = {
   'X-Amz-Signature': string
 }
 
-export type ReponseS3Fields = Promise<AxiosResponse<{
+export type ResponseS3Fields = Promise<AxiosResponse<{
   'url': string
   'fields': S3Fields
 }>>
+
+export type SellOrderPix = {
+  type: 'sell'
+  payment_method: 'pix'
+  crypto: string
+  value: number
+  client_pix: string
+  extras?: string
+}
+
+export type ResponseSellOrderPix = Promise<AxiosResponse<{
+  type: string
+  payment_method: string
+  crypto: string
+  value: number
+  crypto_value: number
+  extras: string
+  client_pix: string
+  shareable_code: string
+  status: OrderStatuses
+  created_at: string
+  updated_at: string
+  id: number
+  payable?: string
+}
+>>

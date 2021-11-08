@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { fetch } from '../'
 
-import type { PostAOrder, ReponseS3Fields, ResponsePostAOrder, S3Fields } from './types'
+import type { PostAOrder, ResponseS3Fields, ResponsePostAOrder, ResponseSellOrderPix, S3Fields, SellOrderPix } from './types'
 
 export function postAOrder(order: Partial<PostAOrder>): ResponsePostAOrder {
   return fetch({
@@ -11,7 +11,7 @@ export function postAOrder(order: Partial<PostAOrder>): ResponsePostAOrder {
   })
 }
 
-export function getS3Credentials(): ReponseS3Fields {
+export function getS3Credentials(): ResponseS3Fields {
   return fetch({
     path: '/utils/upload_url',
   })
@@ -55,5 +55,13 @@ export function getOrderReceipt(shareableCode: string): Promise<AxiosResponse> {
 export function getNetworks(): Promise<AxiosResponse> {
   return fetch({
     path: '/user/networks',
+  })
+}
+
+export function postSellOrderPix(sellOrder: Partial<SellOrderPix>): ResponseSellOrderPix {
+  return fetch({
+    method: 'POST',
+    path: '/user/orders',
+    data: sellOrder,
   })
 }
