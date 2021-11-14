@@ -35,7 +35,7 @@ function isCurrentStep(currentStep: StepToBuyKeys) {
 }
 
 function fetchOrder() {
-  order.fetchStoreOrder()
+  order.fetchStoreBuyOrder()
 }
 
 function goBack() {
@@ -89,12 +89,23 @@ onMounted(() => {
 
   min-height: calc(100vh - 8rem);
 
+  @screen md {
+    margin: auto;
+    max-width: 500px;
+    @apply self-center justify-self-center;
+  }
+
   > .step {
     @apply inline-block w-8/12  mb-4;
+
   }
 
   > .form {
     @apply max-w-8/12;
+
+    @screen md {
+      max-width: 480px;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { Router } from 'vue-router'
 
-import { getNetworks, postAOrder, postSellOrderPix } from '@services/order/index'
+import { getBanks, getNetworks, postAOrder, postSellOrderPix } from '@services/order/index'
 import { useUIStore } from './ui'
 
 import { STEP_TO_BUY, PaymentMethod } from '@/@types/payments'
@@ -10,7 +10,7 @@ import { convertCurrencyToRAWNumber } from '@/composables/useFormat'
 import { showSnackbar } from '@/composables/useSnackbar'
 
 import type { BuyOrder, Summary } from '@/@types/payments'
-import { SellOrderPix } from '@/services/order/types'
+import type { SellOrder } from '@/services/order/types'
 
 type StepToBuyKeys = keyof typeof STEP_TO_BUY
 
@@ -20,11 +20,18 @@ type NetWork = {
   symbol: string
 }
 
+type Bank = {
+  id: number
+  code: string
+  name: string
+}
+
 type State = {
   step: StepToBuyKeys
   buy: BuyOrder
-  sell: Partial<SellOrderPix>
+  sell: Partial<SellOrder>
   networks?: NetWork[]
+  banks: Bank[]
   summary?: Partial<Summary>
 
 }
@@ -46,6 +53,7 @@ export const useOrderStore = defineStore('order', {
     sell: {},
 
     networks: [],
+    banks: [],
 
     summary: {},
 
@@ -58,7 +66,13 @@ export const useOrderStore = defineStore('order', {
       })
     },
 
-    storeOrder(order: State['buy']) {
+    storeBanks() {
+      getBanks().then(({ data }) => {
+        this.banks = data
+      })
+    },
+
+    storeBuyOrder(order: State['buy']) {
       Object.keys(order).forEach((key) => {
         const keyHack = key as keyof State['buy']
 
@@ -73,11 +87,12 @@ export const useOrderStore = defineStore('order', {
       Object.keys(order).forEach((key) => {
         const keyHack = key as keyof State['sell']
 
+        // @ts-ignore
         this.sell[keyHack] = order[keyHack]
       })
     },
 
-    async fetchStoreOrder() {
+    async fetchStoreBuyOrder() {
       const ui = useUIStore()
 
       try {
@@ -90,6 +105,7 @@ export const useOrderStore = defineStore('order', {
           extras: this.buy.extras || undefined,
           wallet: this.buy.wallet || undefined,
           network: this.buy?.network || undefined,
+          // @ts-ignore
           payment_method: PaymentMethod[this.buy.method],
           value: convertCurrencyToRAWNumber(this.buy.value),
         })
@@ -112,13 +128,33 @@ export const useOrderStore = defineStore('order', {
 
       try {
         ui.toggleLoader(true)
+        let paymentOption: any
 
+        if (this.sell.payment_method === 'transfer') {
+          const bankCode = String(this.sell.bank_account?.bank).replace(/\D/gi, '')
+          const bankId = this.banks.find(bank => bank.code === bankCode)?.id ?? 0
+
+          paymentOption = {
+            bank_account: {
+              ...this.sell.bank_account,
+              bank: bankId,
+            },
+          }
+        }
+        else {
+          paymentOption = {
+            client_pix: this.sell.client_pix || undefined,
+
+          }
+        }
+        console.log({ ...paymentOption })
         const { data } = await postSellOrderPix({
           type: 'sell',
           crypto: this.sell.crypto,
-          client_pix: this.sell.client_pix,
           extras: this.sell.extras || undefined,
-          payment_method: 'pix',
+          payment_method: this.sell.payment_method,
+          ...paymentOption,
+          // @ts-ignore
           value: convertCurrencyToRAWNumber(this.sell?.value || 0),
         })
 
@@ -135,11 +171,11 @@ export const useOrderStore = defineStore('order', {
       }
     },
 
-    goBackStep(router: Router) {
+    goBackStep(router: Router, methodNameRoute = 'BuyMethod') {
       const stepNumber = STEP_TO_BUY[this.step]
 
       if (stepNumber - 1 <= 0)
-        router.push({ name: 'BuyMethod' })
+        router.push({ name: methodNameRoute })
 
       else
         this.step = STEP_TO_BUY[stepNumber - 1] as StepToBuyKeys

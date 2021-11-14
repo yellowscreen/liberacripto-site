@@ -40,6 +40,10 @@ function copyToClipboard() {
 
   max-width: 320px;
 
+  @screen md {
+    max-width: 400px;
+  }
+
   > .label {
     @apply absolute left-0;
 
@@ -58,6 +62,10 @@ function copyToClipboard() {
 
       min-width: 210px;
       border: 1px solid #212121;
+
+      @screen md {
+        width: 70%;
+      }
     }
 
     > .icon-share {

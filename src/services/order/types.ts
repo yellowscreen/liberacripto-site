@@ -7,6 +7,15 @@ export type OrderStatuses =
   'finished' |
   'blocked'
 
+export type BankAccount = {
+  'type': string
+  'branch': string
+  'account': string
+  'owner_name': string
+  'owner_document': string
+  'individual': true
+  'bank': string | number
+}
 export type OrderPaymentMethods = 'billet' | 'pix'
 
 export type PostAOrder = {
@@ -39,13 +48,14 @@ export type ResponseS3Fields = Promise<AxiosResponse<{
   'fields': S3Fields
 }>>
 
-export type SellOrderPix = {
+export type SellOrder = {
   type: 'sell'
-  payment_method: 'pix'
+  payment_method: 'pix' | 'transfer'
   crypto: string
-  value: number
-  client_pix: string
+  value: string
+  client_pix?: string
   extras?: string
+  bank_account?: BankAccount
 }
 
 export type ResponseSellOrderPix = Promise<AxiosResponse<{

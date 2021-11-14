@@ -21,6 +21,14 @@ const dicPayment: Record<Summary['payment_method'], string> = {
   pix: 'Fazer download da fatura',
 }
 
+const isHashtokenToPay = computed(() => {
+  if (props.checkPay.type === 'buy')
+    return ['usd'].includes(props.checkPay.payment_method)
+  else if (props.checkPay.type === 'sell')
+    return ['pix', 'transfer'].includes(props.checkPay.payment_method)
+
+  return false
+})
 const buttonDownloadText = computed(() => dicPayment[props.checkPay.payment_method] ?? dicPayment.boleto)
 const paymentValueFormatted = computed(() => Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(props.checkPay.value))
 
@@ -69,9 +77,7 @@ async function fetchOrder() {
       </h1>
       <p class="value">
         Valor do pagamento:
-        <span
-          class="font-bold"
-        >{{ paymentValueFormatted }}</span>
+        <span class="font-bold">{{ paymentValueFormatted }}</span>
       </p>
     </header>
 
@@ -80,7 +86,7 @@ async function fetchOrder() {
         Passo 1: Efetue o pagamento
       </h2>
 
-      <Clipboard v-if="checkPay.payment_method === 'usd'" :code="checkPay.payable" class="mb-4" />
+      <Clipboard v-if="isHashtokenToPay" label="Hash da wallet libera cripto" :code="checkPay.payable" class="mb-4" />
       <a
         v-else
         target="_blank"
@@ -115,6 +121,11 @@ async function fetchOrder() {
   @apply flex flex-col mx-4;
 
   min-width: 280px;
+
+  @screen md {
+    max-width: 400px;
+    width: 100%;
+  }
 
   > .header {
     @apply mb-8;

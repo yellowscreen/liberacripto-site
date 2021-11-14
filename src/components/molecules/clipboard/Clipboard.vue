@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-const props = defineProps<{
+interface Props {
   code: string
   label?: string
-}>()
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: 'Hash do token',
+})
 
 function copyToClipboard() {
   navigator.clipboard.writeText(props.code)
@@ -11,7 +15,7 @@ function copyToClipboard() {
 
 <template>
   <button type="button" class="clipboard-code" @click="copyToClipboard">
-    <span class="label">Hash do token</span>
+    <span class="label">{{ label }}</span>
 
     <div class="container-code">
       <span class="code">{{ code }}</span>
@@ -47,7 +51,7 @@ function copyToClipboard() {
       h-12 py-4 pl-2 rounded-md
       cursor-pointer text-xs text-fonts-primary-dark;
 
-      width: 210px;
+      width: 70%;
 
       text-overflow: clip;
       overflow: hidden;

@@ -24,7 +24,11 @@ defineProps<LinkProps>()
 
 <style lang="scss">
 .link-core {
-  @apply min-w-max
-      text-decoration: solid underline 2px;
+  @apply min-w-max;
+  text-decoration: solid underline 2px;
+
+  &.-without-underline {
+    text-decoration: none;
+  }
 }
 </style>

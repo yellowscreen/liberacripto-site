@@ -17,7 +17,6 @@ const order = useOrderStore()
 const crypto = useCryptosStore()
 
 useHead({
-
   title: 'Libera Cripto - transação',
   meta: [
     { name: 'description', content: 'Librea cripto - P2P' },
@@ -31,6 +30,7 @@ const dicPaymentType: any = {
   billet: 'Boleto',
   usd: 'Hash Dolar',
   pix: 'Pix',
+  transfer: 'Transferência',
 }
 
 const summary = computed(() => order.summary)
@@ -101,12 +101,21 @@ async function fetchOrder() {
 
     <ul class="summary-list">
       <li v-if="summary?.crypto" class="list-item">
-        <span class="font-bold font-display">{{ mapText(crypto.available as any[], summary.crypto as string, 'symbol') }}</span>
+        <span
+          class="font-bold font-display"
+        >{{ mapText(crypto.available as any[], summary.crypto as string, 'symbol') }}</span>
       </li>
 
       <li v-if="summary?.value" class="list-item">
-        <span class>Valor do pagamento:</span>
+        <span class>Valor {{ summary.type === 'sell'? 'a receber' :'do pagamento' }}:</span>
         <span class="font-bold font-display">{{ paymentValueFormatted }}</span>
+      </li>
+
+      <li v-if="summary?.crypto_value" class="list-item">
+        <span class>quantidade de cripto vendida:</span>
+        <span class="font-bold font-display">
+          <span class="uppercase">{{ summary.crypto }}</span>
+          {{ summary.crypto_value }}</span>
       </li>
 
       <li v-if="summary?.payment_method" class="list-item">
@@ -130,16 +139,6 @@ async function fetchOrder() {
       </li>
     </ul>
 
-    <!-- <footer class="footer">
-      <a class="button-core -secondary text-center mb-6" :href="summary?.payable" target="_blank">
-        Baixar o comprovante
-      </a>
-
-      <Button class="-primary text-fonts-primary-light bg-primary-dark" @click="shareReceipt">
-        Compartilhar comprovante
-      </Button>
-    </footer>-->
-
     <FooterTransaction :check-pay="summary" @upload-receipt="fetchOrder" />
   </div>
 </template>
@@ -151,6 +150,11 @@ async function fetchOrder() {
 
   min-height: calc(100vh - 8rem);
   background-color: #ececec;
+
+  @screen md {
+    max-width: 500px;
+    margin: auto;
+  }
 
   > .summary-list {
     @apply flex flex-col

@@ -15,7 +15,7 @@ const links = [
   },
   {
     text: 'Venda cripto',
-    name: 'Home',
+    name: 'SellMethod',
   },
   {
     text: 'Pague uma conta',

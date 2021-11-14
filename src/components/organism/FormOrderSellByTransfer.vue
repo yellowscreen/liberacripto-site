@@ -1,7 +1,8 @@
+
 <script setup lang="ts">
 import { useCryptosStore } from '@stores/cryptos'
 import { useOrderStore } from '@stores/order'
-import { BuyOrder } from '@/@types/payments'
+import SelectAutocomplete from '../molecules/select/SelectAutocomplete.vue'
 import { getCurrency } from '@/services/currencies'
 import { convertCurrencyToRAWNumber } from '@/composables/useFormat'
 
@@ -20,16 +21,29 @@ const emit = defineEmits<{
   (e: 'next'): void
 }>()
 
+const route = useRoute()
 const order = useOrderStore()
 const crypto = useCryptosStore()
 
+const payment_method = computed(() => route.params.method === 'transferencia' ? 'transfer' : 'pix')
+
 function sellOrderStore(formEvent: any) {
   const form = new FormData(formEvent.target)
-  const data = Object.fromEntries(form as any) as BuyOrder & { terms: string }
+  const data = Object.fromEntries(form as any) as any
 
-  const { terms, ...sellOrder } = data
+  const { terms, account, branch, type, individual, owner_name, owner_document, bank, ...sellOrder } = data
 
-  order.storeSellOrder({ ...sellOrder, payment_method: 'pix' })
+  const bank_account = {
+    account,
+    branch,
+    type,
+    bank,
+    individual,
+    owner_name,
+    owner_document,
+  }
+
+  order.storeSellOrder({ ...sellOrder, payment_method, bank_account })
   emit('next')
 }
 
@@ -54,6 +68,10 @@ function setValueToSell(ev: any) {
   const value = ev.target.value
   cryptoToSell.valueToSell = convertCurrencyToRAWNumber(value)
 }
+
+onMounted(() => {
+  order.storeBanks()
+})
 </script>
 
 <template>
@@ -99,25 +117,71 @@ function setValueToSell(ev: any) {
         inputmode="numeric"
         :value="cryptoToSell.valueInCrypto"
         placeholder="Valor em cripto"
-      /> -->
+      />-->
 
       <strong
         v-show="cryptoToSell.cryptoSymbol"
-        class="input-core font-display uppercase text-xs flex items-center !bg-gray-300 "
+        class="input-core font-display uppercase text-xs flex items-center !bg-gray-300"
       >{{ cryptoToSell.cryptoSymbol }} {{ cryptoToSell.valueInCrypto }}</strong>
     </fieldset>
 
-    <fieldset class="group">
+    <fieldset class="group" name="bank_account">
       <legend class="title-group">
         Dados de recebimento
       </legend>
 
-      <Textfield class="textfield" name="client_pix" placeholder="Chave PIX" />
+      <SelectAutocomplete
+        id="banks"
+        required
+        class="mb-4 select"
+        name="bank"
+        placeholder="Selecione o banco"
+      >
+        <option v-for="{ id, name, code } in order.banks" :key="id" :value="` ${code} - ${name}`"></option>
+      </SelectAutocomplete>
 
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <Textfield class="textfield col-span-1" name="branch" placeholder="Agência" />
+        <Textfield class="textfield col-span-2" name="account" placeholder="Conta com dígito" />
+      </div>
+
+      <Textfield class="textfield" name="owner_name" placeholder="Nome do titular" />
+      <Textfield
+        v-mask="['###.###.###-##','##.###.###/####-##']"
+        class="textfield"
+        name="owner_document"
+        placeholder="CPF/CNPJ"
+      />
+
+      <Select required class="mb-4 select" name="type" placeholder="Tipo de conta">
+        <option value="saving">
+          Poupança
+        </option>
+
+        <option value="checking">
+          Corrente
+        </option>
+      </Select>
+    </fieldset>
+
+    <fieldset class="group">
       <Textfield class="textfield" type="email" name="email" placeholder="E-mail (opcional)" />
 
       <Textfield class="textfield" name="extras" placeholder="Informações adicionais" />
+
+      <div class="textfield flex justify-around">
+        <label>
+          <input type="radio" name="individual" value="true" />
+          <span class="ml-2">Individual</span>
+        </label>
+
+        <label>
+          <input type="radio" name="individual" value="false" />
+          <span class="ml-2">Conjunta</span>
+        </label>
+      </div>
     </fieldset>
+
     <label class="terms">
       <input type="checkbox" name="terms" required />
       <span>Eu li e aceito os termos de uso</span>

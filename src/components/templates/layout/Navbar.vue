@@ -5,8 +5,6 @@ import { useUIStore } from '@/stores/ui'
 
 import { showSnackbar } from '@/composables/useSnackbar'
 
-const { t } = useI18n()
-
 const emit = defineEmits<{
   (e: 'toggle-menu'): void
 }>()
@@ -17,11 +15,19 @@ const router = useRouter()
 
 const links = [
   {
-    text: 'layout.navbar.buy',
+    text: 'Compre cripto',
     name: 'BuyMethod',
   },
   {
-    text: 'layout.navbar.sell',
+    text: 'Venda cripto',
+    name: 'SellMethod',
+  },
+  {
+    text: 'Pague uma conta',
+    name: 'Home',
+  },
+  {
+    text: 'Comparativos',
     name: 'Home',
   },
 ]
@@ -62,8 +68,8 @@ async function searchReceipt(code: string) {
         class="item only-desktop"
         :class="open && '!hidden'"
       >
-        <Link :to="{ name }">
-          {{ t(text) }}
+        <Link :to="{ name }" class="-without-underline">
+          {{ text }}
         </Link>
       </li>
 
@@ -72,7 +78,7 @@ async function searchReceipt(code: string) {
           <Search v-model:open="open" @search="searchReceipt" />
         </li>
 
-        <li>
+        <li class="md:hidden">
           <button class="w-14" aria-label="toggle menu" @click="emit('toggle-menu')">
             <radix-icons:hamburger-menu class="h-6 w-full" />
           </button>
@@ -86,7 +92,8 @@ async function searchReceipt(code: string) {
 .navbar-core {
   @apply h-72px w-full
     sticky top-0 px-4
-    bg-secondary-light;
+    bg-secondary-light
+    md:h-92px md:px-12;
 
   z-index: 4;
 
@@ -94,6 +101,12 @@ async function searchReceipt(code: string) {
     @apply bg-secondary-darkest text-white;
     &::before {
       background-color: #586971;
+    }
+
+    .-text-search {
+      @screen md {
+        color: white;
+      }
     }
 
     .logo .-logo-text {
@@ -111,6 +124,10 @@ async function searchReceipt(code: string) {
     height: 1px;
 
     background-color: #909090;
+
+    @screen md {
+      width: 96%;
+    }
   }
 
   > .list {

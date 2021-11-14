@@ -22,21 +22,24 @@ function formatDate(dateString: string) {
 const dicStatus: DictionaryStatus = {
   finished: 'Aguardando compensação',
   pending: 'Pagamento pendente',
-  blocked: 'Pagamento pendente',
-  canceled: 'Pagamento pendente',
+  blocked: 'Pagamento bloqueado',
+  canceled: 'Pagamento cancleado',
 }
 
 const dicTransaction: DictionaryStatus = {
   finished: 'Transação realizada',
   pending: 'Transação pendente',
-  blocked: 'Transação pendente',
-  canceled: 'Transação pendente',
+  blocked: 'Transação bloqueada',
+  canceled: 'Transação cancelada',
 }
 </script>
 
 <template>
   <header class="header-transaction">
-    <ic:round-check-circle class="text-green-600 h-8 w-8 mb-4" />
+    <mdi:calendar-clock v-if="checkPay.status === 'pending'" class="text-yellow-400 h-8 w-8 mb-4" />
+    <mdi:block-helper v-else-if="checkPay.status === 'blocked'" class="text-red-600 h-8 w-8 mb-4" />
+    <ic:round-cancel v-else-if="checkPay.status === 'canceled'" class="text-red-600 h-8 w-8 mb-4" />
+    <ic:round-check-circle v-else class="text-green-600 h-8 w-8 mb-4" />
 
     <h1 class="title">
       {{ dicTransaction[checkPay.status] }}
@@ -65,6 +68,10 @@ const dicTransaction: DictionaryStatus = {
   @apply flex flex-col items-center relative
       w-full pb-10 mb-6 mx-8;
 
+  @screen md {
+    max-width: 500px;
+  }
+
   &::before {
     content: "";
 
@@ -75,12 +82,21 @@ const dicTransaction: DictionaryStatus = {
   }
 
   > .title {
-    @apply inline-block w-8/12 font-bold font-display text-2xl mb-6;
+    @apply inline-block w-full font-bold font-display text-2xl mb-6 text-center;
+
+    @screen md {
+      text-align: center;
+    }
   }
 
   > .status-card {
     @apply px-4 py-4 mb-10 rounded-md;
     background-color: #dcdcdc;
+    min-width: 260px;
+
+    @screen md {
+      width: 100%;
+    }
   }
 
   > .infos {

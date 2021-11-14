@@ -58,6 +58,12 @@ export function getNetworks(): Promise<AxiosResponse> {
   })
 }
 
+export function getBanks(): Promise<AxiosResponse> {
+  return fetch({
+    path: '/user/banks',
+  })
+}
+
 export function postSellOrderPix(sellOrder: Partial<SellOrderPix>): ResponseSellOrderPix {
   return fetch({
     method: 'POST',

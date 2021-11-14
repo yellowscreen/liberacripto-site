@@ -38,6 +38,10 @@ function getFileName(ev: any) {
 
     min-width: 210px;
     border: 1px solid #212121;
+
+    @screen md {
+      width: 70%;
+    }
   }
 
   > .input {
