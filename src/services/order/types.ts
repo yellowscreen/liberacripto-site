@@ -7,6 +7,15 @@ export type OrderStatuses =
   'finished' |
   'blocked'
 
+export type BankAccount = {
+  'type': string
+  'branch': string
+  'account': string
+  'owner_name': string
+  'owner_document': string
+  'individual': true
+  'bank': string | number
+}
 export type OrderPaymentMethods = 'billet' | 'pix'
 
 export type PostAOrder = {
@@ -34,7 +43,48 @@ export type S3Fields = {
   'X-Amz-Signature': string
 }
 
-export type ReponseS3Fields = Promise<AxiosResponse<{
+export type ResponseS3Fields = Promise<AxiosResponse<{
   'url': string
   'fields': S3Fields
 }>>
+
+export type SellOrder = {
+  type: 'sell'
+  payment_method: 'pix' | 'transfer'
+  crypto: string
+  value: string
+  client_pix?: string
+  extras?: string
+  bank_account?: BankAccount
+}
+
+export type ResponseSellOrderPix = Promise<AxiosResponse<{
+  type: string
+  payment_method: string
+  crypto: string
+  value: number
+  crypto_value: number
+  extras: string
+  client_pix: string
+  shareable_code: string
+  status: OrderStatuses
+  created_at: string
+  updated_at: string
+  id: number
+  payable?: string
+}
+>>
+
+export type PaymentOrder = {
+  type: 'payment'
+  payment_method: 'billet'
+  crypto: string
+  value: string
+  extras: string
+  billet: {
+    barcode: string
+    billet_url: string
+    expiration: string
+
+  }
+}

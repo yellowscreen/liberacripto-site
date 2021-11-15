@@ -11,6 +11,15 @@ const emit = defineEmits<{
   (e: 'uploadReceipt'): void
 }>()
 
+const isHashtokenToPay = computed(() => {
+  if (props.checkPay.type === 'buy')
+    return ['usd'].includes(props.checkPay.payment_method)
+  else if (props.checkPay.type === 'sell')
+    return ['pix', 'transfer'].includes(props.checkPay.payment_method)
+
+  return false
+})
+
 const dicPayment: DictionaryPayment = {
   boleto: 'Fazer download do boleto',
   pix: 'Fazer download da fatura',
@@ -53,12 +62,14 @@ function shareReceipt() {
       Pagamento
     </h2>
 
+    <Clipboard v-if="isHashtokenToPay" label="Hash da wallet libera cripto" :code="checkPay.payable" class="mb-14" />
+
     <a
+      v-else
       target="_blank"
       :href="checkPay.payable"
       class="button-core download-link"
     >{{ buttonDownloadText }}</a>
-
     <ShareOrderCode class="mb-14" :code="checkPay?.shareable_code" />
 
     <FileUpload class="mb-10" />

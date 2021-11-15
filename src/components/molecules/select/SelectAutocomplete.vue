@@ -3,9 +3,9 @@ import type { InputEvent } from '@/@types/globals'
 import { shouldPattern, shouldRequired } from '@/composables/useFormValidation'
 
 interface Props {
+  id: string
   requiredMessage?: string
   patternMessage?: string
-  hint?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -28,21 +28,25 @@ function checking(event: unknown) {
 
 <template>
   <input
+    :list="`list-${id}`"
     v-bind="$attrs"
     class="input-core"
-    :data-hint="hint"
+    type="search"
     @invalid="validate"
     @change="checking"
   />
+
+  <datalist :id="`list-${id}`">
+    <slot />
+  </datalist>
 </template>
 
 <style lang="scss">
 .input-core {
-  @apply relative h-11 px-4
+  @apply h-11 px-4
     rounded-md bg-transparent
     text-sm;
 
-  overflow: initial;
   border: 2px solid #212121;
 
   &::placeholder {
@@ -53,14 +57,5 @@ function checking(event: unknown) {
     background-color: #d4d4d4;
     border: none;
   }
-
-  &::after {
-    content: attr(data-hint);
-
-    @apply inline-block absolute
-  top-11 left-0
-  text-2xs text-fonts-primary-dark;
-  }
-
 }
 </style>

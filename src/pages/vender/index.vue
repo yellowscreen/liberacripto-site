@@ -28,8 +28,8 @@ onMounted(() => {
   })
 })
 
-function goToBuyOrder(method: string) {
-  router.push({ name: 'BuyOrder', params: { method } })
+function goToSellOrder(method: string) {
+  router.push({ name: 'SellOrder', params: { method } })
 }
 </script>
 
@@ -47,13 +47,13 @@ function goToBuyOrder(method: string) {
 
     <ul class="payment-methods">
       <li class="method">
-        <Button class="button-pay" @click="goToBuyOrder('boleto')">
+        <Button class="button-pay" @click="goToSellOrder('transferencia')">
           Transferência
         </Button>
       </li>
 
       <li class="method">
-        <Button class="button-pay" @click="goToBuyOrder('pix')">
+        <Button class="button-pay" @click="goToSellOrder('pix')">
           Pix
         </Button>
       </li>

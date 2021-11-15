@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { useUIStore } from '@/stores/ui'
-import { getS3Credentials, postUploadReceipt, patchReceiptOrder } from '@/services/order'
+import { patchReceiptOrder } from '@/services/order'
 import { showSnackbar } from '@/composables/useSnackbar'
+
+import { uploadFileToS3 } from '@/composables/useUploadS3File'
 
 import type { Summary } from '@/@types/payments'
 
@@ -13,7 +14,6 @@ const emit = defineEmits<{
   (e: 'goback'): void
 }>()
 
-const ui = useUIStore()
 const router = useRouter()
 
 const dicPayment: Record<Summary['payment_method'], string> = {
@@ -21,43 +21,23 @@ const dicPayment: Record<Summary['payment_method'], string> = {
   pix: 'Fazer download da fatura',
 }
 
+const isHashtokenToPay = computed(() => {
+  if (props.checkPay.type === 'buy')
+    return ['usd'].includes(props.checkPay.payment_method)
+  else if (props.checkPay.type === 'sell')
+    return ['pix', 'transfer'].includes(props.checkPay.payment_method)
+
+  return false
+})
 const buttonDownloadText = computed(() => dicPayment[props.checkPay.payment_method] ?? dicPayment.boleto)
 const paymentValueFormatted = computed(() => Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(props.checkPay.value))
 
 async function fetchOrder() {
-  const inpt = document.querySelector('input[type="file"]') as HTMLInputElement
-  const file = inpt.files?.[0]
+  const { receiptUrl } = await uploadFileToS3()
 
-  if (file) {
-    try {
-      ui.toggleLoader(true)
-      const { data } = await getS3Credentials()
-      const { fields, url } = data
-
-      if (fields.Policy) {
-        const { headers } = await postUploadReceipt(fields, url, file)
-        const receiptUrl = headers?.location ?? headers?.Location
-
-        await patchReceiptOrder(props.checkPay.id, receiptUrl)
-        showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
-        router.push(`/transacao/${props.checkPay.shareable_code}`)
-      }
-    }
-    catch (er) {
-      console.log('Oh no, A error', er)
-      showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
-    }
-    finally {
-      ui.toggleLoader()
-    }
-  }
-  // !! Remover
-  else {
-    await patchReceiptOrder(props.checkPay.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
-    showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
-
-    router.push(`/transacao/${props.checkPay.shareable_code}`)
-  }
+  await patchReceiptOrder(props.checkPay.id, receiptUrl)
+  showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+  router.push(`/transacao/${props.checkPay.shareable_code}`)
 }
 </script>
 
@@ -69,9 +49,7 @@ async function fetchOrder() {
       </h1>
       <p class="value">
         Valor do pagamento:
-        <span
-          class="font-bold"
-        >{{ paymentValueFormatted }}</span>
+        <span class="font-bold">{{ paymentValueFormatted }}</span>
       </p>
     </header>
 
@@ -80,7 +58,7 @@ async function fetchOrder() {
         Passo 1: Efetue o pagamento
       </h2>
 
-      <Clipboard v-if="checkPay.payment_method === 'usd'" :code="checkPay.payable" class="mb-4" />
+      <Clipboard v-if="isHashtokenToPay" label="Hash da wallet libera cripto" :code="checkPay.payable" class="mb-4" />
       <a
         v-else
         target="_blank"
@@ -115,6 +93,11 @@ async function fetchOrder() {
   @apply flex flex-col mx-4;
 
   min-width: 280px;
+
+  @screen md {
+    max-width: 400px;
+    width: 100%;
+  }
 
   > .header {
     @apply mb-8;

@@ -1,5 +1,5 @@
 <route lang="yaml">
-name: BuyOrder
+name: SellOrder
 meta:
   layout: default
 </route>
@@ -35,11 +35,11 @@ function isCurrentStep(currentStep: StepToBuyKeys) {
 }
 
 function fetchOrder() {
-  order.fetchStoreBuyOrder()
+  order.fetchStoreSellOrder()
 }
 
 function goBack() {
-  order.goBackStep(router)
+  order.goBackStep(router, 'SellMethod')
 }
 
 onMounted(() => {
@@ -48,13 +48,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="order-page">
-    <section class="flex w-full justify-between items-center px-4 mb-8">
+  <div class="order-sell-page">
+    <section class="header">
       <ButtonBack class="ml-[-8px]" @click="goBack" />
       <Chip :current="order.currentStepPosition + 1" />
     </section>
 
-    <FormOrderBuy
+    <FormOrderSellByPix
+      v-if="route.params.method === 'pix'"
+      v-show="isCurrentStep('PAYMENT')"
+      class="form"
+      :title="route.params.method"
+      @next="order.setCurrentStep('SUMMARY')"
+    />
+    <FormOrderSellByTransfer
+      v-else
       v-show="isCurrentStep('PAYMENT')"
       class="form"
       :title="route.params.method"
@@ -62,7 +70,7 @@ onMounted(() => {
     />
 
     <ConfirmOrderData
-      :payment="order.buy"
+      :payment="order.sell"
       :networks="order.networks"
       :cryptos="crypto.available"
       :is-show="isCurrentStep('SUMMARY')"
@@ -78,12 +86,16 @@ onMounted(() => {
       </footer>
     </ConfirmOrderData>
 
-    <OrderSummary v-if="isCurrentStep('CHECK_PAY')" :check-pay="order.summary" @goback="goBack" />
+    <OrderSummary
+      v-if="isCurrentStep('CHECK_PAY')"
+      :check-pay="order.summary"
+      @goback="goBack"
+    />
   </div>
 </template>
 
 <style lang="scss">
-.order-page {
+.order-sell-page {
   @apply flex flex-col items-center
     pt-4;
 
@@ -91,21 +103,24 @@ onMounted(() => {
 
   @screen md {
     margin: auto;
-    max-width: 500px;
+    max-width: 600px;
     @apply self-center justify-self-center;
+  }
+
+  > .header {
+    @apply flex w-full justify-between items-center px-4 mb-8;
+
+    @screen md {
+      @apply px-0;
+    }
   }
 
   > .step {
     @apply inline-block w-8/12  mb-4;
-
   }
 
   > .form {
-    @apply max-w-8/12;
-
-    @screen md {
-      max-width: 480px;
-    }
+    width: clamp(260px, 80%, 500px);
   }
 }
 </style>

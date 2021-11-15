@@ -7,7 +7,6 @@ type CryptoData = {
   id?: string
   name?: string
   symbol?: string
-  toUSD?: number
   toBRL?: number
 }
 
@@ -19,19 +18,7 @@ export const useCryptosStore = defineStore('cryptos', {
         symbol: 'btc',
         name: 'Bitcoin',
       },
-      // {
-      //   id: 'axie-infinity',
-      //   symbol: 'axs',
-      //   name: 'Axie Infinity',
-      // },
 
-      // {
-      //   id: 'tether',
-      //   symbol: 'usdt',
-      //   name: 'Tether',
-      // },
-
-      // { id: 'ethereum', symbol: 'eth', name: 'Ethereum' },
     ],
 
     cryptos: {} as Record<string, CryptoData>,
@@ -41,18 +28,9 @@ export const useCryptosStore = defineStore('cryptos', {
     storeCrypto(crypto: string) {
       getCurrency(crypto)
         .then(({ data }) => {
-          const id = 'bitcoin'
-
           this.$state.cryptos = {
             ...this.$state.cryptos,
-            [id]: {
-              toBRL: data.current_price,
-              // id: data.id,
-              // name: data.name,
-              // symbol: data.symbol,
-              // toUSD: data.market_data.current_price.usd,
-              // toBRL: data.market_data.current_price.brl,
-            },
+            [crypto]: data.current_price,
           }
         })
         .catch((error: ErrorData) => {
