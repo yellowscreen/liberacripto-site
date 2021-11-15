@@ -24,7 +24,7 @@ useHead({
   meta: [
     { name: 'description', content: 'Librea cripto - P2P' },
 
-    { name: 'og:image', content: '/logo-2.png' },
+    { name: 'og:image', content: '/logo.svg' },
     { name: 'og:title', content: 'Libera cripto - buy' },
     { name: 'og:description', content: 'P2P de cripto é na libera cripto' },
   ],
@@ -69,7 +69,7 @@ onMounted(() => {
       @next="order.setCurrentStep('SUMMARY')"
     />
 
-    <ConfirmUserData
+    <ConfirmOrderData
       :payment="order.sell"
       :networks="order.networks"
       :cryptos="crypto.available"
@@ -84,9 +84,9 @@ onMounted(() => {
           Confirmar pagamento
         </Button>
       </footer>
-    </ConfirmUserData>
+    </ConfirmOrderData>
 
-    <ConfirmBilletPayment
+    <OrderSummary
       v-if="isCurrentStep('CHECK_PAY')"
       :check-pay="order.summary"
       @goback="goBack"

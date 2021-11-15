@@ -32,7 +32,7 @@ const router = useRouter()
       </li>
 
       <li class="item">
-        <CardTrade class="card">
+        <CardTrade class="card" @click="router.push({ name: 'PayABill' })">
           <template #icon>
             <mdi:receipt class="text-cta" />
           </template>

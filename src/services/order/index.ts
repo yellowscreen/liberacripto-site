@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { fetch } from '../'
 
-import type { PostAOrder, ResponseS3Fields, ResponsePostAOrder, ResponseSellOrderPix, S3Fields, SellOrderPix } from './types'
+import type { PostAOrder, ResponseS3Fields, ResponsePostAOrder, ResponseSellOrderPix, S3Fields, SellOrderPix, PaymentOrder } from './types'
 
 export function postAOrder(order: Partial<PostAOrder>): ResponsePostAOrder {
   return fetch({
@@ -69,5 +69,13 @@ export function postSellOrderPix(sellOrder: Partial<SellOrderPix>): ResponseSell
     method: 'POST',
     path: '/user/orders',
     data: sellOrder,
+  })
+}
+
+export function postPayABillOrder(payOrder: Partial<PaymentOrder>): ResponseSellOrderPix {
+  return fetch({
+    method: 'POST',
+    path: '/user/orders',
+    data: payOrder,
   })
 }

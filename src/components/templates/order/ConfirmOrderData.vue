@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const sanitizePayments = computed(() =>
   Object.entries(props.payment).filter(([key, value]) =>
-    !(['terms', 'bank_account'].includes(key) || ['', undefined].includes(value as any)),
+    !(['terms', 'billet', 'bank_account'].includes(key) || ['', undefined].includes(value as any)),
   ),
 )
 
@@ -51,6 +51,10 @@ function mapText(dict: any[], value: string, key: string) {
         </template>
 
         <Textfield v-else :value="value" disabled />
+      </li>
+
+      <li v-for="(value, key) in payment?.billet" v-if="payment?.billet" :key="key" class="list-item">
+        <Textfield v-if="key !== 'billet_url'" :value="value" disabled />
       </li>
     </ul>
 

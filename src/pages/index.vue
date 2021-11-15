@@ -10,7 +10,7 @@ useHead({
   meta: [
     { name: 'description', content: 'Librea cripto' },
 
-    { name: 'og:image', content: '/logo.png' },
+    { name: 'og:image', content: '/logo.svg' },
     { name: 'og:title', content: 'Libera cripto - homepage' },
     { name: 'og:description', content: 'P2P de cripto' },
   ],

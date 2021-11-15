@@ -2,12 +2,13 @@
 import type { InputEvent } from '@/@types/globals'
 import { shouldPattern, shouldRequired } from '@/composables/useFormValidation'
 
-type InputProps = {
+interface Props {
   requiredMessage?: string
   patternMessage?: string
+  hint?: string
 }
 
-const props = withDefaults(defineProps<InputProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   patternMessage: 'Valor inválido',
   requiredMessage: 'Campo obrigátorio',
 })
@@ -26,15 +27,22 @@ function checking(event: unknown) {
 </script>
 
 <template>
-  <input class="input-core" @invalid="validate" @change="checking" />
+  <input
+    v-bind="$attrs"
+    class="input-core"
+    :data-hint="hint"
+    @invalid="validate"
+    @change="checking"
+  />
 </template>
 
 <style lang="scss">
 .input-core {
-  @apply h-11 px-4
+  @apply relative h-11 px-4
     rounded-md bg-transparent
     text-sm;
 
+  overflow: initial;
   border: 2px solid #212121;
 
   &::placeholder {
@@ -44,6 +52,14 @@ function checking(event: unknown) {
   &:disabled {
     background-color: #d4d4d4;
     border: none;
+  }
+
+  &::after {
+    content: attr(data-hint);
+
+    @apply inline-block absolute
+  top-11 left-0
+  text-2xs text-fonts-primary-dark;
   }
 
 }

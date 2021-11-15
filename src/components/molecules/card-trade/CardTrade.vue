@@ -56,7 +56,7 @@ withDefaults(defineProps<CardProps>(), {
   > .label {
     @apply font-bold text-3xl font-display text-center text-fonts-primary-light;
 
-    line-height: 1.4rem;
+    line-height: 1.8rem;
 
     @screen md {
       @apply flex flex-col text-5xl;

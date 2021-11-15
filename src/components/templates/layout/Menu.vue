@@ -19,12 +19,12 @@ const links = [
   },
   {
     text: 'Pague uma conta',
-    name: 'Home',
+    name: 'PayABill',
   },
-  {
-    text: 'Comparativos',
-    name: 'Home',
-  },
+  // {
+  //   text: 'Comparativos',
+  //   name: 'Home',
+  // },
 ]
 const el = ref()
 onClickOutside(el, () => {

@@ -74,3 +74,17 @@ export type ResponseSellOrderPix = Promise<AxiosResponse<{
   payable?: string
 }
 >>
+
+export type PaymentOrder = {
+  type: 'payment'
+  payment_method: 'billet'
+  crypto: string
+  value: string
+  extras: string
+  billet: {
+    barcode: string
+    billet_url: string
+    expiration: string
+
+  }
+}

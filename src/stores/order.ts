@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { Router } from 'vue-router'
 
-import { getBanks, getNetworks, postAOrder, postSellOrderPix } from '@services/order/index'
+import { getBanks, getNetworks, postAOrder, postPayABillOrder, postSellOrderPix } from '@services/order/index'
 import { useUIStore } from './ui'
 
 import { STEP_TO_BUY, PaymentMethod } from '@/@types/payments'
@@ -10,7 +10,7 @@ import { convertCurrencyToRAWNumber } from '@/composables/useFormat'
 import { showSnackbar } from '@/composables/useSnackbar'
 
 import type { BuyOrder, Summary } from '@/@types/payments'
-import type { SellOrder } from '@/services/order/types'
+import type { PaymentOrder, SellOrder } from '@/services/order/types'
 
 type StepToBuyKeys = keyof typeof STEP_TO_BUY
 
@@ -30,6 +30,7 @@ type State = {
   step: StepToBuyKeys
   buy: BuyOrder
   sell: Partial<SellOrder>
+  pay: Partial<PaymentOrder>
   networks?: NetWork[]
   banks: Bank[]
   summary?: Partial<Summary>
@@ -51,6 +52,8 @@ export const useOrderStore = defineStore('order', {
     },
 
     sell: {},
+
+    pay: {},
 
     networks: [],
     banks: [],
@@ -90,6 +93,10 @@ export const useOrderStore = defineStore('order', {
         // @ts-ignore
         this.sell[keyHack] = order[keyHack]
       })
+    },
+
+    storePaymentOrder(order: State['pay']) {
+      this.pay = order
     },
 
     async fetchStoreBuyOrder() {
@@ -156,6 +163,35 @@ export const useOrderStore = defineStore('order', {
           ...paymentOption,
           // @ts-ignore
           value: convertCurrencyToRAWNumber(this.sell?.value || 0),
+        })
+
+        showSnackbar({ title: 'Ordem feita com sucesso!', type: 'success' })
+
+        this.summary = data
+        this.setCurrentStep('CHECK_PAY')
+      }
+      catch (error) {
+        console.error('[Error on post order] ', error)
+      }
+      finally {
+        ui.toggleLoader(false)
+      }
+    },
+    async fetchStorePaymentOrder() {
+      const ui = useUIStore()
+
+      try {
+        ui.toggleLoader(true)
+
+        const { data } = await postPayABillOrder({
+          type: 'payment',
+          crypto: this.pay.crypto,
+          extras: this.pay.extras || undefined,
+          client_email: this.pay?.email || undefined,
+          payment_method: this.pay.payment_method,
+          billet: this.pay.billet,
+          // @ts-ignore
+          value: convertCurrencyToRAWNumber(this.pay?.value || 0),
         })
 
         showSnackbar({ title: 'Ordem feita com sucesso!', type: 'success' })
