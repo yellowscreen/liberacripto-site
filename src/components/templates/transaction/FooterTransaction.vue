@@ -43,10 +43,10 @@ function shareReceipt() {
 </script>
 
 <template>
-  <footer v-if="checkPay.status === 'finished'" class="footer-transaction">
+  <footer v-if="checkPay.receipt_url" class="footer-transaction">
     <a
       class="button-core -secondary text-center mb-6"
-      :href="checkPay?.payable"
+      :href="checkPay?.receipt_url"
       target="_blank"
     >Baixar o comprovante</a>
 
@@ -57,7 +57,22 @@ function shareReceipt() {
       Compartilhar comprovante
     </Button>
   </footer>
-  <footer v-if="checkPay.status === 'pending'" class="footer-transaction">
+
+  <footer v-else-if="checkPay.status === 'finished'" class="footer-transaction">
+    <a
+      class="button-core -secondary text-center mb-6"
+      :href="checkPay?.receipt_url"
+      target="_blank"
+    >Baixar o comprovante</a>
+
+    <Button
+      class="-primary text-fonts-primary-light bg-primary-dark"
+      @click="shareReceipt"
+    >
+      Compartilhar comprovante
+    </Button>
+  </footer>
+  <footer v-else-if="checkPay.status === 'pending'" class="footer-transaction">
     <h2 class="title">
       Pagamento
     </h2>

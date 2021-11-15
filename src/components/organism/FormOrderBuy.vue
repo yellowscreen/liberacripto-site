@@ -46,7 +46,7 @@ onMounted(() => {
     </h1>
 
     <Select required class="mb-4" name="crypto" placeholder="Selecione a cripto">
-      <option v-for="{ id, name, symbol } in crypto.available" :key="id" :value="symbol">
+      <option v-for="{ id, name, code } in crypto.available" :key="id" :value="code">
         {{ name }}
       </option>
     </Select>

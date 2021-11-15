@@ -50,12 +50,11 @@ async function paymentOrderStore(formEvent: any) {
         class="mb-4 select"
         name="crypto"
         placeholder="Selecione a cripto"
-        @change="getCryptoValue"
       >
         <option
-          v-for="{ id, name, symbol } in crypto.available"
+          v-for="{ id, name, code } in crypto.available"
           :key="id"
-          :value="symbol"
+          :value="code"
         >
           {{ name }}
         </option>

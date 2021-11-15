@@ -43,6 +43,7 @@ function goBack() {
 }
 
 onMounted(() => {
+  crypto.storeCryptosAvailable()
   order.setCurrentStep('PAYMENT')
 })
 </script>

@@ -103,7 +103,7 @@ async function fetchOrder() {
       <li v-if="summary?.crypto" class="list-item">
         <span
           class="font-bold font-display"
-        >{{ mapText(crypto.available as any[], summary.crypto as string, 'symbol') }}</span>
+        >{{ mapText(crypto.available as any[], summary.crypto as string, 'code') }}</span>
       </li>
 
       <li v-if="summary?.value" class="list-item">

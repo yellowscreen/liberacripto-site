@@ -1,13 +1,14 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { getCurrency } from '@/services/currencies'
+import { getCryptosAvailable, getCurrency } from '@/services/currencies'
 
 import type { ErrorData } from '@/services'
 
 type CryptoData = {
   id?: string
   name?: string
-  symbol?: string
+  // symbol?: string
   toBRL?: number
+  code: string
 }
 
 export const useCryptosStore = defineStore('cryptos', {
@@ -15,8 +16,9 @@ export const useCryptosStore = defineStore('cryptos', {
     available: [
       {
         id: 'bitcoin',
-        symbol: 'btc',
+        // symbol: 'btc',
         name: 'Bitcoin',
+        code: 'btc',
       },
 
     ],
@@ -28,14 +30,20 @@ export const useCryptosStore = defineStore('cryptos', {
     storeCrypto(crypto: string) {
       getCurrency(crypto)
         .then(({ data }) => {
-          this.$state.cryptos = {
-            ...this.$state.cryptos,
+          this.cryptos = {
+            ...this.cryptos,
             [crypto]: data.current_price,
           }
         })
         .catch((error: ErrorData) => {
           console.error(error.response.message)
         })
+    },
+
+    storeCryptosAvailable() {
+      getCryptosAvailable().then(({ data }) => {
+        this.available = data
+      })
     },
   },
 })

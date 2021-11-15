@@ -11,3 +11,16 @@ useHead({
 <template>
   <router-view />
 </template>
+
+<style lang="scss">
+@font-face {
+  font-family: "Altone Trial";
+  src: url("/fonts/altone-trial.regular.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Altone Trial";
+  src: url("/fonts/altone-trial.bold.ttf");
+  font-weight: bold;
+}
+</style>

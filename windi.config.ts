@@ -1,7 +1,6 @@
 import { defineConfig } from 'windicss/helpers'
 // import colors from 'windicss/colors'
 import typography from 'windicss/plugin/typography'
-import defaultTheme from 'windicss/defaultTheme'
 import { colors } from './themes/libera-cripto'
 
 export default defineConfig({
@@ -16,7 +15,7 @@ export default defineConfig({
     extend: {
       colors,
       fontFamily: {
-        sans: ['"Open Sans"', ...defaultTheme.fontFamily.sans].join(''),
+        sans: ['"Open Sans"'],
         display: ['"Altone Trial"'],
       },
       fontSize: {

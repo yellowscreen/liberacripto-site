@@ -31,7 +31,7 @@ function mapText(dict: any[], value: string, key: string) {
         </template>
 
         <template v-else-if="key === 'crypto'">
-          <Textfield :value="mapText(cryptos as any[], value as string, 'symbol')" disabled />
+          <Textfield :value="mapText(cryptos as any[], value as string, 'code')" disabled />
         </template>
 
         <template v-else-if="key === 'payment_method'">

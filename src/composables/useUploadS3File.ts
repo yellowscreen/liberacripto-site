@@ -37,6 +37,6 @@ export async function uploadFileToS3({
     showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
   }
   finally {
-    ui.toggleLoader()
+    ui.toggleLoader(false)
   }
 }

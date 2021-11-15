@@ -154,7 +154,6 @@ export const useOrderStore = defineStore('order', {
 
           }
         }
-        console.log({ ...paymentOption })
         const { data } = await postSellOrderPix({
           type: 'sell',
           crypto: this.sell.crypto,

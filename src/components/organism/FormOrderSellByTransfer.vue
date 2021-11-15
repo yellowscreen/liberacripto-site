@@ -55,9 +55,9 @@ const cryptoToSell: CryptoToSell = reactive({
 })
 
 async function getCryptoValue(ev: any) {
-  const symbol = ev.target.value
-  const cryptoId = crypto.available.find(el => el.symbol === symbol)?.id ?? 'bitcoin'
-  cryptoToSell.cryptoSymbol = symbol
+  const code = ev.target.value
+  const cryptoId = crypto.available.find(el => el.code === code)?.id ?? 'bitcoin'
+  cryptoToSell.cryptoSymbol = code
 
   const { data } = await getCurrency(cryptoId)
 
@@ -92,9 +92,9 @@ onMounted(() => {
         @change="getCryptoValue"
       >
         <option
-          v-for="{ id, name, symbol } in crypto.available"
+          v-for="{ id, name, code } in crypto.available"
           :key="id"
-          :value="symbol"
+          :value="code"
         >
           {{ name }}
         </option>
