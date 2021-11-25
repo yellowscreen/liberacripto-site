@@ -36,7 +36,7 @@ const dicTransaction: DictionaryStatus = {
 
 <template>
   <header class="header-transaction">
-    <mdi:calendar-clock v-if="checkPay.status === 'pending'" class="text-yellow-400 h-8 w-8 mb-4" />
+    <mdi:timer-sand v-if="checkPay.status === 'pending'" class="text-yellow-400 h-8 w-8 mb-4" />
     <mdi:block-helper v-else-if="checkPay.status === 'blocked'" class="text-red-600 h-8 w-8 mb-4" />
     <ic:round-cancel v-else-if="checkPay.status === 'canceled'" class="text-red-600 h-8 w-8 mb-4" />
     <ic:round-check-circle v-else class="text-green-600 h-8 w-8 mb-4" />

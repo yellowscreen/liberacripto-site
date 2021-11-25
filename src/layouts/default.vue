@@ -23,7 +23,6 @@ watch(
   </main>
 
   <Footer :class="route.name === 'Home' ? '-dark' : '' " />
-  <Loader v-show="ui.loading" />
 </template>
 
 <style>

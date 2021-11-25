@@ -38,6 +38,16 @@ export default defineConfig({
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       extensions: ['vue'],
+      importMode(path) {
+        return path.startsWith('/admin') ? 'sync' : 'async'
+      },
+
+      extendRoute(route) {
+        // if (route.path.startsWith('/admin'))
+        //   return route
+
+        return route
+      },
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts

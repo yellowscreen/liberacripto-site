@@ -4,6 +4,8 @@ export const useUIStore = defineStore('UI', {
   state: () => ({
     isMenuOpen: false,
     loading: false,
+    openModals: [] as string[],
+
   }),
 
   actions: {
@@ -17,6 +19,18 @@ export const useUIStore = defineStore('UI', {
 
       this.loading = toggle
     },
+
+    toggleModal(modal: string) {
+      if (this.openModals.includes(modal)) {
+        this.openModals = this.openModals.filter(el => el !== modal)
+        return
+      }
+
+      this.openModals = [...this.openModals, modal]
+    },
+  },
+  getters: {
+    isModalOpen: state => (modal: string) => state.openModals.includes(modal),
   },
 })
 

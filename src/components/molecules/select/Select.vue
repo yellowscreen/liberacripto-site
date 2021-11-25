@@ -4,7 +4,7 @@ import { InputEvent } from '@/@types/globals'
 import { shouldRequired } from '@/composables/useFormValidation'
 
 const props = defineProps<{
-  placeholder: string
+  placeholder?: string
   requiredMessage?: string
 }>()
 
