@@ -7,7 +7,14 @@ meta:
 </route>
 
 <script lang="ts" setup>
+
 const router = useRouter()
+
+function signout() {
+  localStorage.removeItem('token')
+  router.push('/admin/signin')
+}
+
 </script>
 
 <template>
@@ -20,20 +27,20 @@ const router = useRouter()
 
     <section class="card">
       <div class="middle">
-        <Button class="button">
-          <ic:round-edit />Alterar taxas
-        </Button>
+        <!-- <Button class="button" @click="router.push('/admin/config/taxas')">
+          <ic:round-edit />Gerenciar taxas
+        </Button>-->
 
         <Button class="button" @click="router.push('/admin/config/cryptos')">
-          <cryptocurrency:btc />Gerenciar cripto
+          <cryptocurrency:btc />Gerenciar criptos
         </Button>
 
-        <Button class="button" @click="router.push('/admin/config/cryptos')">
-          <cryptocurrency:usdt />Gerenciar stable-coins
+        <Button class="button" @click="router.push('/admin/config/redes')">
+          <cryptocurrency:usdt />Gerenciar Stablecoins
         </Button>
       </div>
 
-      <Button class="-secondary mt-28 justify-self-end">
+      <Button class="-secondary mt-28 justify-self-end" @click="signout">
         Deslogar
       </Button>
     </section>

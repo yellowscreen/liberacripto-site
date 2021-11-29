@@ -10,7 +10,7 @@ meta:
 <script lang="ts" setup>
 
 import { useAdminStore } from '@/stores/admin'
-import { getAuth, getOrdersList } from '@/services/admin'
+import { getAuth, getOrdersList, signn } from '@/services/admin'
 import { useUIStore } from '@/stores/ui'
 
 const ui = useUIStore()
@@ -20,9 +20,8 @@ const router = useRouter()
 function signin() {
   // !!! consertar
   getAuth().then((request) => {
-    // location.href = request.responseURL
-    console.log(request)
-    console.log('@@ DATA ')
+    window.open(request.request.responseURL)
+    console.log('@@ DATA ', request)
   })
 }
 
@@ -43,8 +42,11 @@ onMounted(() => {
 
 <template>
   <section class="flex justify-center items-center min-h-screen">
-    <Button class="bg-primary-light px-4 py-x rounded-md text-white" @click="signin">
-      Fazer login
+    <Button
+      class="flex items-center bg-primary-light px-4 py-x rounded-md text-white"
+      @click="signin"
+    >
+      <mdi:google class="mr-4" />Fazer login
     </Button>
   </section>
 </template>

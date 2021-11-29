@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <article class="card-core">
+  <article class="card-core-order">
     <header class="header">
       <mdi:timer-sand v-if="status === 'pending'" class="icon text-yellow-400" />
       <mdi:block-helper
@@ -52,7 +52,7 @@ defineProps<{
 </template>
 
 <style lang="scss">
-.card-core {
+.card-core-order {
   @apply flex flex-col justify-around items-center
     h-300px w-full px-4 py-4 max-w-300px max-h-180px
     bg-white rounded-md font-display;

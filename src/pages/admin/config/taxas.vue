@@ -1,5 +1,5 @@
 <route lang="yaml">
-name: AdminCryptos
+name: AdminFees
 meta:
   layout: admin
   requiresAuth: true
@@ -8,7 +8,6 @@ meta:
 <script lang="ts" setup>
 
 import { useAdminStore } from '@/stores/admin'
-import { useUIStore } from '@/stores/ui'
 
 useHead({
   title: 'Libera Cripto admin',
@@ -16,51 +15,37 @@ useHead({
     { name: 'description', content: 'Libera cripto' },
 
     { name: 'og:image', content: '/logo.svg' },
-    { name: 'og:title', content: 'Libera cripto - cryptos' },
+    { name: 'og:title', content: 'Libera cripto - Redes' },
     { name: 'og:description', content: 'P2P de cripto' },
   ],
 })
 
-const ui = useUIStore()
 const admin = useAdminStore()
 
-const cryptoDetail = ref({ id: '0', name: '-' })
-
-function updateTaxes(crypto: { id: string; name: string }) {
-  cryptoDetail.value = crypto
-
-  ui.toggleModal('taxes')
-}
-
 onMounted(() => {
-  admin.fetchCryptoList()
+  admin.fetchNetworkList()
+  console.log('UEEEEEE ', admin.listNetworks)
 })
 </script>
 
 <template>
-  <section class="admin-cryptos-config">
+  <section class="admin-networks-config">
     <div class="header">
       <h2
         class="font-display text-xl text-white font-bold text-center"
       >
-        Lista de criptoativos cadastrados
+        Lista de taxas
       </h2>
     </div>
 
-    <ListCryptosCard class="crypto-list" @update-taxes="updateTaxes" />
+    <ListNetworksCard class="crypto-list" />
 
-    <ModalAddCrypto @update-list="admin.fetchCryptoList()" />
-    <ModalFees
-      :id="cryptoDetail.id"
-      :crypto-name="cryptoDetail.name"
-      :is-stablecoin="false"
-      @update-list="admin.fetchCryptoList()"
-    />
+    <ModalAddNetworkCrypto :is-stable-coin="false" @update-list="admin.fetchNetworkList()" />
   </section>
 </template>
 
 <style lang="scss">
-.admin-cryptos-config {
+.admin-networks-config {
   @apply flex flex-col items-center
     w-full min-h-screen;
 

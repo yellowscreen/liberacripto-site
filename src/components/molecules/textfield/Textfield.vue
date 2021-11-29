@@ -6,12 +6,18 @@ interface Props {
   requiredMessage?: string
   patternMessage?: string
   hint?: string
+  value?: string
+
 }
 
 const props = withDefaults(defineProps<Props>(), {
   patternMessage: 'Valor inválido',
   requiredMessage: 'Campo obrigátorio',
 })
+
+const emit = defineEmits<{
+  (e: 'update:value', event: string): void
+}>()
 
 function validate(event: unknown) {
   const { target } = event as InputEvent
@@ -24,6 +30,11 @@ function checking(event: unknown) {
 
   target.checkValidity() && target.reportValidity()
 }
+
+function emitValue(event: any) {
+  const value = event.target.value
+  emit('update:value', value)
+}
 </script>
 
 <template>
@@ -31,6 +42,8 @@ function checking(event: unknown) {
     v-bind="$attrs"
     class="input-core"
     :data-hint="hint"
+    :value="value"
+    @input="emitValue"
     @invalid="validate"
     @change="checking"
   />
@@ -55,12 +68,11 @@ function checking(event: unknown) {
   }
 
   &::after {
-    content: attr(data-hint);
+    content: 'attr(data-hint)';
 
     @apply inline-block absolute
   top-11 left-0
   text-2xs text-fonts-primary-dark;
   }
-
 }
 </style>

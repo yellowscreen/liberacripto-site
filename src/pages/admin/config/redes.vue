@@ -1,5 +1,5 @@
 <route lang="yaml">
-name: AdminCryptos
+name: AdminNetwork
 meta:
   layout: admin
   requiresAuth: true
@@ -16,7 +16,7 @@ useHead({
     { name: 'description', content: 'Libera cripto' },
 
     { name: 'og:image', content: '/logo.svg' },
-    { name: 'og:title', content: 'Libera cripto - cryptos' },
+    { name: 'og:title', content: 'Libera cripto - Redes' },
     { name: 'og:description', content: 'P2P de cripto' },
   ],
 })
@@ -33,34 +33,35 @@ function updateTaxes(crypto: { id: string; name: string }) {
 }
 
 onMounted(() => {
-  admin.fetchCryptoList()
+  admin.fetchNetworkList()
 })
 </script>
 
 <template>
-  <section class="admin-cryptos-config">
+  <section class="admin-networks-config">
     <div class="header">
       <h2
         class="font-display text-xl text-white font-bold text-center"
       >
-        Lista de criptoativos cadastrados
+        Lista de Redes cadastradas
       </h2>
     </div>
 
-    <ListCryptosCard class="crypto-list" @update-taxes="updateTaxes" />
+    <ListNetworksCard class="crypto-list" @update-taxes="updateTaxes" />
 
-    <ModalAddCrypto @update-list="admin.fetchCryptoList()" />
+    <ModalAddNetworkCrypto @update-list="admin.fetchNetworkList()" />
+
     <ModalFees
       :id="cryptoDetail.id"
       :crypto-name="cryptoDetail.name"
-      :is-stablecoin="false"
-      @update-list="admin.fetchCryptoList()"
+      :is-stablecoin="true"
+      @update-list="admin.fetchNetworkList()"
     />
   </section>
 </template>
 
 <style lang="scss">
-.admin-cryptos-config {
+.admin-networks-config {
   @apply flex flex-col items-center
     w-full min-h-screen;
 

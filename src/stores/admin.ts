@@ -3,12 +3,13 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { RemoveableRef } from '@vueuse/core'
 import { useUIStore } from './ui'
 import type { Order, Crypto } from '@/@types/admin'
-import { getCryptoList, GetOrderListParameters, getOrdersList } from '@/services/admin'
+import { getCryptoList, getNetworkList, GetOrderListParameters, getOrdersList } from '@/services/admin'
 
 type State = {
   token: string | RemoveableRef<string>
   listOrders: Order[]
   listCryptos: Crypto[]
+  listNetworks: Crypto[]
   filtersUI: {
     type: Order['type']
     method: Order['payment_method']
@@ -30,6 +31,7 @@ export const useAdminStore = defineStore('admin', {
 
     listOrders: [],
     listCryptos: [],
+    listNetworks: [],
   }),
 
   actions: {
@@ -40,6 +42,20 @@ export const useAdminStore = defineStore('admin', {
 
         const { data } = await getCryptoList()
         this.listCryptos = data
+      }
+      catch (er) { }
+      finally {
+        ui.toggleLoader(false)
+      }
+    },
+
+    async fetchNetworkList() {
+      const ui = useUIStore()
+      try {
+        ui.toggleLoader(true)
+
+        const { data } = await getNetworkList()
+        this.listNetworks = data
       }
       catch (er) { }
       finally {
