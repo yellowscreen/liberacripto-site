@@ -5,7 +5,7 @@ import { getBanks, getNetworks, postAOrder, postPayABillOrder, postSellOrderPix 
 import { useUIStore } from './ui'
 
 import { STEP_TO_BUY, PaymentMethod } from '@/@types/payments'
-import { convertCurrencyToRAWNumber } from '@/composables/useFormat'
+import { convertCurrencyToRAWNumber, convertNumberToCurrency } from '@/composables/useFormat'
 
 import { showSnackbar } from '@/composables/useSnackbar'
 
@@ -123,7 +123,14 @@ export const useOrderStore = defineStore('order', {
         this.setCurrentStep('CHECK_PAY')
       }
       catch (error) {
+        const { start, stop } = error.response.data?.errors?.[0].args
+
         console.error('[Error on post order] ', error)
+        showSnackbar({
+          title: 'Valor inválido!',
+          description: `O valor deve ser entre ${convertNumberToCurrency(start)} e ${convertNumberToCurrency(stop)}`,
+          type: 'danger',
+        })
       }
       finally {
         ui.toggleLoader(false)
@@ -170,7 +177,14 @@ export const useOrderStore = defineStore('order', {
         this.setCurrentStep('CHECK_PAY')
       }
       catch (error) {
+        const { start, stop } = error.response.data?.errors?.[0].args
+
         console.error('[Error on post order] ', error)
+        showSnackbar({
+          title: 'Valor inválido!',
+          description: `O valor deve ser entre ${convertNumberToCurrency(start)} e ${convertNumberToCurrency(stop)}`,
+          type: 'danger',
+        })
       }
       finally {
         ui.toggleLoader(false)

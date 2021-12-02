@@ -29,6 +29,7 @@ function checking(event: unknown) {
   const { target } = event as InputEvent
 
   target.checkValidity() && target.reportValidity()
+  emitValue(event)
 }
 
 function emitValue(event: any) {
@@ -39,11 +40,11 @@ function emitValue(event: any) {
 
 <template>
   <input
+    v-money
     v-bind="$attrs"
     class="input-core"
     :data-hint="hint"
     :value="value"
-    @input="emitValue"
     @invalid="validate"
     @change="checking"
   />

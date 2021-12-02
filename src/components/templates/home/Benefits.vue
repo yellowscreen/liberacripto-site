@@ -38,6 +38,7 @@ const router = useRouter()
           </template>
 
           <h2 class="label flex flex-col">
+            div
             Pagar
             <span class="md:hidden">uma conta</span>
             <span class="-small mt-2">
@@ -54,6 +55,8 @@ const router = useRouter()
         <div class="coin"></div>
         <div class="coin"></div>
       </div>
+
+      <img class="coins-desk" src="/bitcoins.png" alt />
 
       <p class="text">
         <span>Compre, venda ou pague contas</span>
@@ -166,6 +169,7 @@ const router = useRouter()
       width: 100px;
 
       @screen md {
+        display: none;
         width: 248px;
         height: 248px;
         margin-right: 32px;
@@ -191,6 +195,17 @@ const router = useRouter()
         }
       }
     }
+
+    > .coins-desk {
+      display: none;
+
+      @screen md {
+        display: block;
+        width: 248px;
+        height: 248px;
+        margin-right: 32px;
+      }
+    }
   }
 
   > .benefits {
@@ -200,7 +215,7 @@ const router = useRouter()
 
     > .container-benefit {
       @screen md {
-        @apply flex flex-col ;
+        @apply flex flex-col;
 
         width: 333px;
         margin-right: 120px;

@@ -23,9 +23,7 @@ const router = useRouter()
 const crypto = useCryptosStore()
 
 onMounted(() => {
-  crypto.$state.available.forEach(({ id }) => {
-    crypto.storeCrypto(id)
-  })
+  crypto.storeCryptosAvailable()
 })
 
 function goToSellOrder(method: string) {

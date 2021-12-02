@@ -73,7 +73,10 @@ export function updateCryptoTaxes(method: 'PUT' | 'POST', id: string, data: { pe
   return fetch({
     method: method ?? 'POST',
     path: `/admin/config/cryptos/${id}/taxes/${method === 'PUT' ? '1' : ''}`,
-    data,
+    data: {
+      ...data,
+      type: 'sell',
+    },
   })
 }
 
@@ -101,6 +104,9 @@ export function updateNetworkTaxes(method: 'PUT' | 'POST', id: string, data: { p
   return fetch({
     method: method ?? 'POST',
     path: `/admin/config/networks/${id}/taxes/${method === 'PUT' ? '1' : ''}`,
-    data,
+    data: {
+      ...data,
+      type: 'sell',
+    },
   })
 }

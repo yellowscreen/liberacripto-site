@@ -41,12 +41,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="flex justify-center items-center min-h-screen">
+  <section class="flex flex-col justify-center items-center min-h-screen bg-primary-light">
+    <img class="mb-40" width="180" height="180" src="/logo-white.svg" />
+
+    <p class="mb-10 text-white font-display">
+      Acessar Admin
+    </p>
+
     <Button
-      class="flex items-center bg-primary-light px-4 py-x rounded-md text-white"
+      class="flex items-center bg-cta px-4 py-x rounded-md text-primary-dark"
       @click="signin"
     >
-      <mdi:google class="mr-4" />Fazer login
+      <mdi:google class="mr-4 text-xl" />Fazer Login
     </Button>
   </section>
 </template>

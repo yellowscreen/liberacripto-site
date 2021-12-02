@@ -114,7 +114,7 @@ onUpdated(async() => {
           Range de valor
         </h3>
 
-        <Select
+        <!-- <Select
           required
           class="w-full mb-8"
           placeholder="Tipo de transação"
@@ -126,7 +126,7 @@ onUpdated(async() => {
           <option :selected="taxes.type === 'sell'" value="sell">
             Venda
           </option>
-        </Select>
+        </Select> -->
 
         <label class="flex flex-col w-full mb-6">
           <p class="flex justify-between w-full font-display text-sm">

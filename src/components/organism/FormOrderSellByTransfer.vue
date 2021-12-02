@@ -6,13 +6,6 @@ import SelectAutocomplete from '../molecules/select/SelectAutocomplete.vue'
 import { getCurrency } from '@/services/currencies'
 import { convertCurrencyToRAWNumber } from '@/composables/useFormat'
 
-type CryptoToSell = {
-  cryptoCurrentValue: number
-  valueToSell: number
-  valueInCrypto: number | string
-  cryptoSymbol: string
-}
-
 defineProps<{
   title: string | string[]
 }>()
@@ -21,11 +14,10 @@ const emit = defineEmits<{
   (e: 'next'): void
 }>()
 
-const route = useRoute()
 const order = useOrderStore()
 const crypto = useCryptosStore()
 
-const payment_method = computed(() => route.params.method === 'transferencia' ? 'transfer' : 'pix')
+const desisto = ref('')
 
 function sellOrderStore(formEvent: any) {
   const form = new FormData(formEvent.target)
@@ -43,35 +35,46 @@ function sellOrderStore(formEvent: any) {
     owner_document,
   }
 
-  order.storeSellOrder({ ...sellOrder, payment_method, bank_account })
+  order.storeSellOrder({ ...sellOrder, payment_method: 'transfer', bank_account })
   emit('next')
 }
 
-const cryptoToSell: CryptoToSell = reactive({
-  cryptoSymbol: '',
-  cryptoCurrentValue: 0.1,
-  valueToSell: 0,
-  valueInCrypto: computed(() => Number(cryptoToSell.valueToSell / cryptoToSell.cryptoCurrentValue).toPrecision(18) || 0),
+const cryptoS = ref({
+  name: '',
+  value: 213,
 })
 
-async function getCryptoValue(ev: any) {
+const cryptoToSell = ref({
+  cryptoSymbol: '',
+  cryptoTaxed: 0,
+})
+
+function setCryptoToSell(ev: any) {
   const code = ev.target.value
-  const cryptoId = crypto.available.find(el => el.code === code)?.id ?? 'bitcoin'
-  cryptoToSell.cryptoSymbol = code
 
-  const { data } = await getCurrency(cryptoId)
+  const cryptoId = crypto.available.find(el => el.code === code)?.name ?? 'bitcoin'
 
-  cryptoToSell.cryptoCurrentValue = data.current_price
+  cryptoToSell.value.cryptoSymbol = code
+  cryptoS.value.name = cryptoId
 }
 
 function setValueToSell(ev: any) {
-  const value = ev.target.value
-  cryptoToSell.valueToSell = convertCurrencyToRAWNumber(value)
+  const inp = ev.target as HTMLInputElement
+  const value = inp.value
+  cryptoS.value.value = convertCurrencyToRAWNumber(value)
 }
 
 onMounted(() => {
   order.storeBanks()
 })
+
+watch(cryptoS, ({ name, value }) => {
+  if (name.length && value > 0) {
+    getCurrency(name, value).then(({ data }) => {
+      cryptoToSell.value.cryptoTaxed = data.totalTaxedCrypto
+    })
+  }
+}, { deep: true })
 </script>
 
 <template>
@@ -89,26 +92,23 @@ onMounted(() => {
         class="mb-4 select"
         name="crypto"
         placeholder="Selecione a cripto"
-        @change="getCryptoValue"
+        @change="setCryptoToSell"
       >
-        <option
-          v-for="{ id, name, code } in crypto.available"
-          :key="id"
-          :value="code"
-        >
+        <option v-for="{ id, name, code } in crypto.available" :key="id" :value="code">
           {{ name }}
         </option>
       </Select>
 
-      <Textfield
-        v-money
-        :disabled="!cryptoToSell.cryptoSymbol"
+      <TextfieldMoney
+        id="crypto-value"
+        v-model:value="desisto"
+
         required
         name="value"
         class="textfield"
         inputmode="numeric"
         placeholder="Insira o valor (R$)"
-        @blur="setValueToSell"
+        @blur.stop="setValueToSell"
       />
       <!--
       <Textfield
@@ -122,7 +122,7 @@ onMounted(() => {
       <strong
         v-show="cryptoToSell.cryptoSymbol"
         class="input-core font-display uppercase text-xs flex items-center !bg-gray-300"
-      >{{ cryptoToSell.cryptoSymbol }} {{ cryptoToSell.valueInCrypto }}</strong>
+      >{{ cryptoToSell.cryptoSymbol }} {{ cryptoToSell.cryptoTaxed }}</strong>
     </fieldset>
 
     <fieldset class="group" name="bank_account">
