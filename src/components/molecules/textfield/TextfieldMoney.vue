@@ -36,11 +36,11 @@ function emitValue(event: any) {
   const value = event.target.value
   emit('update:value', value)
 }
+
 </script>
 
 <template>
   <input
-    v-money
     v-bind="$attrs"
     class="input-core"
     :data-hint="hint"

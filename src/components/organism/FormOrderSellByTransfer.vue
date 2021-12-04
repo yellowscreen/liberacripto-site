@@ -102,6 +102,7 @@ watch(cryptoS, ({ name, value }) => {
       <TextfieldMoney
         id="crypto-value"
         v-model:value="desisto"
+        v-money
 
         required
         name="value"
