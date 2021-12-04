@@ -7,6 +7,7 @@ meta:
 
 <script lang="ts" setup>
 
+import { deleteCrypto } from '@/services/admin'
 import { useAdminStore } from '@/stores/admin'
 import { useUIStore } from '@/stores/ui'
 
@@ -32,6 +33,10 @@ function updateTaxes(crypto: { id: string; name: string }) {
   ui.toggleModal('taxes')
 }
 
+function deleteACrypto({ id }: {id: string}) {
+  deleteCrypto(id).then(() => admin.fetchCryptoList())
+}
+
 onMounted(() => {
   admin.fetchCryptoList()
 })
@@ -47,7 +52,11 @@ onMounted(() => {
       </h2>
     </div>
 
-    <ListCryptosCard class="crypto-list" @update-taxes="updateTaxes" />
+    <ListCryptosCard
+      class="crypto-list"
+      @update-taxes="updateTaxes"
+      @delete="deleteACrypto"
+    />
 
     <ModalAddCrypto @update-list="admin.fetchCryptoList()" />
     <ModalFees

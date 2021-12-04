@@ -7,11 +7,14 @@ meta:
 </route>
 
 <script lang="ts" setup>
+import { useAdminStore } from '@/stores/admin'
 
 const router = useRouter()
+const admin = useAdminStore()
 
 function signout() {
-  localStorage.removeItem('token')
+  localStorage.clear()
+  admin.storeToken('')
   router.push('/admin/signin')
 }
 

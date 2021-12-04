@@ -9,6 +9,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'update-taxes', v: { name: string; id: string }): void
+  (e: 'delete', v: { id: string }): void
 }>()
 </script>
 
@@ -38,8 +39,14 @@ const emit = defineEmits<{
       <MenuButton :id="`crypto-${id}`" :menu-position="'left'">
         <template #items>
           <li class>
-            <Button type="button" @click="emit('update-taxes', { name, id })">
+            <Button class="w-full" type="button" @click="emit('update-taxes', { name, id })">
               Editar Taxas
+            </Button>
+          </li>
+
+          <li class>
+            <Button class="bg-red-500 text-white w-full !rounded-none" type="button" @click="emit('delete', { id })">
+              Deletar coin
             </Button>
           </li>
         </template>
@@ -54,8 +61,12 @@ const emit = defineEmits<{
         <strong class="break-all">{{ wallet ?? '0x852d6544eD95D71a0Baaf8B4dDC1A765300e25BE' }}</strong>
       </p>
 
-      <Button class="bg-primary-light text-white !h-42px w-full" @click="emit('update-taxes', { name, id })">
+      <Button class="bg-primary-light text-white !h-42px w-full mb-4" @click="emit('update-taxes', { name, id })">
         Editar taxas
+      </Button>
+
+      <Button class="bg-red-500 text-white !h-42px w-full" @click="emit('delete', { id })">
+        Deletar coin
       </Button>
     </footer>
   </article>

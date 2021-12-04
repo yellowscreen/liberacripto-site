@@ -7,6 +7,7 @@ const admin = useAdminStore()
 
 const emit = defineEmits<{
   (e: 'update-taxes', v: { name: string; id: string}): void
+  (e: 'delete', v: { id: string}): void
 }>()
 </script>
 
@@ -21,6 +22,7 @@ const emit = defineEmits<{
       :crypto="crypto.code"
       :name="crypto.name"
       @update-taxes="emit('update-taxes', $event)"
+      @delete="emit('delete', $event)"
     />
 
     <h2 v-if="!admin.listCryptos.length" class="text-xl font-display font-bold  mt-5/10">

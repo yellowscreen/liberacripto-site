@@ -7,6 +7,7 @@ meta:
 
 <script lang="ts" setup>
 
+import { deleteNetwork } from '@/services/admin'
 import { useAdminStore } from '@/stores/admin'
 import { useUIStore } from '@/stores/ui'
 
@@ -32,6 +33,9 @@ function updateTaxes(crypto: { id: string; name: string }) {
   ui.toggleModal('taxes')
 }
 
+function deleteAStablecoin({ id }: {id: string}) {
+  deleteNetwork(id).then(() => admin.fetchNetworkList())
+}
 onMounted(() => {
   admin.fetchNetworkList()
 })
@@ -47,7 +51,12 @@ onMounted(() => {
       </h2>
     </div>
 
-    <ListNetworksCard class="crypto-list" @update-taxes="updateTaxes" />
+    <ListNetworksCard
+      class="crypto-list"
+      @update-taxes="updateTaxes"
+
+      @delete="deleteAStablecoin"
+    />
 
     <ModalAddNetworkCrypto @update-list="admin.fetchNetworkList()" />
 

@@ -35,6 +35,10 @@ export const useAdminStore = defineStore('admin', {
   }),
 
   actions: {
+    storeToken(token: string) {
+      this.token = token
+    },
+
     async fetchCryptoList() {
       const ui = useUIStore()
       try {

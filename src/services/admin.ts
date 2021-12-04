@@ -12,9 +12,13 @@ export type GetOrderListParameters = {
   search?: string
 }
 
-export function getAuth(): Promise<AxiosResponse> {
+export function getAuth(token: string): Promise<AxiosResponse> {
   return fetch({
-    path: '/admin/auth/google/redirect',
+    method: 'POST',
+    path: '/admin/auth/google',
+    data: {
+      token,
+    },
   })
 }
 
@@ -63,6 +67,13 @@ export function postAddACrypto(crypto: Omit<Crypto, 'id'>): Promise<AxiosRespons
   })
 }
 
+export function deleteCrypto(id: string): Promise<AxiosResponse> {
+  return fetch({
+    method: 'DELETE',
+    path: `/admin/config/cryptos/${id}`,
+  })
+}
+
 export function getCryptoTaxes(id: string) {
   return fetch({
     path: `/admin/config/cryptos/${id}/taxes`,
@@ -91,6 +102,13 @@ export function postAddANetwork(network: Omit<Crypto, 'id'>): Promise<AxiosRespo
     method: 'POST',
     path: '/admin/config/networks',
     data: network,
+  })
+}
+
+export function deleteNetwork(id: string): Promise<AxiosResponse> {
+  return fetch({
+    method: 'DELETE',
+    path: `/admin/config/networks/${id}`,
   })
 }
 

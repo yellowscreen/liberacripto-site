@@ -7,6 +7,8 @@ const admin = useAdminStore()
 
 const emit = defineEmits<{
   (e: 'update-taxes', v: { name: string; id: string }): void
+  (e: 'delete', v: { id: string}): void
+
 }>()
 </script>
 
@@ -21,6 +23,7 @@ const emit = defineEmits<{
       :crypto="crypto?.symbol"
       :name="crypto.name"
       @update-taxes="emit('update-taxes', $event)"
+      @delete="emit('delete', $event)"
     />
 
     <h2
