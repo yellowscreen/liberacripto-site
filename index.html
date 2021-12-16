@@ -19,14 +19,16 @@
 
 
   <script>
-    (function() {
+    (function () {
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
       const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
       if (setting === 'dark' || (prefersDark && setting !== 'light'))
         document.documentElement.classList.toggle('dark', true)
     })()
   </script>
-    <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+
+  <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 
 </head>
 

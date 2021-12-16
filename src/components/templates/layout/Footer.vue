@@ -4,8 +4,11 @@
 
 <template>
   <footer class="footer-core">
+    <div class="social-media">
+      <a href="https://www.instagram.com/italobarros.me/"><img src="/Instagram_logo.svg" width="24" height="24" /></a>
+    </div>
     <div>
-      <img src="/logo-fit.svg" width="42" height="40" />
+      <img src="/favicon.svg" width="24" height="24" />
     </div>
     <a class="icon-btn" rel="noreferrer" href="#">Liberacripto (c) 2021</a>
   </footer>
@@ -22,6 +25,10 @@
     &::before {
       background-color: #586971;
     }
+  }
+
+  > .social-media {
+    margin-right: 3em;
   }
 
   &::before {

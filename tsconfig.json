@@ -3,7 +3,11 @@
     "baseUrl": ".",
     "module": "ESNext",
     "target": "es2016",
-    "lib": ["DOM", "ESNext",  "es2018"],
+    "lib": [
+      "DOM",
+      "ESNext",
+      "es2018"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "incremental": false,
@@ -19,18 +23,37 @@
       "vite-plugin-vue-layouts/client"
     ],
     "paths": {
-      "@/*": ["./src/*"],
-
-      "@myTypes/*": ["./src/@types/*"],
-      "@services/*": ["./src/services/*"],
-      "@icons/*": ["./src/assets/icons/*"],
-      "@stores/*": ["./src/stores/*"],
-
-      "@atoms/*": ["./src/components/atoms/*"],
-      "@molecules/*": ["./src/components/molecules/*"],
-      "@organisms/*": ["./src/components/organisms/*"],
-      "@templates/*": ["./src/components/templates/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@myTypes/*": [
+        "./src/@types/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@icons/*": [
+        "./src/assets/icons/*"
+      ],
+      "@stores/*": [
+        "./src/stores/*"
+      ],
+      "@atoms/*": [
+        "./src/components/atoms/*"
+      ],
+      "@molecules/*": [
+        "./src/components/molecules/*"
+      ],
+      "@organisms/*": [
+        "./src/components/organisms/*"
+      ],
+      "@templates/*": [
+        "./src/components/templates/*"
+      ]
     }
   },
-  "exclude": ["dist", "node_modules"]
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }
