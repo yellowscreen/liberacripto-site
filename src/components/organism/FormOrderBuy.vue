@@ -84,7 +84,7 @@ onMounted(() => {
 
     <label class="terms">
       <input type="checkbox" name="terms" required />
-      <span>Eu li e aceito os termos de uso</span>
+      <span><a href="/termos" target="_blank">Eu li e aceito os termos de uso</a></span>
     </label>
 
     <div class="flex justify-between items-center">

@@ -51,7 +51,7 @@ function setValueToSell(ev: any) {
 
 watch(cryptoS, ({ name, value }) => {
   if (name.length && value > 0) {
-    getCurrency(name, value).then(({ data }) => {
+    getCurrency(name, value).then(({ data }: any) => {
       cryptoToSell.value.cryptoTaxed = data.totalTaxedCrypto
     })
   }
@@ -120,7 +120,7 @@ watch(cryptoS, ({ name, value }) => {
     </fieldset>
     <label class="terms">
       <input type="checkbox" name="terms" required />
-      <span>Eu li e aceito os termos de uso</span>
+      <span><a href="/termos" target="_blank">Eu li e aceito os termos de uso</a></span>
     </label>
 
     <div class="flex justify-between items-center">

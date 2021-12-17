@@ -16,7 +16,7 @@ const router = useRouter()
     </div>
 
     <p class="description">
-      simply dummy text of the printing and typesetting industry.
+      Junte-se à plataforma que reconhece a liberdade.
     </p>
 
     <Button class="cta" @click="router.push({ name: 'BuyMethod' })">

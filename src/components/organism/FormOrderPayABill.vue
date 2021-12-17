@@ -16,7 +16,7 @@ const order = useOrderStore()
 const crypto = useCryptosStore()
 
 async function paymentOrderStore(formEvent: any) {
-  const { receiptUrl } = await uploadFileToS3()
+  const { receiptUrl }: any = await uploadFileToS3()
 
   const form = new FormData(formEvent.target)
   const data = Object.fromEntries(form as any) as any
@@ -89,7 +89,7 @@ async function paymentOrderStore(formEvent: any) {
 
     <label class="terms">
       <input type="checkbox" name="terms" required />
-      <span>Eu li e aceito os termos de uso</span>
+      <span><a href="/termos" target="_blank">Eu li e aceito os termos de uso</a></span>
     </label>
 
     <div class="flex justify-between items-center">

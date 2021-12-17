@@ -38,7 +38,6 @@ const router = useRouter()
           </template>
 
           <h2 class="label flex flex-col">
-            div
             Pagar
             <span class="md:hidden">uma conta</span>
             <span class="-small mt-2">
@@ -56,7 +55,7 @@ const router = useRouter()
         <div class="coin"></div>
       </div>
 
-      <img class="coins-desk" src="/bitcoins.png" alt />
+      <img class="coins-desk" src="/bitcoins.png" alt="imagem-bitcoin" />
 
       <p class="text">
         <span>Compre, venda ou pague contas</span>
@@ -79,8 +78,8 @@ const router = useRouter()
 
       <div class="benefit-items">
         <strong class="benefit-item">Tudo de forma anônima!</strong>
-        <strong class="benefit-item">Tudo de forma anônima!</strong>
-        <strong class="benefit-item">Tudo de forma anônima!</strong>
+        <strong class="benefit-item">Melhores taxas!</strong>
+        <strong class="benefit-item">Simples de Usar!</strong>
       </div>
     </div>
 
@@ -246,7 +245,7 @@ const router = useRouter()
     }
 
     > .benefit-items > .benefit-item {
-      @apply flex justify-center items-center
+      @apply flex items-center
       mb-6
       font-thin text-fonts-secondary-light;
       z-index: 1;
@@ -256,7 +255,7 @@ const router = useRouter()
         border-radius: 50%;
         border: 1px solid;
 
-        @apply inline-block h-8 w-8 mr-12 border-cta;
+        @apply inline-block h-8 w-8 mr-4 border-cta;
       }
 
       &:last-of-type {

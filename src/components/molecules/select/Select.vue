@@ -33,8 +33,14 @@ function checking(event: unknown) {
 .select-core {
   @apply h-11 px-4
     rounded-md bg-transparent;
-
+  cursor: pointer;
   border: 2px solid #212121;
-
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-repeat: no-repeat;
+    background-image: url('/arrow_dropdown.svg');   /* Add custom arrow */
+    background-position-x: 96%;
+    background-position-y: 10px;
 }
 </style>
