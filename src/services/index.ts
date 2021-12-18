@@ -40,7 +40,6 @@ function responseErrorInterceptor(config: any, router: Router) {
     showSnackbar({ type: 'danger', title: 'Sessão expirada', description: 'Necessário fazer login' })
 
     if (isAdminRouter) {
-      console.log('@@@ ok')
       router.push({ path: '/admin/signin' })
     }
   }

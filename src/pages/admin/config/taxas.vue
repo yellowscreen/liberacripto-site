@@ -24,7 +24,7 @@ const admin = useAdminStore()
 
 onMounted(() => {
   admin.fetchNetworkList()
-  console.log('UEEEEEE ', admin.listNetworks)
+ 
 })
 </script>
 
