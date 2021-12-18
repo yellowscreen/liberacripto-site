@@ -6,7 +6,7 @@ const admin = useAdminStore()
 const ui = useUIStore()
 
 router.beforeEach((to) => {
-  console.log('[is authenticated?]', admin.isAuth)
+  
   if (to.meta.requiresAuth && !admin.isAuth) return router.replace('/admin/signin')
 })
 

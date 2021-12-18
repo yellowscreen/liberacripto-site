@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useAdminStore } from '@/stores/admin'
+// import { useAdminStore } from '@/stores/admin'
 
 const router = useRouter()
 
-const admin = useAdminStore()
-onBeforeMount(() => {
-  console.log(' oi ', admin)
-})
+// const admin = useAdminStore()
+
+
 </script>
 
 <template>

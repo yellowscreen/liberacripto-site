@@ -5,7 +5,7 @@
 <template>
   <footer class="footer-core">
     <div class="social-media">
-      <a href="https://www.instagram.com/italobarros.me/"><img src="/Instagram_logo.svg" width="24" height="24" /></a>
+      <a href="https://www.instagram.com/liberacripto/"><img src="/Instagram_logo.svg" width="24" height="24" /></a>
     </div>
     <div>
       <img src="/favicon.svg" width="24" height="24" />

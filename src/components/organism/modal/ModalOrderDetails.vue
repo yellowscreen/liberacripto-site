@@ -30,6 +30,7 @@ function formatDate(dateString: string) {
   return '00/00/00 00:00h'
 }
 
+
 async function udpateOrderStatus(status: Order['status']) {
   try {
     ui.toggleLoader(true)
@@ -40,6 +41,8 @@ async function udpateOrderStatus(status: Order['status']) {
       title: `Status alterado com suceeso para ${admin.dictionary({ type: 'status', text: status })}`,
     })
     emits('updateOrders')
+
+   
 
     ui.toggleModal('order-details')
   }
@@ -86,14 +89,14 @@ async function udpateOrderStatus(status: Order['status']) {
 
             <p class="title">
               <span class="mr-3">ID</span>
-              <strong>{{ orderDetails.id }}</strong>
+              <strong>{{ orderDetails.shareable_code }}</strong>
             </p>
           </div>
         </section>
 
         <Select
           name="status"
-          class="mb-4 !bg-primary-light !text-white"
+          class="mb-4 w-[9.23rem]"
           @change="udpateOrderStatus($event.target.value)"
         >
           <option
