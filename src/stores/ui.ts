@@ -14,11 +14,18 @@ export const useUIStore = defineStore('UI', {
 
       this.isMenuOpen = toggle
     },
-    toggleLoader(isLoading?: boolean) {
-      const toggle = isLoading ?? !this.loading
+    toggleLoader(loading?: boolean) {
+      const toggle = loading ?? !this.loading
+      if (!toggle) {
+        return setTimeout(() => {
+          this.loading = toggle
+        }, 600)
+      }
 
       this.loading = toggle
     },
+
+    
 
     toggleModal(modal: string) {
       if (this.openModals.includes(modal)) {

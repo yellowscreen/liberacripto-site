@@ -29,7 +29,7 @@ defineProps<{
         </p>
 
         <p class="text-left">
-          <span class="mr-2">ID</span>
+          <span class="mr-2">ID_Transação</span>
           <strong>{{ orderId }}</strong>
         </p>
       </div>
@@ -54,7 +54,7 @@ defineProps<{
 <style lang="scss">
 .card-core-order {
   @apply flex flex-col justify-around items-center
-    h-300px w-full px-4 py-4 max-w-300px max-h-180px
+    h-300px w-full px-4 py-4 max-w-500px max-h-180px
     bg-white rounded-md font-display;
 
   border: 1px solid gray;

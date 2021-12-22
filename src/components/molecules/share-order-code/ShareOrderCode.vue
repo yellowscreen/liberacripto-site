@@ -6,11 +6,13 @@ const props = defineProps<{
 
 function copyToClipboard() {
   if (navigator.share) {
+    navigator.clipboard.writeText(props.code)
     navigator.share({
       title: 'Código do pedido - Libera Cripto',
       text: props.code,
 
-    }).then(d => console.log('sucesso ', d)).catch(err => console.log('nooo ', err))
+    }).then(d => console.log('Shared', d)).catch(err => console.log('Error', err))
+    
   }
   else {
     navigator.clipboard.writeText(props.code)
