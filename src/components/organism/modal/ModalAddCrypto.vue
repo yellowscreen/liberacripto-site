@@ -21,6 +21,13 @@ function addCrypto() {
 
     ui.toggleModal('add-crypto')
     emit('update-list')
+  }).catch((error) => {
+    if (error.response.data.errors[0].rule === 'unique') {
+      showSnackbar({ type: 'danger', title: 'Crypto já cadastrada!' })
+    }
+    if (error.response.data.errors[0].rule === 'required') {
+      showSnackbar({ type: 'danger', title: 'Preencha todos os campos!' })
+    }
   })
 }
 

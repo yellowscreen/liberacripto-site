@@ -161,7 +161,9 @@ onUpdated(async() => {
             :max="20000"
           />
         </label>
-
+        <label for="percentage">
+          Insira a taxa (%)
+        </label>
         <Textfield
           v-model:value="taxes.percentage"
           required
@@ -174,6 +176,7 @@ onUpdated(async() => {
           name="percentage"
           placeholder="Insira a taxa (%)"
         />
+
 
         <Button type="submit" class="-primary w-full bg-primary-light text-white">
           Atualizar taxa

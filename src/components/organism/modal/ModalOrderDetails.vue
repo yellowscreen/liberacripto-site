@@ -87,9 +87,9 @@ async function udpateOrderStatus(status: Order['status']) {
               <strong>{{ admin.dictionary({ type: 'status', text: orderDetails.status }) }}</strong>
             </p>
 
-            <p class="title">
-              <span class="mr-3">ID</span>
-              <strong>{{ orderDetails.shareable_code }}</strong>
+            <p class="title flex">
+              <span class="mr-3">ID de transação</span>
+              <div><strong>{{ orderDetails.shareable_code }}</strong></div>
             </p>
           </div>
         </section>
@@ -226,6 +226,7 @@ async function udpateOrderStatus(status: Order['status']) {
       }
 
       .button-receipt {
+        cursor: pointer;
         @apply h-12 px-4 py-3
           rounded-md  text-sm text-center
           bg-transparent

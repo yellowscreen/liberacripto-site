@@ -16,7 +16,7 @@
 
   &.-link {
     @apply relative bg-transparent font-normal
-      hover:bg-indigo-700 hover:text-gray-100 hover:filter-none;
+      hover:bg-cta hover:text-gray-100 hover:filter-none;
 
     transition: background 200ms cubic-bezier(0.86, 0, 0.07, 1),
       color 200ms cubic-bezier(0.86, 0, 0.07, 1);

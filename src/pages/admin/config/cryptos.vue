@@ -34,6 +34,7 @@ function updateTaxes(crypto: { id: string; name: string }) {
 }
 
 function deleteACrypto({ id }: {id: string}) {
+  
   deleteCrypto(id).then(() => admin.fetchCryptoList())
 }
 
