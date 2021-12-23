@@ -12,7 +12,7 @@ useHead({
   meta: [
     { name: 'description', content: 'Libera cripto' },
 
-    { name: 'og:image', content: 'https://www.liberacripto.com.br/logo.svg' },
+    { name: 'og:image', content: 'https://www.liberacripto.com.br/logo.png' },
     { name: 'og:title', content: 'Libera cripto - Comprar crypto' },
     {
       property: 'og:url',
