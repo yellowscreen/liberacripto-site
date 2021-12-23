@@ -17,14 +17,17 @@ const order = useOrderStore()
 const crypto = useCryptosStore()
 
 useHead({
-
   title: 'Libera Cripto - Pagar uma conta',
   meta: [
-    { name: 'description', content: 'Librea cripto - P2P' },
+    { name: 'description', content: 'Libera cripto' },
 
-    { name: 'og:image', content: '/logo.svg' },
+    { name: 'og:image', content: 'https://www.liberacripto.com.br/logo.svg' },
     { name: 'og:title', content: 'Libera cripto - Pagar uma conta' },
-    { name: 'og:description', content: 'P2P de cripto é na libera cripto' },
+    {
+      property: 'og:url',
+      content: 'https://www.liberacripto.com.br/',
+    },
+    { name: 'og:description', content: 'P2P de cripto' },
   ],
 })
 

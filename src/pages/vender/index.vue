@@ -8,13 +8,17 @@ meta:
 import { useCryptosStore } from '@stores/cryptos'
 
 useHead({
-  title: 'Libera Cripto - Vender cripto',
+  title: 'Libera Cripto - Vender crypto',
   meta: [
-    { name: 'description', content: 'Librea cripto - P2P' },
+    { name: 'description', content: 'Libera cripto' },
 
-    { name: 'og:image', content: '/logo.obg' },
-    { name: 'og:title', content: 'Libera cripto - vender cripto' },
-    { name: 'og:description', content: 'P2P de cripto é na libera cripto' },
+    { name: 'og:image', content: 'https://www.liberacripto.com.br/logo.svg' },
+    { name: 'og:title', content: 'Libera cripto - Vender crypto' },
+    {
+      property: 'og:url',
+      content: 'https://www.liberacripto.com.br/',
+    },
+    { name: 'og:description', content: 'P2P de cripto' },
   ],
 })
 

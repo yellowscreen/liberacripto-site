@@ -8,10 +8,14 @@ meta:
 useHead({
   title: 'Libera Cripto - Home',
   meta: [
-    { name: 'description', content: 'Librea cripto' },
+    { name: 'description', content: 'Libera cripto' },
 
-    { name: 'og:image', content: '/logo.svg' },
+    { name: 'og:image', content: 'https://www.liberacripto.com.br/logo.svg' },
     { name: 'og:title', content: 'Libera cripto - homepage' },
+    {
+      property: 'og:url',
+      content: 'https://www.liberacripto.com.br/',
+    },
     { name: 'og:description', content: 'P2P de cripto' },
   ],
 })
@@ -23,7 +27,7 @@ useHead({
 
     <Benefits />
 
-  <!-- <Terms /> -->
+    <!-- <Terms /> -->
   </div>
 </template>
 
