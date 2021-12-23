@@ -30,7 +30,6 @@ function formatDate(dateString: string) {
   return '00/00/00 00:00h'
 }
 
-
 async function udpateOrderStatus(status: Order['status']) {
   try {
     ui.toggleLoader(true)
@@ -42,11 +41,9 @@ async function udpateOrderStatus(status: Order['status']) {
     })
     emits('updateOrders')
 
-   
-
     ui.toggleModal('order-details')
   }
-  catch (er) {}
+  catch (er) { }
   finally {
     ui.toggleLoader(false)
   }
@@ -89,7 +86,9 @@ async function udpateOrderStatus(status: Order['status']) {
 
             <p class="title flex">
               <span class="mr-3">ID de transação</span>
-              <div><strong>{{ orderDetails.shareable_code }}</strong></div>
+              <!-- <div> -->
+              <strong>{{ orderDetails.shareable_code }}</strong>
+              <!-- </div> -->
             </p>
           </div>
         </section>
@@ -133,6 +132,11 @@ async function udpateOrderStatus(status: Order['status']) {
                 <span class="label">Cripto moeda:</span>
                 <span class="text">{{ orderDetails.crypto }}</span>
               </p>
+
+              <p v-if="orderDetails?.billet?.expiration" class="info">
+                <span class="label">Data de expiração:</span>
+                <span class="text">{{ orderDetails?.billet?.expiration }}</span>
+              </p>
             </section>
 
             <section class="col-span-1">
@@ -146,6 +150,11 @@ async function udpateOrderStatus(status: Order['status']) {
               <p class="info">
                 <span class="label">Valor:</span>
                 <span class="text">{{ convertNumberToCurrency(orderDetails.value) }}</span>
+              </p>
+
+              <p v-if="orderDetails?.billet?.barcode" class="info">
+                <span class="label">Código de barras:</span>
+                <span class="text">{{ orderDetails?.billet?.barcode }}</span>
               </p>
             </section>
           </div>
@@ -172,7 +181,16 @@ async function udpateOrderStatus(status: Order['status']) {
             <span class="text">{{ orderDetails.extras }}</span>
           </p>
 
-          <p class="info">
+          <p v-if="orderDetails?.billet?.billet_url" class="info">
+            <span class="label">Boleto da transaçã<option value=""></option></span>
+            <a
+              :href="orderDetails?.billet?.billet_url"
+              target="_blank"
+              class="button-receipt"
+            >Baixar Boleto</a>
+          </p>
+
+          <p v-if="orderDetails.receipt_url" class="info">
             <span class="label">Comprovante</span>
             <a
               :href="orderDetails.receipt_url"
