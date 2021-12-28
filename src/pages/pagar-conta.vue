@@ -40,7 +40,8 @@ function fetchOrder() {
 }
 
 function goBack() {
-  order.goBackStep(router, 'SellMethod')
+  // order.goBackStep(router, 'SellMethod')
+  router.push('/')
 }
 
 onMounted(() => {
