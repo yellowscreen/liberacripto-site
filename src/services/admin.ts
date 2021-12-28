@@ -80,10 +80,10 @@ export function getCryptoTaxes(id: string) {
   })
 }
 
-export function updateCryptoTaxes(method: 'PUT' | 'POST', id: string, data: { percentage: number; from: number; to: number }) {
+export function updateCryptoTaxes(method: 'PUT' | 'POST', id: string, data: { percentage: number; from: number; to: number }, taxesId?: string | number) {
   return fetch({
     method: method ?? 'POST',
-    path: `/admin/config/cryptos/${id}/taxes/${method === 'PUT' ? '1' : ''}`,
+    path: `/admin/config/cryptos/${id}/taxes/${taxesId ?? ''}`,
     data: {
       ...data,
       type: 'sell',
@@ -118,10 +118,10 @@ export function getNetworkTaxes(id: string) {
   })
 }
 
-export function updateNetworkTaxes(method: 'PUT' | 'POST', id: string, data: { percentage: number; from: number; to: number }) {
+export function updateNetworkTaxes(method: 'PUT' | 'POST', id: string, data: { percentage: number; from: number; to: number }, taxesId?: string | number) {
   return fetch({
     method: method ?? 'POST',
-    path: `/admin/config/networks/${id}/taxes/${method === 'PUT' ? '1' : ''}`,
+    path: `/admin/config/networks/${id}/taxes/${taxesId ?? ''}`,
     data: {
       ...data,
       type: 'sell',

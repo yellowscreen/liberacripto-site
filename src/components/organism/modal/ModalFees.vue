@@ -47,14 +47,14 @@ function sanitizeTaxes() {
 
 function updateTax() {
   if (props.isStablecoin) {
-    updateNetworkTaxes(method.value, props.id, sanitizeTaxes()).then(() => {
+    updateNetworkTaxes(method.value, props.id, sanitizeTaxes(), taxes.value.id).then(() => {
       showSnackbar({ type: 'success', title: 'Taxa atualizada com sucesso', description: `${props.cryptoName} ${sanitizeTaxes().percentage}%` })
       emit('update-list')
       ui.toggleModal('taxes')
     })
   }
   else {
-    updateCryptoTaxes(method.value, props.id, sanitizeTaxes()).then(() => {
+    updateCryptoTaxes(method.value, props.id, sanitizeTaxes(), taxes.value.id).then(() => {
       showSnackbar({ type: 'success', title: 'Taxa atualizada com sucesso', description: `${props.cryptoName} ${sanitizeTaxes().percentage}%` })
       emit('update-list')
       ui.toggleModal('taxes')
@@ -176,7 +176,6 @@ onUpdated(async() => {
           name="percentage"
           placeholder="Insira a taxa (%)"
         />
-
 
         <Button type="submit" class="-primary w-full bg-primary-light text-white">
           Atualizar taxa

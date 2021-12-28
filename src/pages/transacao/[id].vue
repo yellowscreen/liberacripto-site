@@ -78,7 +78,6 @@ async function fetchOrder() {
       }
     }
     catch (er) {
-      console.log('Oh no, A error', er)
       showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
     }
     finally {
