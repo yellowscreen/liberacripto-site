@@ -40,8 +40,8 @@ const router = useRouter()
           <h2 class="label flex flex-col">
             Pagar
             <span class="md:hidden">uma conta</span>
+            <span class="hidden md:inline-block">Contas</span>
             <span class="-small mt-2">
-              <span class="hidden md:inline-block">Contas</span>
               com Criptomoedas
             </span>
           </h2>

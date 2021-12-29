@@ -31,7 +31,7 @@ function copyToClipboard() {
         <ic:outline-ios-share class="text-primary-dark h-6" />
       </div>
     </div>
-    <small class="caption">Guarde esse código para consultar a sua transação</small>
+    <small class="caption"><span class="iconify icone" data-icon="akar-icons:circle-alert-fill" data-width="16" data-height="16"></span> Guarde esse código para consultar a sua transação</small>
   </button>
 </template>
 
@@ -57,7 +57,7 @@ function copyToClipboard() {
 
   > .container-code {
     @apply flex  items-center justify-between
-      h-full w-full;
+      h-full w-full border-cta;
 
     > .code {
       @apply px-1 py-3  text-xs rounded-md;
@@ -81,11 +81,14 @@ function copyToClipboard() {
   }
 
   > .caption {
-    @apply absolute left-0
-      text-4xs;
+    @apply absolute left-0 font-bold
+      text-4xs flex text-cta items-center;
     position: absolute;
     top: 110%;
     left: 0;
+    > .icone {
+      @apply mr-1;
+    }
 
     &:empty {
       display: none;
