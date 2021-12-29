@@ -20,14 +20,14 @@ function formatDate(dateString: string) {
 }
 
 const dicStatus: DictionaryStatus = {
-  finished: 'Aguardando compensação',
+  finished: 'Compensado',
   pending: 'Pagamento pendente',
   blocked: 'Pagamento bloqueado',
-  canceled: 'Pagamento cancleado',
+  canceled: 'Pagamento cancelado',
 }
 
 const dicTransaction: DictionaryStatus = {
-  finished: 'Transação realizada',
+  finished: 'Transação aprovada',
   pending: 'Transação pendente',
   blocked: 'Transação bloqueada',
   canceled: 'Transação cancelada',

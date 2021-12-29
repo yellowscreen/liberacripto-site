@@ -7,7 +7,7 @@ const router = useRouter()
   <section class="hero-home">
     <div class="hero-container">
       <h1 class="title">
-        As melhores taxas num só lugar
+        De forma <span class="text-cta text-[3.23rem]">anônima </span>Compre venda e pague suas contas!
       </h1>
 
       <Button class="cta-desktop" @click="router.push({ name: 'BuyMethod' })">
@@ -51,12 +51,12 @@ const router = useRouter()
   }
 
   > .hero-container > .title {
-    @apply text-3xl font-bold mt-10 mb-10
+    @apply text-[42px] font-bold mt-10 mb-10
       max-w-70 font-display
     text-fonts-primary-light;
 
     @screen md {
-      @apply max-w-430px text-47px mr-40;
+      @apply max-w-530px text-47px mr-40;
     }
 
     z-index: 1;
