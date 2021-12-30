@@ -34,6 +34,7 @@ export async function uploadFileToS3({
     throw new Error('Arquivo é requerido')
   }
   catch (er) {
+    inpt.value = ''
     showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
   }
   finally {

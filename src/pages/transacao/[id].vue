@@ -16,6 +16,8 @@ const router = useRouter()
 const order = useOrderStore()
 const crypto = useCryptosStore()
 
+
+
 useHead({
   title: 'Libera Cripto - Transação',
   meta: [
@@ -78,6 +80,7 @@ async function fetchOrder() {
       }
     }
     catch (er) {
+      inpt.value = ''
       showSnackbar({ title: 'Ocorreu um erro ao enviar o comprovante', type: 'danger' })
     }
     finally {
