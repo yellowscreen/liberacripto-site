@@ -21,7 +21,7 @@ function formatDate(dateString: string) {
 
 const dicStatus: DictionaryStatus = {
   finished: 'Compensado',
-  pending: 'Pagamento pendente',
+  pending: 'Em análise',
   blocked: 'Pagamento bloqueado',
   canceled: 'Pagamento cancelado',
 }
