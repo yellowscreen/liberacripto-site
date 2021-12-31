@@ -84,7 +84,6 @@ watch(cryptoS, ({ name, value }) => {
         id="crypto-value"
         v-model:value="desisto"
         v-money
-
         required
         name="value"
         class="textfield"
@@ -111,8 +110,11 @@ watch(cryptoS, ({ name, value }) => {
       <legend class="title-group">
         Dados de recebimento
       </legend>
+      <legend class="warnig-group">
+        <span class="iconify" data-icon="akar-icons:circle-alert-fill" data-width="16" data-height="16"></span> <p class="ml-2">Para chave pix [telefone] insira o código do país e o código de área (ddd)</p>
+      </legend>
 
-      <Textfield class="textfield" name="client_pix" placeholder="Chave PIX" />
+      <Textfield class="textfield" name="client_pix" placeholder="Chave PIX" required />
 
       <Textfield class="textfield" type="email" name="email" placeholder="E-mail (opcional)" />
 
@@ -150,6 +152,10 @@ watch(cryptoS, ({ name, value }) => {
   > .group {
     > .title-group {
       @apply font-display font-bold text-xs mb-4;
+    }
+
+    > .warnig-group {
+      @apply flex font-display font-bold text-xs mb-2 text-cta ;
     }
 
     > .value-to-receive {

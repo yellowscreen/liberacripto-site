@@ -20,8 +20,9 @@ export async function uploadFileToS3({
 
   try {
     if (file) {
+      const extension = file.name.split('.').pop()
       ui.toggleLoader(true)
-      const { data } = await getS3Credentials()
+      const { data } = await getS3Credentials(extension as string)
       const { fields, url } = data
 
       if (fields.Policy) {

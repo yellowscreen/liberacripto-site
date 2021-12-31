@@ -11,9 +11,9 @@ export function postAOrder(order: Partial<PostAOrder>): ResponsePostAOrder {
   })
 }
 
-export function getS3Credentials(): ResponseS3Fields {
+export function getS3Credentials(extension: string): ResponseS3Fields {
   return fetch({
-    path: '/utils/upload_url',
+    path: `/utils/upload_url?extension=${extension}`,
   })
 }
 
