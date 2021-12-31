@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { useCryptosStore } from '@stores/cryptos'
 import { useOrderStore } from '@stores/order'
-import { uploadFileToS3 } from '@/composables/useUploadS3File'
+// import { uploadFileToS3 } from '@/composables/useUploadS3File'
 
 defineProps<{
   title: string | string[]
@@ -16,7 +16,7 @@ const order = useOrderStore()
 const crypto = useCryptosStore()
 
 async function paymentOrderStore(formEvent: any) {
-  const { receiptUrl }: any = await uploadFileToS3()
+  // const { receiptUrl }: any = await uploadFileToS3()
 
   const form = new FormData(formEvent.target)
   const data = Object.fromEntries(form as any) as any
@@ -26,7 +26,7 @@ async function paymentOrderStore(formEvent: any) {
   const billet = {
     barcode,
     expiration,
-    billet_url: receiptUrl,
+    // billet_url: receiptUrl,
   }
 
   order.storePaymentOrder({ ...paymentOrder, billet, type: 'payment', payment_method: 'billet' })
@@ -66,7 +66,7 @@ async function paymentOrderStore(formEvent: any) {
         Dados do boleto
       </legend>
 
-      <FileUpload class="file" placeholder="Anexar boleto" />
+      <!-- <FileUpload class="file" placeholder="Anexar boleto" /> -->
 
       <Textfield class="textfield col-span-1" name="barcode" placeholder="Código de barras" />
       <Textfield
