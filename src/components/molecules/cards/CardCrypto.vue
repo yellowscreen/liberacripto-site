@@ -5,6 +5,7 @@ defineProps<{
   id: string
   crypto: string
   wallet: string
+  image?: string
 }>()
 
 const emit = defineEmits<{
@@ -16,14 +17,16 @@ const emit = defineEmits<{
 <template>
   <article class="card-core-crypto">
     <header class="header">
-      <cryptocurrency:btc v-if="crypto === 'btc'" class="icon text-cta" />
+      <!-- <cryptocurrency:btc v-if="crypto === 'btc'" class="icon text-cta" />
       <cryptocurrency:eth v-else-if="RegExp(crypto, 'gi').test('eth')" class="icon text-cta" />
       <cryptocurrency:bnb v-else-if="RegExp(crypto, 'gi').test('bnb')" class="icon text-cta" />
       <cryptocurrency:usdt v-else-if="RegExp(crypto, 'gi').test('usdt')" class="icon text-cta" />
       <cryptocurrency:ada v-else-if="RegExp(crypto, 'gi').test('ada')" class="icon text-cta" />
       <cryptocurrency:xrp v-else-if="RegExp(crypto, 'gi').test('xrp')" class="icon text-cta" />
       <cryptocurrency:dai v-else-if="RegExp(crypto, 'gi').test('dai')" class="icon text-cta" />
-      <cryptocurrency:usd v-else class="icon text-cta" />
+      <cryptocurrency:usd v-else class="icon text-cta" /> -->
+
+      <img class="icon" :src="image" alt="" width="32" height="32">
 
       <div class="container-status">
         <p class="text-left mb-2">

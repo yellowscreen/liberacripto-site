@@ -41,7 +41,7 @@ function sellOrderStore(formEvent: any) {
 
 const cryptoS = ref({
   name: '',
-  value: 213,
+  value: 0,
 })
 
 const cryptoToSell = ref({

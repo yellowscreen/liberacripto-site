@@ -65,10 +65,10 @@ defineProps<{
   }
 
   > .header {
-    @apply justify-start;
+    @apply justify-evenly w-full h-full;
 
     > .icon {
-      @apply h-12 w-12 mb-4 mr-8;
+      @apply h-[48px] w-[48px] min-h-[48px] min-w-[48px] mr-4;
     }
   }
 
