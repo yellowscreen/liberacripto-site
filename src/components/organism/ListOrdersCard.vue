@@ -17,10 +17,11 @@ const title = computed(() =>
 
 <template>
   <aside class="list-orders-history">
-    <header class="header">
+    <header class="header" v-if="admin.listOrders.length">
       <h2>{{ title }}</h2>
     </header>
 
+    <div v-if="admin.listOrders.length" class="container-box">
     <CardOrder
       v-for="order in admin.listOrders"
       :key="order.id"
@@ -32,6 +33,13 @@ const title = computed(() =>
       :value="convertNumberToCurrency(order.value)"
       @click="emit('orderDetails', order)"
     />
+    </div>
+    <div v-else class="container-box">
+      <div class="no-orders flex items-center justify-between w-[270px] text-cta">
+        <span class="iconify" data-icon="akar-icons:circle-alert-fill" data-width="32" data-height="32"></span>
+        <p class="w-[220px]">Não há transações de {{title}} no momento!</p>
+      </div>
+    </div>
   </aside>
 </template>
 
@@ -41,6 +49,8 @@ const title = computed(() =>
   @apply flex flex-col items-center
     px-6 py-6
     bg-white rounded-xl;
+
+    
 
     > .header {
       @apply w-full
@@ -52,8 +62,12 @@ const title = computed(() =>
       }
     }
 
-    > .card {
+    > .container-box {
+      > .card {
       @apply mb-4 cursor-pointer;
     }
+    }
+
+    
 }
 </style>
