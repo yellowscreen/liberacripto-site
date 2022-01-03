@@ -42,10 +42,8 @@
     })();
 
     Tawk_API.onLoad = function () {
-      if (window.location.pathname === '/admin' || window.location.pathname === '/admin/') {
-
+      if (window.location.pathname === '/admin' || window.location.pathname === '/admin/*') {
         window.Tawk_API.hideWidget();
-
       }
     };
   </script>
