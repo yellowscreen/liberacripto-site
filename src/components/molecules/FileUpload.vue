@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const fileName = ref('anexar comprovante*')
+const fileName = ref('anexar comprovante de pagamento *')
 
 function getFileName(ev: any) {
   const fileList = ev.target.files
@@ -9,7 +9,7 @@ function getFileName(ev: any) {
     return
   }
 
-  fileName.value = 'anexar comprovante*'
+  fileName.value = 'anexar comprovante de pagamento*'
 }
 </script>
 

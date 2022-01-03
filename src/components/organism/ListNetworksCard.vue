@@ -22,13 +22,14 @@ const emit = defineEmits<{
       :wallet="crypto.wallet"
       :crypto="crypto?.symbol"
       :name="crypto.name"
+      :image="crypto.image_url"
       @update-taxes="emit('update-taxes', $event)"
       @delete="emit('delete', $event)"
     />
 
     <h2
       v-if="!admin.listNetworks.length"
-      class="text-xl font-display font-bold mt-5/10"
+      class="text-xl font-display font-bold"
     >
       Não há stablecoins no momento.
     </h2>
@@ -54,6 +55,10 @@ const emit = defineEmits<{
     @screen md {
       @apply text-xl;
     }
+  }
+
+  > h2 {
+    @apply h-[300px] flex justify-center items-center;  
   }
 
   > .card {
