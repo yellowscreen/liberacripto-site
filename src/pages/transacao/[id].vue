@@ -75,6 +75,8 @@ async function fetchOrder() {
         const { headers } = await postUploadReceipt(fields, url, file)
         const receiptUrl = headers?.location ?? headers?.Location
 
+        console.log('receiptUrl', receiptUrl)
+
         await patchReceiptOrder(summary.value?.id, receiptUrl)
         showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
         router.push(`/transacao/${summary?.value?.shareable_code}`)
@@ -89,12 +91,12 @@ async function fetchOrder() {
     }
   }
   // !! Remover
-  else {
-    await patchReceiptOrder(summary.value?.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
-    showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
+  // else {
+  //   await patchReceiptOrder(summary.value?.id, 'https://s3.us-east-1.amazonaws.com/bucketeer-f6f01578-f150-4007-8d42-961cc3fbdae2/Iu3_gWNz7rMr8RJcNH8kQz2IDtyjny-S')
+  //   showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
 
-    router.push(`/transacao/${summary?.value?.shareable_code}`)
-  }
+  //   router.push(`/transacao/${summary?.value?.shareable_code}`)
+  // }
 }
 
 </script>
