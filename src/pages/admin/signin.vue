@@ -17,11 +17,11 @@ const ui = useUIStore()
 const admin = useAdminStore()
 const router = useRouter()
 
-const gapi = ref(null)
+const gapi = ref<any>(null)
 
 function start() {
   gapi.value.client.init({
-    clientId: '85606163053-hhk3hi1bl45hun7r51c1rq6au1vir7lq.apps.googleusercontent.com',
+    clientId: import.meta.env.VITE_APP_GOOGLE_CLIENT_ID,
     scope: 'email',
   })
 }
