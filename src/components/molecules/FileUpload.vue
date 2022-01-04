@@ -36,7 +36,7 @@ function getFileName(ev: any) {
       h-full px-4 rounded-md
       cursor-pointer;
 
-    min-width: 210px;
+    min-width: 282px;
     border: 2px solid #212121;
 
     @screen md {

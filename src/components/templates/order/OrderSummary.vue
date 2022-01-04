@@ -38,6 +38,9 @@ async function fetchOrder() {
   await patchReceiptOrder(props.checkPay.id, receiptUrl)
   showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
   router.push(`/transacao/${props.checkPay.shareable_code}`)
+  setTimeout(() => {
+    window.location.reload()
+  }, 1300);
 }
 </script>
 
