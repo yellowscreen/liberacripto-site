@@ -79,7 +79,9 @@ async function fetchOrder() {
 
         await patchReceiptOrder(summary.value?.id, receiptUrl)
         showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
-        router.push(`/transacao/${summary?.value?.shareable_code}`)
+
+          
+        
       }
     }
     catch (er) {
@@ -88,6 +90,11 @@ async function fetchOrder() {
     }
     finally {
       ui.toggleLoader()
+      router.push(`/transacao/${summary?.value?.shareable_code}`)
+      setTimeout(() => {
+         window.location.reload()
+      }, 1300);
+
     }
   }
   // !! Remover
