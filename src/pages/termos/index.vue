@@ -63,7 +63,7 @@
       <li>Estornos de valor parcial serão realizados somente em reais.</li>
     </ul>
 
-    <p>Fica estabelecido o prazo limite de um dia útil para a realização de estornos após o envio das informações por parte do cliente necessárias a sua execução. Toda a comunicação relativa a operações de estorno serão feitas exclusivamente através do e-mail xxxxxxxxxxxxxxxxxxxxxxx </p>
+    <p>Fica estabelecido o prazo limite de um dia útil para a realização de estornos após o envio das informações por parte do cliente necessárias a sua execução. Toda a comunicação relativa a operações de estorno serão feitas exclusivamente através do e-mail  </p>
 
     <p>Por razões de segurança o pedido do estorno por parte do cliente sempre deverá ser realizado através do endereço do e-mail utilizado no cadastro do pedido alvo do estorno. </p>
 
@@ -99,11 +99,11 @@
 
     <p>A <strong>Libera Cripto</strong> não solicita, sob hipótese nenhuma, o acesso remoto aos seus dispositivos, a links que não sejam relacionados aos seus parceiros comerciais, da sua própria plataforma ou de exploradores de blocos de criptoativos. </p>
 
-    <p>Todos as mensagens de e-mails contendo notificações sobre o andamento da execução das operações inclusas no seu pedido são sempre encaminhadas como texto puro, sem anexos de qualquer espécie através do endereço de e-mail <a href="mailto:info@paguecombitcoin.com">xxxxxxxxxxxxxxxxxxxxxx</a>. </p>
+    <p>Todos as mensagens de e-mails contendo notificações sobre o andamento da execução das operações inclusas no seu pedido são sempre encaminhadas como texto puro, sem anexos de qualquer espécie através do endereço de e-mail <a href="mailto:contato@liberacripto.com.br">contato@liberacripto.com.br</a>. </p>
 
-    <p>A única URL oficial da nossa plataforma é o <a href="https://paguecombitcoin.com/">xxxxxxxxxxxxxxx</a>, qualquer outro endereço não explicitado nesse documento e que não tenha sido amplamente divulgado em nossas redes oficiais devem ser consideradas não autorizadas de nossa plataforma feitas por terceiros e consequentemente fora de nosso controle. </p>
+    <p>A única URL oficial da nossa plataforma é o <a href="https://liberacripto.com.br/">https://liberacripto.com.br/</a>, qualquer outro endereço não explicitado nesse documento e que não tenha sido amplamente divulgado em nossas redes oficiais devem ser consideradas não autorizadas de nossa plataforma feitas por terceiros e consequentemente fora de nosso controle. </p>
 
-    <p>Caso você identifique a reprodução de nossa plataforma, o uso de nossa identidade visual, marca ou logotipo envie imediatamente um e-mail para <a href="mailto:info@paguecombitcoin.com">xxxxxxxxxxxxxxx</a>. </p>
+    <p>Caso você identifique a reprodução de nossa plataforma, o uso de nossa identidade visual, marca ou logotipo envie imediatamente um e-mail para <a href="mailto:contato@liberacripto.com.br">contato@liberacripto.com.br</a>. </p>
 
     <p>Suporte</p>
 
@@ -113,7 +113,7 @@
 
     <p>Em caso de necessidade, a prestação de informações históricas relativas a execução das operações realizadas pelo cliente, só serão informadas após a devida comprovação de identidade do cliente, podendo levar até 5 dias úteis. </p>
 
-    <p>Em caso de dúvidas e comentários nos contate através do e-mail <a href="mailto:info@paguecombitcoin.com">xxxxxxxxxxx</a> ou nos envie uma mensagem de texto através do site ou dos nossos perfis oficiais nas redes sociais. </p>
+    <p>Em caso de dúvidas e comentários nos contate através do e-mail <a href="mailto:contato@liberacripto.com.br">contato@liberacripto.com.br</a> ou nos envie uma mensagem de texto através do site ou dos nossos perfis oficiais nas redes sociais. </p>
 
     <p>Do foro de eleição</p>
 
@@ -125,7 +125,7 @@
 
 <style lang="scss">
 .main {
-    padding: 6em 12em;
+@apply p-8;
     > p {
         font-size: 1.2em;
         line-height: 1.5em;
