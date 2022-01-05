@@ -2,7 +2,7 @@
   NPM_FLAGS = "--prefix=/dev/null"
   NODE_VERSION = "14"
   VITE_APP_BASE_URL = "https://liberacripto-prod.herokuapp.com"
-  VITE_APP_GOOGLE_CLIENT_ID = "85606163053-hhk3hi1bl45hun7r51c1rq6au1vir7lq.apps.googleusercontent.com"
+  VITE_APP_GOOGLE_CLIENT_ID = "85606163053-pifko4ind5h9o2mtlgp5r6rsjdjmdp6g.apps.googleusercontent.com"
 
 
 [build]
