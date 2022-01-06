@@ -20,6 +20,7 @@ const emits = defineEmits<{
 
 const admin = useAdminStore()
 const ui = useUIStore()
+const flagImagePreview = ref(false)
 
 function formatDate(dateString: string) {
   const date = new Date(dateString)
@@ -116,6 +117,19 @@ async function udpateOrderStatus(status: Order['status']) {
         <hr class="separator" />
 
         <section class="content-group">
+        <div v-if="flagImagePreview" class="card-image">
+          <div class="preview-image">
+            <button class="button-close-image-preview" @click="flagImagePreview = false">
+              <mdi:close class="text-2xl" />
+            </button>
+            <img
+              :src="orderDetails.receipt_url"
+              :alt="orderDetails.receipt_url"
+            />
+          </div>
+        </div>
+
+
           <p class="info">
             <span class="label">Realizada em:</span>
             <span class="text">{{ formatDate(orderDetails.created_at) }}</span>
@@ -192,11 +206,11 @@ async function udpateOrderStatus(status: Order['status']) {
 
           <p v-if="orderDetails.receipt_url" class="info">
             <span class="label">Comprovante</span>
-            <a
-              :href="orderDetails.receipt_url"
+            <button
+              @click="flagImagePreview = true"
               target="_blank"
               class="button-receipt"
-            >Visualizar comprovante</a>
+            >Visualizar comprovante</button>
           </p>
         </section>
       </div>
@@ -223,6 +237,21 @@ async function udpateOrderStatus(status: Order['status']) {
     > .content-group {
       @apply h-full flex flex-col
         w-8/10 overflow-hidden;
+        > .card-image {
+          @apply  flex justify-center items-center;
+          > .preview-image {
+            @apply  h-[300px] absolute w-[300px] absolute bg-white flex justify-center items-center;
+            border-radius: 8px;
+            > .button-close-image-preview {
+              @apply  h-[32px] w-[32px] absolute top-2 right-2;
+            }
+            > img {
+              @apply h-[220px] w-[220px];
+            }
+            }
+        }
+
+      
     }
 
     .separator {

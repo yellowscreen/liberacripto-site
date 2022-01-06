@@ -98,7 +98,7 @@ function shareReceipt() {
 <style setup lang="scss">
 .footer-transaction {
   @apply flex flex-col justify-center
-    min-w-76 mb-12;
+    min-w-80 mb-12;
 
   > .title {
     @apply font-display text-xl font-bold
