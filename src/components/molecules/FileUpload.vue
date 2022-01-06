@@ -33,10 +33,10 @@ function getFileName(ev: any) {
 
   > .label {
     @apply flex justify-center items-center
-      h-full px-4 rounded-md
+      h-full px-1 rounded-md
       cursor-pointer;
 
-    min-width: 282px;
+    min-width: 260px;
     border: 2px solid #212121;
 
     @screen md {

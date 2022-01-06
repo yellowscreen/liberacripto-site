@@ -4,8 +4,14 @@ const props = defineProps<{
   label?: string
 }>()
 
+const tooltip = ref(false)
+
+function detectMob() {
+    return navigator.userAgentData.mobile
+}
+
 function copyToClipboard() {
-  if (navigator.share) {
+  if (navigator.share && detectMob()) {
     navigator.clipboard.writeText(props.code)
     navigator.share({
       title: 'Código do pedido - Libera Cripto',
@@ -16,6 +22,8 @@ function copyToClipboard() {
   }
   else {
     navigator.clipboard.writeText(props.code)
+    tooltip.value = true
+    setTimeout(() => tooltip.value = false, 1300)
   }
 }
 </script>
@@ -27,11 +35,16 @@ function copyToClipboard() {
         Código do pedido: {{ code }}
       </p>
 
-      <div class="icon-share">
+      <div v-if="detectMob()" class="icon-share">
         <ic:outline-ios-share class="text-primary-dark h-6" />
       </div>
+      <div v-else class="icon-share relative">
+        <mdi:content-copy class="text-primary-dark h-6" />
+        <span v-if="tooltip" class="tooltiptext">Codigo copiado</span>
+      </div>
+      
     </div>
-    <small class="caption"><span class="iconify icone" data-icon="akar-icons:circle-alert-fill" data-width="16" data-height="16"></span> Guarde esse código para consultar a sua transação</small>
+    <small class="caption"><span class="iconify icone" data-icon="akar-icons:circle-alert-fill" data-width="32" data-height="32"></span> Guarde esse código para consultar a sua transação!</small>
   </button>
 </template>
 
@@ -62,7 +75,7 @@ function copyToClipboard() {
     > .code {
       @apply px-1 py-3  text-xs rounded-md;
 
-      min-width: 210px;
+      min-width: 260px;
       border: 1px solid #212121;
 
       @screen md {
@@ -81,10 +94,10 @@ function copyToClipboard() {
   }
 
   > .caption {
-    @apply absolute left-0 font-bold
-      text-4xs flex text-cta items-center;
+    @apply absolute left-0 font-bold text-left
+      text-[14px] flex text-cta items-center;
     position: absolute;
-    top: 110%;
+    top: 120%;
     left: 0;
     > .icone {
       @apply mr-1;
@@ -93,6 +106,22 @@ function copyToClipboard() {
     &:empty {
       display: none;
     }
+  }
+}
+.tooltiptext {
+  @apply text-[12px] text-white bg-cta absolute
+    top-[-50%] left-[-85%] text-center py-2 w-[120px];
+  border-radius: 6px;
+  z-index: 1;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #E88E22 transparent transparent transparent;
   }
 }
 </style>
