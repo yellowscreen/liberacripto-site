@@ -12,11 +12,23 @@ import { useAdminStore } from '@/stores/admin'
 const router = useRouter()
 const admin = useAdminStore()
 
+const gapi = ref<any>(null)
+
 function signout() {
   localStorage.clear()
   admin.storeToken('')
   router.push('/admin/signin')
+  const auth2 = gapi.value.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
 }
+
+onMounted(() => {
+  gapi.value = window.gapi
+
+  console.log(gapi.value, 'GAPIIIIIIIIII')
+})
 
 </script>
 

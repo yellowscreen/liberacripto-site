@@ -25,8 +25,9 @@ export type ErrorData = {
 
 function requestInterceptor(config: any) {
   const admin = useAdminStore()
-  if (admin?.token && config.baseURL === import.meta.env.VITE_APP_BASE_URL) {
+  if (admin?.token && config.baseURL === `${import.meta.env.VITE_APP_BASE_URL || ''}/`) {
     config.headers.Authorization = `Bearer ${admin.token}`
+
   }
 
   return config

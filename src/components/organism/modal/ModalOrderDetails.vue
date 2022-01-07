@@ -240,13 +240,14 @@ async function udpateOrderStatus(status: Order['status']) {
         > .card-image {
           @apply  flex justify-center items-center;
           > .preview-image {
-            @apply  h-[300px] absolute w-[300px] absolute bg-white flex justify-center items-center;
+            @apply  absolute bg-white flex justify-center items-center h-[500px] w-[720px] top-55 <md:h-[300px] <md:w-[300px];
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             > .button-close-image-preview {
               @apply  h-[32px] w-[32px] absolute top-2 right-2;
             }
             > img {
-              @apply h-[220px] w-[220px];
+              @apply h-full w-full p-12;
             }
             }
         }
