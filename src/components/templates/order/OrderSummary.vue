@@ -33,7 +33,7 @@ const buttonDownloadText = computed(() => dicPayment[props.checkPay.payment_meth
 const paymentValueFormatted = computed(() => Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(props.checkPay.value))
 
 async function fetchOrder() {
-  const { receiptUrl } = await uploadFileToS3()
+  const { receiptUrl }: any = await uploadFileToS3()
 
   await patchReceiptOrder(props.checkPay.id, receiptUrl)
   showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })
