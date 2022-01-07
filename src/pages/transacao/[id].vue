@@ -75,7 +75,6 @@ async function fetchOrder() {
         const { headers } = await postUploadReceipt(fields, url, file)
         const receiptUrl = headers?.location ?? headers?.Location
 
-        console.log('receiptUrl', receiptUrl)
 
         await patchReceiptOrder(summary.value?.id, receiptUrl)
         showSnackbar({ title: 'Comprovante enviado com sucesso!', type: 'success' })

@@ -26,11 +26,8 @@ export async function uploadFileToS3({
       const { fields, url } = data
 
       if (fields.Policy) {
-        const { headers } = await postUploadReceipt(fields, url, file)
-        console.log(headers, 'headers')
-        const receiptUrl: string = headers?.location ?? headers?.Location
-
-        console.log('receiptUrl', receiptUrl)
+        const response = await postUploadReceipt(fields, url, file)
+        const receiptUrl: string = response.headers?.location ?? response.headers?.Location
 
         return { receiptUrl }
       }

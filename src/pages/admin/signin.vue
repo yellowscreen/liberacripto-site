@@ -22,7 +22,7 @@ const gapi = ref<any>(null)
 function start() {
   gapi.value.client.init({
     clientId: import.meta.env.VITE_APP_GOOGLE_CLIENT_ID,
-    scope: 'email',
+    scope: 'profile email',
   })
 }
 
