@@ -27,7 +27,6 @@ useHead({
 
     <Benefits />
 
-    <!-- <Terms /> -->
   </div>
 </template>
 

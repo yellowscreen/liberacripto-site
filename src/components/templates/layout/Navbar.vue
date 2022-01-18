@@ -118,16 +118,11 @@ async function searchReceipt(code: string) {
     content: "";
     display: inline-block;
     position: absolute;
-    bottom: 0;
-
-    width: 90%;
+    bottom: 0px;
+    width: 95%;
     height: 1px;
 
     background-color: #909090;
-
-    @screen md {
-      width: 96%;
-    }
   }
 
   > .list {

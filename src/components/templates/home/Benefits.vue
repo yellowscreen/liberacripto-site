@@ -71,9 +71,9 @@ const router = useRouter()
           Benefícios da plataforma
         </h2>
 
-        <!-- <Button class="bg-cta w-256px self-start hidden md:flex justify-center">
+        <Button class="bg-cta w-256px self-start hidden md:flex justify-center" @click="router.push('/taxas')">
           Ver todas as taxas
-        </Button> -->
+        </Button>
       </div>
 
       <div class="benefit-items">
@@ -83,9 +83,9 @@ const router = useRouter()
       </div>
     </div>
 
-    <!-- <Button class="bg-cta w-6/10 self-center md:hidden">
+    <Button class="bg-cta w-6/10 self-center md:hidden">
       Ver todas as taxas
-    </Button> -->
+    </Button>
   </section>
 </template>
 
