@@ -70,8 +70,8 @@ FnGetListCrypto()
 
 .taxs-layout {
   @apply flex flex-col relative
-    px-14 pt-8 pb-32 overflow-x-hidden
-    bg-secondary-darkest h-1080px h-min-screen;
+    px-6 pt-8 pb-32 overflow-x-hidden
+    bg-secondary-darkest h-min-screen;
     > h1 {
       @apply text-[2.23rem] text-cta;
     }
@@ -81,7 +81,7 @@ FnGetListCrypto()
 }
 
 .box-cryptos-tax {
-  @apply flex flex-wrap gap-6 mt-12 h-full overflow-hidden;
+  @apply flex flex-wrap gap-6 mt-12 min-h-screen overflow-hidden;
 }
 
 </style>

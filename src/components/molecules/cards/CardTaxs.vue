@@ -41,10 +41,10 @@ defineProps<{
 
 <style lang="scss" scoped>
 .card-taxs {
-  @apply w-[276px] h-[320px] bg-secondary-light shadow-current;
+  @apply w-[256px] h-[320px] bg-secondary-light shadow-current;
   border-radius: 12px;;
   > .header {
-    @apply flex flex-row p-4 items-center;
+    @apply flex flex-row p-4 items-center w-full;
     > img {
       @apply mr-2 h-64px w-64px flex;
     }
