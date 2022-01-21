@@ -83,7 +83,7 @@ const router = useRouter()
       </div>
     </div>
 
-    <Button class="bg-cta w-6/10 self-center md:hidden">
+    <Button class="bg-cta w-6/10 self-center md:hidden" @click="router.push('/taxas')">
       Ver todas as taxas
     </Button>
   </section>

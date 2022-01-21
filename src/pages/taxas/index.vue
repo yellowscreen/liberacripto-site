@@ -7,7 +7,7 @@ meta:
 
 <template>
   <div class="tax-page">
-      <Taxs />
+    <Taxs />
   </div>
 </template>
 

@@ -79,3 +79,9 @@ export function postPayABillOrder(payOrder: Partial<PaymentOrder>): ResponseSell
     data: payOrder,
   })
 }
+
+export function getCryptos(): Promise<AxiosResponse> {
+  return fetch({
+    path: '/user/cryptos',
+  })
+}

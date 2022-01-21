@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const menu = [
+const services = [
   {
     name: 'Taxas',
     path: '/taxas',
@@ -13,10 +13,50 @@ const menu = [
   },
 ]
 
+const suport = [
+  {
+    name: 'contato@liberacripto.com.br',
+    // path: '/taxas',
+
+  },
+  {
+    // name: 'Termos de Uso',
+    // path: '/termos',
+
+  },
+]
+
 </script>
 
 <template>
   <footer class="footer-core">
+    <div class="footer-items">
+      <div class="menu-items">
+      <ul>
+        <span for="">
+          Serviços
+        </span>
+        <li v-for="(item, index) in services" :key="index">
+          <a :href="item.path">
+            {{ item.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="menu-items">
+      <ul>
+        <span for="">
+          Suporte
+        </span>
+        <li v-for="(item, index) in suport" :key="index">
+          <a href="#">
+            {{ item.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    
     <div class="base-footer">
       <div class="social-media">
         <a href="https://www.instagram.com/liberacripto/"><img src="/Instagram_logo.svg" width="24" height="24" /></a>
@@ -26,28 +66,16 @@ const menu = [
         <a class="icon-btn" rel="noreferrer" href="#">Liberacripto (c) 2021</a>
       </div>
     </div>
-    <div class="menu-items">
-      <ul>
-        <span for="">
-          Libera cripto
-        </span>
-        <li v-for="(item, index) in menu" :key="index">
-          <a :href="item.path">
-            {{ item.name }}
-          </a>
-        </li>
-      </ul>
-    </div>
   </footer>
 </template>
 
 <style lang="scss">
 .footer-core {
-  @apply flex relative
-    h-220px w-full
-  bg-secondary-light gap-4 justify-center px-12 py-4;
+  @apply flex-col relative
+    h-auto w-full
+  bg-secondary-light gap-4 px-8 py-4;
   > .base-footer {
-    @apply flex gap-8 bottom-5 absolute;
+    @apply flex gap-8;
     > .logo-footer {
       @apply flex h-full gap-2;
       > img {
@@ -56,18 +84,23 @@ const menu = [
     }
   }
 
-  > .menu-items {
-    @apply flex gap-8 top-5 left-14 absolute;
+  > .footer-items {
+    @apply flex flex-wrap;
+    > .menu-items {
+    @apply flex-col w-[320px];
     > ul {
-      @apply flex flex-col gap-4;
+      @apply flex flex-col gap-4 mb-6;
       > span {
         @apply font-bold text-xl;
       }
       > li {
-        @apply font-medium text-sm;
+        @apply font-medium text-sm opacity-50;
       }
     }
   }
+  }
+
+  
 
   &.-dark {
     @apply bg-secondary-darkest text-white;
