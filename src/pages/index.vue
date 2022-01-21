@@ -24,10 +24,7 @@ useHead({
 <template>
   <div class="home-page">
     <Hero />
-
     <Benefits />
-
-    <!-- <Terms /> -->
   </div>
 </template>
 
