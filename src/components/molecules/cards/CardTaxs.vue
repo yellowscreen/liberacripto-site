@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { convertNumberToCurrency } from '@/composables/useFormat'
 defineProps<{
   id: number,
   type: string,
@@ -18,12 +19,23 @@ defineProps<{
          </label>
      </div>
      <div class="body">
+        <div class="type">
+          <label for="">
+            Tipo de criptoativo:
+          </label>
+          <span>
+            {{ type === 'cryptos' ? 'Cripto' : 'Stable Coins' }}
+          </span>
+  
+        </div>
          <div class="tax">
              <label for="">
-                Taxa de transação:
+                Taxas para transações:
              </label>
-            <span>
-                {{ taxes[0].percentage }}%
+            <span v-for="(item, index ) in taxes" :key="index">
+              A taxa é de {{ item.percentage }}%
+              para valores de {{convertNumberToCurrency(item.from) }} até
+                {{item.to === 999999 ? 'Sem limites' : convertNumberToCurrency(item.to) }}
             </span>
          </div>
      </div>
@@ -32,8 +44,6 @@ defineProps<{
             Confirmações mínimas: <b>2</b>
          </p>
          <p>
-             Obs:
-            <i> As taxas são convertidas na data da compensação do pagamento!</i>
          </p>
      </div>
  </div>
@@ -41,8 +51,8 @@ defineProps<{
 
 <style lang="scss" scoped>
 .card-taxs {
-  @apply w-[256px] h-[320px] bg-secondary-light shadow-current;
-  border-radius: 12px;;
+  @apply w-[256px] h-min-[340px] bg-secondary-light shadow-current;
+  border-radius: 12px;
   > .header {
     @apply flex flex-row p-4 items-center w-full;
     > img {
@@ -56,7 +66,17 @@ defineProps<{
   .body {
     @apply flex flex-col gap-4 px-4;
     > .tax {
-      @apply flex flex-row gap-4;
+      @apply flex flex-col gap-4;
+      > label {
+        @apply font-normal text-fonts-primary-dark;
+      }
+      > span {
+        @apply font-bold text-fonts-primary-dark;
+      }
+    }
+
+    > .type {
+      @apply flex flex-row gap-4  h-min-[40px];
       > label {
         @apply font-normal text-fonts-primary-dark;
       }

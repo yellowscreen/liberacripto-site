@@ -128,7 +128,7 @@ async function fetchOrder() {
       </li>
 
       <li v-if="summary?.crypto_value" class="list-item">
-        <span class>quantidade de cripto vendida:</span>
+        <span class>Quantidade de cripto vendida:</span>
         <span class="font-bold font-display">
           <span class="uppercase">{{ summary.crypto }}</span>
           {{ summary.crypto_value }}</span>
@@ -176,6 +176,15 @@ async function fetchOrder() {
     @apply flex flex-col
       px-4 py-4 mb-10 h-full
       overflow-hidden;
+
+    background-size: cover;
+    border-width: 1rem;
+    border-image-source: url('/border.svg');
+    border-image-slice: 5;
+    border-image-repeat: round;
+    border-image-width: 1.4;
+    border-image-outset: 0.8;
+    border-image-outset: 0.8;
 
     background-color: #dcdcdc;
     width: clamp(290px, 80%, 80vw);
