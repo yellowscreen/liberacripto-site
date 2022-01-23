@@ -48,6 +48,12 @@ FnGetListCrypto()
     <h3>
       Taxas por criptoativos
     </h3>
+    <div class="more-info">
+      <h3>
+          Obs:
+            <i> As taxas são convertidas na data da compensação do pagamento!</i>
+        </h3>
+    </div>
 
     <div class="box-cryptos-tax">
       <span v-for="(item, index) in listCryptoAtivos" :key="index">
@@ -62,16 +68,20 @@ FnGetListCrypto()
 
       </span>
 
+
+        
+
+
     </div>
+    
   </section>
 </template>
 
 <style lang="scss">
 
 .taxs-layout {
-  @apply flex flex-col relative
-    px-6 pt-8 pb-32 overflow-x-hidden
-    bg-secondary-darkest h-min-screen;
+  @apply flex flex-col relative overflow-x-hidden  min-h-screen
+    bg-secondary-darkest h-min-screen p-12 md:;
     > h1 {
       @apply text-[2.23rem] text-cta;
     }
@@ -81,7 +91,14 @@ FnGetListCrypto()
 }
 
 .box-cryptos-tax {
-  @apply flex flex-wrap gap-6 mt-12 min-h-screen overflow-hidden;
+  @apply flex flex-wrap gap-6 mt-12 overflow-hidden justify-center;
+}
+
+.more-info {
+  @apply flex flex-col gap-4 py-4;
+  > h3 {
+      @apply text-[1.23rem] text-secondary-light;
+    }
 }
 
 </style>
