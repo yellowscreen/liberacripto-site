@@ -19,6 +19,10 @@ router.beforeEach((to) => {
 </template>
 
 <style lang="scss">
+
+p {
+  overflow-wrap: break-word;
+}
 @font-face {
   font-family: "Altone Trial";
   src: url("/fonts/altone-trial.regular.ttf");

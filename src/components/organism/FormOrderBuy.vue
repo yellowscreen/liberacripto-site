@@ -45,7 +45,11 @@ onMounted(() => {
       <span class="capitalize">{{ title }}</span>
     </h1>
 
-    <Select required class="mb-4" name="crypto" placeholder="Selecione a cripto">
+    <h1 class="title">
+      Meio de pagamento desabilitado
+    </h1>
+
+    <!-- <Select required class="mb-4" name="crypto" placeholder="Selecione a cripto">
       <option v-for="{ id, name, code } in crypto.available" :key="id" :value="code">
         {{ name }}
       </option>
@@ -95,7 +99,7 @@ onMounted(() => {
       <Button class="bg-primary-dark text-indigo-100 px-6" type="submit">
         {{ buttonBuyText.text }}
       </Button>
-    </div>
+    </div> -->
   </form>
 </template>
 
