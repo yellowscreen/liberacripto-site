@@ -1,7 +1,13 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { Router } from 'vue-router'
 
-import { getBanks, getNetworks, postAOrder, postPayABillOrder, postSellOrderPix } from '@services/order/index'
+import { 
+  getBanks, 
+  getNetworks, 
+  postAOrder, 
+  postPayABillOrder, 
+  // postSellOrderPix
+} from '@services/order/index'
 import { useUIStore } from './ui'
 
 import { STEP_TO_BUY, PaymentMethod } from '@/@types/payments'
