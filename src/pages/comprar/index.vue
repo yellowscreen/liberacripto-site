@@ -5,33 +5,33 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { useCryptosStore } from '@stores/cryptos'
+import { useCryptosStore } from "@stores/cryptos";
 
 useHead({
-  title: 'Libera Cripto - Comprar crypto',
+  title: "Libera Cripto - Comprar crypto",
   meta: [
-    { name: 'description', content: 'Libera cripto' },
+    { name: "description", content: "Libera cripto" },
 
-    { name: 'og:image', content: 'https://www.liberacripto.com.br/logo.png' },
-    { name: 'og:title', content: 'Libera cripto - Comprar crypto' },
+    { name: "og:image", content: "https://www.liberacripto.com.br/logo.png" },
+    { name: "og:title", content: "Libera cripto - Comprar crypto" },
     {
-      property: 'og:url',
-      content: 'https://www.liberacripto.com.br/',
+      property: "og:url",
+      content: "https://www.liberacripto.com.br/",
     },
-    { name: 'og:description', content: 'P2P de cripto' },
+    { name: "og:description", content: "P2P de cripto" },
   ],
-})
+});
 
-const router = useRouter()
+const router = useRouter();
 
-const crypto = useCryptosStore()
+const crypto = useCryptosStore();
 
 onMounted(() => {
-  crypto.storeCryptosAvailable()
-})
+  crypto.storeCryptosAvailable();
+});
 
 function goToBuyOrder(method: string) {
-  router.push({ name: 'BuyOrder', params: { method } })
+  router.push({ name: "BuyOrder", params: { method } });
 }
 </script>
 
@@ -39,19 +39,13 @@ function goToBuyOrder(method: string) {
   <div class="buy-page">
     <Chip class="step" :current="1" />
 
-    <h1 class="title">
-      Compre Cripto
-    </h1>
+    <h1 class="title">Compre Cripto</h1>
 
-    <p class="subtitle">
-      Escolha seu método de Pagamento
-    </p>
+    <p class="subtitle">Escolha seu método de Pagamento</p>
 
     <ul class="payment-methods">
       <li class="method">
-        <Button class="button-pay" @click="goToBuyOrder('boleto')">
-          Boleto
-        </Button>
+        <Button class="button-pay" @click="goToBuyOrder('boleto')"> Boleto </Button>
       </li>
 
       <!-- <li class="method">
@@ -60,16 +54,14 @@ function goToBuyOrder(method: string) {
         </Button>
       </li> -->
 
-      <li class="method">
+      <!-- <li class="method">
         <Button class="button-pay" @click="goToBuyOrder('dolar')">
           Dólar
         </Button>
-      </li>
+      </li> -->
     </ul>
 
-    <Link class="mb-10" :to="{ name: 'Home' }">
-      Voltar para página inicial
-    </Link>
+    <Link class="mb-10" :to="{ name: 'Home' }"> Voltar para página inicial </Link>
   </div>
 </template>
 
