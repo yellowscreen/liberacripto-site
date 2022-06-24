@@ -6,7 +6,7 @@ import {
   getNetworks, 
   postAOrder, 
   postPayABillOrder, 
-  // postSellOrderPix
+  postSellOrderPix
 } from '@services/order/index'
 import { useUIStore } from './ui'
 

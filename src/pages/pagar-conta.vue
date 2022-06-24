@@ -51,7 +51,11 @@ onMounted(() => {
 
 <template>
   <div class="order-sell-page">
-    <section class="header">
+
+    <div class="maintenance">
+      Serviço em manutenção
+    </div>
+    <!-- <section class="header">
       <ButtonBack class="ml-[-8px]" @click="goBack" />
       <Chip :current="order.currentStepPosition + 1" />
     </section>
@@ -74,7 +78,7 @@ onMounted(() => {
         </Button>
 
         <Button class="bg-primary-dark text-white" @click="fetchOrder">
-          Confirmar pagamento
+          Confirmar
         </Button>
       </footer>
     </ConfirmOrderData>
@@ -83,7 +87,7 @@ onMounted(() => {
       v-if="isCurrentStep('CHECK_PAY')"
       :check-pay="order.summary"
       @goback="goBack"
-    />
+    /> -->
   </div>
 </template>
 
@@ -116,4 +120,9 @@ onMounted(() => {
     width: clamp(260px, 80%, 500px);
   }
 }
+
+.maintenance {
+  @apply text-center text-fonts-secondary-light text-2xl flex justify-center items-center h-[500px];	
+}
+
 </style>

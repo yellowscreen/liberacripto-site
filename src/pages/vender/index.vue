@@ -48,11 +48,11 @@ function goToSellOrder(method: string) {
     </p>
 
     <ul class="payment-methods">
-      <li class="method">
+      <!-- <li class="method">
         <Button class="button-pay" @click="goToSellOrder('transferencia')">
           Transferência
         </Button>
-      </li>
+      </li> -->
 
       <li class="method">
         <Button class="button-pay" @click="goToSellOrder('pix')">
