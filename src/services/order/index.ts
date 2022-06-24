@@ -7,7 +7,7 @@ import type {
   ResponsePostAOrder, 
   ResponseSellOrderPix, 
   S3Fields, 
-  // SellOrderPix,
+  SellOrder,
   PaymentOrder 
 } from './types'
 
@@ -72,13 +72,13 @@ export function getBanks(): Promise<AxiosResponse> {
   })
 }
 
-// export function postSellOrderPix(sellOrder: Partial<SellOrderPix>): ResponseSellOrderPix {
-//   return fetch({
-//     method: 'POST',
-//     path: '/user/orders',
-//     data: sellOrder,
-//   })
-// }
+export function postSellOrderPix(sellOrder: Partial<SellOrder>): ResponseSellOrderPix {
+  return fetch({
+    method: 'POST',
+    path: '/user/orders',
+    data: sellOrder,
+  })
+}
 
 export function postPayABillOrder(payOrder: Partial<PaymentOrder>): ResponseSellOrderPix {
   return fetch({

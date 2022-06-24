@@ -84,7 +84,7 @@ onMounted(() => {
         </Button>
 
         <Button class="bg-primary-dark text-white" @click="fetchOrder">
-          Confirmar pagamento
+          Confirmar
         </Button>
       </footer>
     </ConfirmOrderData>
