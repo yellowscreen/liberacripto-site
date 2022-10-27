@@ -4,17 +4,17 @@ name: PayABill
 
 <script setup lang="ts">
 import { useOrderStore } from '@stores/order'
-import { useCryptosStore } from '@stores/cryptos'
+// import { useCryptosStore } from '@stores/cryptos'
 
-import { STEP_TO_BUY } from '@/@types/payments'
-import ButtonBack from '@/components/molecules/button/ButtonBack.vue'
+// import { STEP_TO_BUY } from '@/@types/payments'
+// import ButtonBack from '@/components/molecules/button/ButtonBack.vue'
 
-type StepToBuyKeys = keyof typeof STEP_TO_BUY
+// type StepToBuyKeys = keyof typeof STEP_TO_BUY
 
-const route = useRoute()
-const router = useRouter()
+// const route = useRoute()
+// const router = useRouter()
 const order = useOrderStore()
-const crypto = useCryptosStore()
+// const crypto = useCryptosStore()
 
 useHead({
   title: 'Libera Cripto - Pagar uma conta',
@@ -31,18 +31,18 @@ useHead({
   ],
 })
 
-function isCurrentStep(currentStep: StepToBuyKeys) {
-  return order.step === currentStep
-}
+// function isCurrentStep(currentStep: StepToBuyKeys) {
+//   return order.step === currentStep
+// }
 
-function fetchOrder() {
-  order.fetchStorePaymentOrder()
-}
+// function fetchOrder() {
+//   order.fetchStorePaymentOrder()
+// }
 
-function goBack() {
-  // order.goBackStep(router, 'SellMethod')
-  router.push('/')
-}
+// function goBack() {
+//   order.goBackStep(router, 'SellMethod')
+//   router.push('/')
+// }
 
 onMounted(() => {
   order.setCurrentStep('PAYMENT')
@@ -88,6 +88,7 @@ onMounted(() => {
       :check-pay="order.summary"
       @goback="goBack"
     /> -->
+
   </div>
 </template>
 

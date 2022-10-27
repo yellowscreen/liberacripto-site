@@ -31,7 +31,7 @@ const router = useRouter()
         </CardTrade>
       </li>
 
-      <li class="item">
+      <!-- <li class="item">
         <CardTrade class="card" @click="router.push({ name: 'PayABill' })">
           <template #icon>
             <mdi:receipt class="text-cta" />
@@ -46,7 +46,7 @@ const router = useRouter()
             </span>
           </h2>
         </CardTrade>
-      </li>
+      </li> -->
     </ul>
 
     <section class="cryptocoins">
@@ -103,7 +103,7 @@ const router = useRouter()
     z-index: 1;
 
     @screen md {
-      grid-template-columns: repeat(3, 282px);
+      grid-template-columns: repeat(2, 282px);
       height: 360px;
       justify-content: center;
     }
