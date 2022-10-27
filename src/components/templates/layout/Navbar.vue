@@ -22,10 +22,10 @@ const links = [
     text: 'Venda cripto',
     name: 'SellMethod',
   },
-  {
-    text: 'Pague uma conta',
-    name: 'PayABill',
-  },
+  // {
+  //   text: 'Pague uma conta',
+  //   name: 'PayABill',
+  // },
   // {
   //   text: 'Comparativos',
   //   name: 'Home',
